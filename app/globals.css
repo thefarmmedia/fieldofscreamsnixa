@@ -1017,7 +1017,8 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   overflow: hidden;
 }
-.hero-bg img {
+.hero-bg img,
+.hero-bg video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1706,6 +1707,22 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   padding: 8rem 1.5rem 4rem;
   position: relative;
+  overflow: hidden;
+}
+
+.attraction-hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.attraction-hero-bg img,
+.attraction-hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  transform: scale(1.05);
 }
 
 .attraction-body {

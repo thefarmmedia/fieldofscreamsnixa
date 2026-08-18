@@ -96,16 +96,11 @@ const localBusinessSchema = {
   image: `https://${siteConfig.domain}/images/fos-banner.jpg`,
   address: {
     '@type': 'PostalAddress',
+    name: siteConfig.address.venue,
     streetAddress: siteConfig.address.street,
     addressLocality: siteConfig.address.city,
     addressRegion: siteConfig.address.state,
-    postalCode: siteConfig.address.zip,
     addressCountry: 'US',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 37.0425,
-    longitude: -93.3301,
   },
   openingHoursSpecification: [
     {
@@ -135,8 +130,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
-        {/* Preload critical images */}
-        <link rel="preload" as="image" href="/images/fos-banner.jpg" />
+        {/* Preload critical hero background */}
+        <link rel="preload" as="image" href="/images/hero-poster.jpg" />
         {/* Meta Pixel — insert actual ID when known */}
         {siteConfig.analytics.metaPixelId && (
           <script

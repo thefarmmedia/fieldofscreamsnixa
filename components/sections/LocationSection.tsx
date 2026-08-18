@@ -32,8 +32,9 @@ export default function LocationSection() {
               <div>
                 <p className="location-detail-label">Address</p>
                 <address className="location-detail-value" style={{ fontStyle: 'normal' }}>
+                  {address.venue}<br />
                   {address.street}<br />
-                  {address.city}, {address.state} {address.zip}
+                  {address.city}, {address.state}
                 </address>
               </div>
             </div>

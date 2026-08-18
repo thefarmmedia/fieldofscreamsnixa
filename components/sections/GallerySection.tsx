@@ -1,17 +1,20 @@
 'use client'
 import Image from 'next/image'
 
-// TODO: Add actual Field of Screams Nixa gallery photos to /public/images/gallery/
-// For now, the grid renders using the available brand images as placeholders.
+// Stills pulled from official Field of Screams Nixa event footage.
 const GALLERY_ITEMS = [
-  { src: '/images/fos-banner.jpg', alt: 'Field of Screams Nixa — Haunted Attractions' },
-  { src: '/images/fos-logo.jpg', alt: 'Field of Screams Nixa logo' },
-  { src: '/images/fos-banner.jpg', alt: 'Field of Screams Nixa — Haunted Forest' },
-  { src: '/images/fos-banner.jpg', alt: 'Field of Screams Nixa — Coulrophobia' },
-  { src: '/images/fos-logo.jpg', alt: 'FoS Nixa — The Forest Awaits' },
-  { src: '/images/fos-banner.jpg', alt: 'Field of Screams Nixa — Night Terrors' },
-  { src: '/images/fos-banner.jpg', alt: 'Field of Screams Nixa — Haunted Attraction' },
-  { src: '/images/fos-logo.jpg', alt: 'Field of Screams Nixa' },
+  { src: '/images/gallery/fos-graffiti.jpg', alt: 'The full cast lined up in front of the Field of Screams sign' },
+  { src: '/images/gallery/clown-lineup.jpg', alt: 'A lineup of clown characters from Coulrophobia' },
+  { src: '/images/gallery/coulrophobia-sign.jpg', alt: 'The Coulrophobia haunted experience entrance sign' },
+  { src: '/images/gallery/archway.jpg', alt: 'A glowing skeletal entrance archway' },
+  { src: '/images/gallery/zombie-group.jpg', alt: 'A group of undead actors in red light' },
+  { src: '/images/gallery/marquee.jpg', alt: 'The Now Showing Coulrophobia marquee sign' },
+  { src: '/images/gallery/jail-scare.jpg', alt: 'An actor reaching through bars' },
+  { src: '/images/gallery/bus-blue.jpg', alt: 'The blue-lit Demon Bus set piece' },
+  { src: '/images/gallery/doll-island.jpg', alt: 'The Doll Island scene, hung with dolls' },
+  { src: '/images/gallery/wrecked-car.jpg', alt: 'A wrecked car set piece' },
+  { src: '/images/gallery/actor-lunge.jpg', alt: 'An actor lunging toward guests' },
+  { src: '/images/gallery/guests-laughing.jpg', alt: 'Guests reacting inside the attraction' },
 ]
 
 export default function GallerySection() {
@@ -26,12 +29,12 @@ export default function GallerySection() {
         <p style={{
           textAlign: 'center',
           fontSize: '0.8rem',
-          color: 'rgba(232,228,220,0.3)',
+          color: 'rgba(232,228,220,0.4)',
           fontStyle: 'italic',
           marginBottom: '2rem',
           letterSpacing: '0.08em',
         }}>
-          These were recovered from phones left behind.
+          A glimpse inside the attraction.
         </p>
 
         <div className="gallery-grid">

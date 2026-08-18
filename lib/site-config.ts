@@ -12,14 +12,15 @@ export const siteConfig = {
   subTagline: 'Haunted Attractions — Nixa, Missouri',
 
   // ─── Location ─────────────────────────────────────────────────────────
-  // TODO: Confirm exact address from fieldofscreamsnixa.com
+  // Confirmed from official event footage — venue is "Summers at the River"
   address: {
-    street: '5700 W Farm Rd 182',
+    venue: 'Summers at the River',
+    street: '2142 N. Sports Complex Ln.',
     city: 'Nixa',
     state: 'MO',
-    zip: '65714',
-    display: '5700 W Farm Rd 182, Nixa, MO 65714',
-    mapsUrl: 'https://maps.google.com/?q=Field+of+Screams+Nixa+MO',
+    zip: '',
+    display: 'Summers at the River, 2142 N. Sports Complex Ln., Nixa, MO',
+    mapsUrl: 'https://maps.google.com/?q=Summers+at+the+River+2142+N+Sports+Complex+Ln+Nixa+MO',
   },
   phone: '', // TODO: Add phone number from site
 
