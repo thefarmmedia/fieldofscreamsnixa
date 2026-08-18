@@ -88,205 +88,90 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   FOREST ENVIRONMENT
+   SITE ATMOSPHERE — dark base, real fog, grain, vignette.
+   Persistent behind every section (fixed), not tied to any one page.
    ═══════════════════════════════════════════════════════════════════════ */
-
-.forest-env {
+.atmosphere-bg {
   position: fixed;
   inset: 0;
   z-index: -10;
   overflow: hidden;
   pointer-events: none;
-  will-change: contents;
+  background: linear-gradient(175deg, #030507 0%, #05070a 40%, #070a0f 75%, #0a0d13 100%);
 }
 
-/* Sky */
-.forest-sky {
+.atmosphere-fog {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 28% 8%, rgba(170, 210, 255, 0.12) 0%, transparent 60%),
-    linear-gradient(175deg, #050b14 0%, #08131f 25%, #0d1c2e 55%, #16283f 100%);
+  inset: -10%;
 }
-
-/* Moon atmosphere (subtle glow, not a visible circle) */
-.forest-moonlight {
+.atmosphere-fog-1 {
+  background:
+    radial-gradient(ellipse 60% 45% at 15% 25%, rgba(165, 180, 195, 0.16) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 40% at 85% 65%, rgba(155, 170, 188, 0.14) 0%, transparent 100%);
+  animation: atmoFog1 140s ease-in-out infinite;
+}
+.atmosphere-fog-2 {
+  background:
+    radial-gradient(ellipse 55% 42% at 60% 88%, rgba(175, 188, 202, 0.15) 0%, transparent 100%),
+    radial-gradient(ellipse 45% 34% at 25% 95%, rgba(145, 160, 178, 0.12) 0%, transparent 100%);
+  animation: atmoFog2 110s ease-in-out infinite reverse;
+}
+.atmosphere-fog-3 {
+  background: radial-gradient(ellipse 65% 50% at 45% 50%, rgba(120, 30, 20, 0.05) 0%, transparent 100%);
+  animation: atmoFog3 170s ease-in-out infinite;
+}
+.atmosphere-fog-ground {
   position: absolute;
-  width: 620px;
-  height: 620px;
-  top: -200px;
-  left: calc(28% - 310px);
-  background: radial-gradient(ellipse at center,
-    rgba(180, 218, 255, 0.16) 0%,
-    rgba(150, 195, 255, 0.09) 35%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  animation: moonFloat 30s ease-in-out infinite;
-}
-
-@keyframes moonFloat {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(8px) scale(1.01); opacity: 0.85; }
-}
-
-/* ─── Fog Layers ─────────────────────────────────────────────────────── */
-.fog-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.fog-bg {
-  background:
-    radial-gradient(ellipse 100% 60% at 15% 65%, rgba(150, 180, 210, var(--fog-opacity-base)) 0%, transparent 100%),
-    radial-gradient(ellipse 80% 55% at 80% 70%, rgba(130, 162, 195, calc(var(--fog-opacity-base) * 0.85)) 0%, transparent 100%),
-    radial-gradient(ellipse 70% 45% at 50% 78%, rgba(140, 170, 200, calc(var(--fog-opacity-base) * 0.7)) 0%, transparent 100%);
-  animation: fogDrift1 90s ease-in-out infinite;
-}
-
-.fog-mid {
-  background:
-    radial-gradient(ellipse 80% 60% at 35% 72%, rgba(165, 195, 222, calc(var(--fog-opacity-mid) * 1.1)) 0%, transparent 100%),
-    radial-gradient(ellipse 65% 50% at 75% 80%, rgba(150, 180, 208, calc(var(--fog-opacity-mid) * 0.95)) 0%, transparent 100%);
-  animation: fogDrift2 65s ease-in-out infinite reverse;
-}
-
-.fog-ground {
-  bottom: 0;
-  top: auto;
-  height: 48%;
-  background: linear-gradient(to top,
-    rgba(175, 198, 220, var(--fog-opacity-ground)) 0%,
-    rgba(150, 175, 200, calc(var(--fog-opacity-ground) * 0.55)) 35%,
-    transparent 100%
-  );
   left: -15%;
   right: -15%;
+  bottom: -5%;
+  height: 55%;
   width: 130%;
-  animation: fogGround 45s ease-in-out infinite;
+  background: linear-gradient(to top,
+    rgba(150, 165, 182, 0.22) 0%,
+    rgba(130, 145, 165, 0.1) 45%,
+    transparent 100%
+  );
+  animation: atmoFogGround 60s ease-in-out infinite;
 }
-
-.fog-foreground {
-  opacity: var(--fog-opacity-fg);
-  background:
-    radial-gradient(ellipse 70% 55% at 25% 60%, rgba(210, 225, 242, 0.75) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 80% 55%, rgba(198, 215, 235, 0.65) 0%, transparent 65%);
-  animation: fogFg 120s ease-in-out infinite;
+@keyframes atmoFog1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(3%, -2%) scale(1.06); opacity: 1; }
 }
-
-@keyframes fogDrift1 {
-  0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.8; }
-  33% { transform: translateX(3%) scaleX(1.025); opacity: 1; }
-  66% { transform: translateX(-2%) scaleX(0.985); opacity: 0.7; }
+@keyframes atmoFog2 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.65; }
+  50% { transform: translate(-4%, 2%) scale(1.05); opacity: 0.9; }
 }
-@keyframes fogDrift2 {
-  0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.6; }
-  40% { transform: translateX(-4%) scaleX(1.03); opacity: 0.9; }
-  70% { transform: translateX(2%) scaleX(0.975); opacity: 0.5; }
+@keyframes atmoFog3 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  50% { transform: translate(2%, 3%) scale(1.08); opacity: 0.85; }
 }
-@keyframes fogDrift3 {
-  0%, 100% { transform: translateX(0); opacity: 0.7; }
-  50% { transform: translateX(5%); opacity: 0.9; }
-}
-@keyframes fogGround {
+@keyframes atmoFogGround {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(4%); }
-}
-@keyframes fogFg {
-  0%, 100% { transform: translateX(0); opacity: var(--fog-opacity-fg); }
-  40% { transform: translateX(-3%); opacity: calc(var(--fog-opacity-fg) * 1.5); }
-  70% { transform: translateX(2%); opacity: calc(var(--fog-opacity-fg) * 0.7); }
+  50% { transform: translateX(3%); }
 }
 
-/* ─── Tree Silhouettes ───────────────────────────────────────────────── */
-.forest-trees {
+.atmosphere-vignette {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-.forest-trees-distant {
-  bottom: 55%;
-  height: 20%;
-  will-change: transform;
-}
-
-.forest-trees-mid {
-  bottom: 25%;
-  height: 50%;
-  will-change: transform;
-}
-
-.forest-trees-fg {
-  bottom: 0;
-  height: 100%;
-  will-change: transform;
-}
-
-/* Parallax — JS sets --scroll-y and these calc the offset */
-.parallax-distant {
-  transform: translateY(calc(var(--scroll-y) * -0.06px));
-}
-.parallax-mid {
-  transform: translateY(calc(var(--scroll-y) * -0.12px));
-}
-.parallax-near {
-  transform: translateY(calc(var(--scroll-y) * -0.2px));
-}
-.parallax-fg {
-  transform: translateY(calc(var(--scroll-y) * -0.3px));
-}
-
-/* Branch sway */
-.branch-sway {
-  transform-origin: top center;
-  animation: branchSway 18s ease-in-out infinite;
-}
-.branch-sway-alt {
-  transform-origin: top right;
-  animation: branchSway 22s ease-in-out infinite reverse;
-}
-@keyframes branchSway {
-  0%, 100% { transform: rotate(0deg) translateX(0); }
-  30% { transform: rotate(0.5deg) translateX(1px); }
-  70% { transform: rotate(-0.4deg) translateX(-1px); }
-}
-
-/* Hidden eyes easter egg */
-.hidden-eyes {
-  position: absolute;
-  display: flex;
-  gap: 6px;
-  opacity: 0;
-}
-.eye-glow {
-  width: 4px;
-  height: 3px;
-  background: rgba(180, 220, 80, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(180, 220, 80, 0.6);
-}
-
-/* Hidden figure */
-.hidden-figure {
-  position: absolute;
-  bottom: 25%;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Lightning flash */
-.lightning-flash {
-  position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  background: rgba(210, 225, 255, 0.08);
-  opacity: 0;
-  mix-blend-mode: screen;
+  background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 40%, rgba(1,2,4,0.55) 100%);
+}
+
+.atmosphere-grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  animation: atmoGrain 0.6s steps(3) infinite;
+}
+@keyframes atmoGrain {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-1%, 1%); }
+  66% { transform: translate(1%, -1%); }
+  100% { transform: translate(0, 0); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -1640,7 +1525,7 @@ h1, h2, h3, h4, h5, h6 {
   .parallax-mid,
   .parallax-near,
   .parallax-fg { transform: none; }
-  .forest-env, .coulrophobia-env { display: none; }
+  .coulrophobia-env { display: none; }
   body { background: #020508; }
 }
 
@@ -1663,6 +1548,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Print ──────────────────────────────────────────────────────────── */
 @media print {
-  .forest-env, .coulrophobia-env, .nav, .sticky-cta { display: none; }
+  .atmosphere-bg, .coulrophobia-env, .nav, .sticky-cta { display: none; }
   body { background: white; color: black; }
 }

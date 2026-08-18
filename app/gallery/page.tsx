@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { siteConfig } from '@/lib/site-config'
-import ForestEnvironment from '@/components/environment/ForestEnvironment'
+import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import GallerySection from '@/components/sections/GallerySection'
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <>
-      <ForestEnvironment />
+      <AtmosphereBackground />
       <Navigation />
 
       <div className="site-content">
