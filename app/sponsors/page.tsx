@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { siteConfig } from '@/lib/site-config'
-import ForestEnvironment from '@/components/environment/ForestEnvironment'
+import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import Footer from '@/components/ui/Footer'
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function SponsorsPage() {
   return (
     <>
-      <ForestEnvironment />
+      <AtmosphereBackground />
       <Navigation />
 
       <div className="site-content">

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 // Note: ticket CTA onClick tracking is handled by Navigation component
 import { siteConfig } from '@/lib/site-config'
-import ForestEnvironment from '@/components/environment/ForestEnvironment'
+import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import FAQSection from '@/components/sections/FAQSection'
@@ -63,7 +63,7 @@ export default function HauntedForestPage() {
 
   return (
     <>
-      <ForestEnvironment />
+      <AtmosphereBackground />
       <Navigation />
       <script
         type="application/ld+json"

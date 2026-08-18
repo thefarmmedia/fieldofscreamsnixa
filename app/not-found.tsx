@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
-import ForestEnvironment from '@/components/environment/ForestEnvironment'
+import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
-      <ForestEnvironment />
+      <AtmosphereBackground />
       <Navigation />
 
       <div className="site-content" style={{
