@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
-import FlyingGhost from '@/components/environment/FlyingGhost'
 import VideoBackground from '@/components/ui/VideoBackground'
 
 export default function Hero() {
@@ -18,7 +17,12 @@ export default function Hero() {
         poster="/images/hero-poster.jpg"
       />
 
-      <FlyingGhost />
+      {/* Layered fog — pure CSS, drifts slowly, never a hard-edged asset */}
+      <div className="hero-fog" aria-hidden="true">
+        <div className="hero-fog-layer hero-fog-layer-1" />
+        <div className="hero-fog-layer hero-fog-layer-2" />
+        <div className="hero-fog-layer hero-fog-layer-ground" />
+      </div>
 
       {/* Content */}
       <div className="hero-frame">
@@ -41,29 +45,29 @@ export default function Hero() {
 
           <p className="hero-tagline">{siteConfig.tagline}</p>
 
-          <div className="hero-cta-surface">
-            <div className="hero-attractions">
-              <span>Haunted Forest</span>
-              <span aria-hidden="true">•</span>
-              <span>Coulrophobia</span>
-            </div>
+          <div className="hero-attractions">
+            <span>Haunted Forest</span>
+            <span aria-hidden="true">•</span>
+            <span>Coulrophobia</span>
+          </div>
 
-            <div className="hero-cta-group">
-              <a
-                href={siteConfig.tickets.url}
-                className="btn-ticket"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && (window as any).gtag) {
-                    (window as any).gtag('event', 'ticket_click', { location: 'hero' })
-                  }
-                }}
-              >
-                Get Tickets
-              </a>
-              <Link href="/#nightmare" className="btn-secondary">
-                Explore the Attractions
-              </Link>
-            </div>
+          <p className="hero-warning">You shouldn&apos;t have come here alone.</p>
+
+          <div className="hero-cta-group">
+            <a
+              href={siteConfig.tickets.url}
+              className="btn-ticket"
+              onClick={() => {
+                if (typeof window !== 'undefined' && (window as any).gtag) {
+                  (window as any).gtag('event', 'ticket_click', { location: 'hero' })
+                }
+              }}
+            >
+              Get Tickets
+            </a>
+            <Link href="/#nightmare" className="btn-secondary">
+              Explore the Attractions
+            </Link>
           </div>
         </div>
 

@@ -26,6 +26,7 @@ export default function Footer() {
               { href: '/#dates', label: 'Dates' },
               { href: '/faq', label: 'FAQ' },
               { href: '/gallery', label: 'Gallery' },
+              { href: '/sponsors', label: 'Sponsors' },
               { href: '/#location', label: 'Directions' },
               { href: siteConfig.tickets.url, label: 'Tickets' },
             ].map((link) => (

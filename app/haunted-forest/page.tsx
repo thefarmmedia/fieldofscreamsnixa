@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 // Note: ticket CTA onClick tracking is handled by Navigation component
 import { siteConfig } from '@/lib/site-config'
 import ForestEnvironment from '@/components/environment/ForestEnvironment'
@@ -71,12 +72,22 @@ export default function HauntedForestPage() {
 
       <div className="site-content">
         {/* Hero */}
-        <div className="attraction-hero">
+        <div className="attraction-hero" style={{ minHeight: '75vh' }}>
+          <div className="attraction-hero-bg" aria-hidden="true">
+            <Image
+              src="/images/attraction/forest-woman-teddybear.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: '50% 20%' }}
+            />
+          </div>
           {/* Atmospheric dark overlay deeper in forest */}
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(2,8,18,0.4) 0%, rgba(1,3,8,0.7) 100%)',
+            background: 'radial-gradient(ellipse 60% 55% at 50% 45%, rgba(2,8,18,0.25) 0%, rgba(1,3,8,0.75) 100%)',
             zIndex: 0,
           }} aria-hidden="true" />
 

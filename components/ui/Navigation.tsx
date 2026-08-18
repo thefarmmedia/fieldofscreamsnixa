@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/#dates', label: 'Dates' },
   { href: '/faq', label: 'FAQ' },
   { href: '/gallery', label: 'Gallery' },
+  { href: '/sponsors', label: 'Sponsors' },
   { href: '/#location', label: 'Directions' },
 ]
 

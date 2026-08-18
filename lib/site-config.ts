@@ -84,6 +84,24 @@ export const siteConfig = {
     tiktok: '',
   },
 
+  // ─── Sponsors ─────────────────────────────────────────────────────────
+  // From the sponsor sheet provided directly — no URLs were included, so
+  // none are linked out. Add a `url` field per sponsor if/when confirmed.
+  sponsors: [
+    { name: 'Ozarks Concrete Coatings', logo: '/images/sponsors/ozarks-concrete-coatings.png' },
+    { name: 'The Farm — Where Businesses Grow', logo: '/images/sponsors/the-farm.png' },
+    { name: 'Timeless', logo: '/images/sponsors/timeless.png' },
+    { name: "Plato's Closet", logo: '/images/sponsors/platos-closet.png' },
+    { name: 'Alamo Drafthouse Cinema', logo: '/images/sponsors/alamo-drafthouse-cinema.png' },
+    { name: 'Misfiotic Prints', logo: '/images/sponsors/misfiotic-prints.png' },
+    { name: 'Color Works Salon & Spa', logo: '/images/sponsors/color-works-salon-spa.png' },
+    { name: 'Garage Beer', logo: '/images/sponsors/garage-beer.png' },
+    { name: 'Bit-O-Joy Graphics', logo: '/images/sponsors/bit-o-joy-graphics.png' },
+    { name: 'Club K Dental', logo: '/images/sponsors/club-k-dental.png' },
+    { name: 'Next Generation Tattoo & Body Piercing', logo: '/images/sponsors/next-generation-tattoo.png' },
+    { name: 'Stairway', logo: '/images/sponsors/stairway.png' },
+  ],
+
   // ─── SEO ──────────────────────────────────────────────────────────────
   seo: {
     defaultTitle: 'Field of Screams Nixa | Haunted Attraction | Nixa, Missouri',
