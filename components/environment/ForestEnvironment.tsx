@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import { atmosphereConfig } from '@/lib/atmosphere-config'
 
 // ─── SVG Tree Silhouettes ──────────────────────────────────────────────────────
 
 // Dead bare tree — dramatic reaching branches
-function DeadTree({ x, y, scale = 1, flip = false, opacity = 1 }: {
-  x: number; y: number; scale?: number; flip?: boolean; opacity?: number
+function DeadTree({ x, y, scale = 1, flip = false, opacity = 1, color = '#020508' }: {
+  x: number; y: number; scale?: number; flip?: boolean; opacity?: number; color?: string
 }) {
   return (
     <g
@@ -25,7 +25,7 @@ function DeadTree({ x, y, scale = 1, flip = false, opacity = 1 }: {
            M0 -235 C10 -248 20 -260 26 -272 C30 -280 32 -287 32 -295
            M18 -262 C22 -271 24 -279 24 -285
            M0 -260 C-5 -272 -6 -280 -7 -290"
-        stroke="#030910"
+        stroke={color}
         strokeWidth="5"
         strokeLinecap="round"
         fill="none"
@@ -35,15 +35,15 @@ function DeadTree({ x, y, scale = 1, flip = false, opacity = 1 }: {
 }
 
 // Dense foliage tree (oak-like)
-function FoliageTree({ x, y, scale = 1, opacity = 1 }: {
-  x: number; y: number; scale?: number; opacity?: number
+function FoliageTree({ x, y, scale = 1, opacity = 1, color = '#020508' }: {
+  x: number; y: number; scale?: number; opacity?: number; color?: string
 }) {
   return (
     <g transform={`translate(${x}, ${y}) scale(${scale})`} style={{ opacity }}>
       {/* trunk */}
       <path
         d="M-6 0 L-7 -80 L-5 -110 L-6 -140 L6 -140 L5 -110 L7 -80 L6 0Z"
-        fill="#030910"
+        fill={color}
       />
       {/* crown — irregular blob */}
       <path
@@ -54,24 +54,24 @@ function FoliageTree({ x, y, scale = 1, opacity = 1 }: {
            C38 -282 55 -278 60 -262 C65 -245 55 -228 42 -222
            C56 -215 62 -195 52 -178 C42 -162 22 -155 10 -160
            C18 -148 15 -138 0 -140Z"
-        fill="#030910"
+        fill={color}
       />
     </g>
   )
 }
 
 // Pine/conifer silhouette
-function PineTree({ x, y, scale = 1, opacity = 1 }: {
-  x: number; y: number; scale?: number; opacity?: number
+function PineTree({ x, y, scale = 1, opacity = 1, color = '#020508' }: {
+  x: number; y: number; scale?: number; opacity?: number; color?: string
 }) {
   return (
     <g transform={`translate(${x}, ${y}) scale(${scale})`} style={{ opacity }}>
-      <path d="M0 0 L0 -15 M-4 0 L4 0" stroke="#030910" strokeWidth="8" strokeLinecap="round" fill="none" />
-      <path d="M0 -15 L-22 20 L22 20Z" fill="#030910" />
-      <path d="M0 -50 L-18 -5 L18 -5Z" fill="#030910" />
-      <path d="M0 -80 L-15 -42 L15 -42Z" fill="#030910" />
-      <path d="M0 -105 L-12 -75 L12 -75Z" fill="#030910" />
-      <path d="M0 -125 L-8 -100 L8 -100Z" fill="#030910" />
+      <path d="M0 0 L0 -15 M-4 0 L4 0" stroke={color} strokeWidth="8" strokeLinecap="round" fill="none" />
+      <path d="M0 -15 L-22 20 L22 20Z" fill={color} />
+      <path d="M0 -50 L-18 -5 L18 -5Z" fill={color} />
+      <path d="M0 -80 L-15 -42 L15 -42Z" fill={color} />
+      <path d="M0 -105 L-12 -75 L12 -75Z" fill={color} />
+      <path d="M0 -125 L-8 -100 L8 -100Z" fill={color} />
     </g>
   )
 }
@@ -97,40 +97,33 @@ function ForegroundTrunk({ x, y, scale = 1, flip = false }: {
   )
 }
 
-// Hidden eyes (the easter egg)
-function HiddenEyes({ x, y, visible }: { x: number; y: number; visible: boolean }) {
+// Hidden eyes (the easter egg) — always faintly present, flares bright on cue
+function HiddenEyes({ x, y }: { x: number; y: number }) {
   return (
-    <g
-      style={{
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 2s ease',
-      }}
-    >
-      <ellipse cx={x} cy={y} rx="2.5" ry="1.8" fill="rgba(160, 220, 60, 0.85)" />
-      <ellipse cx={x + 10} cy={y} rx="2.5" ry="1.8" fill="rgba(160, 220, 60, 0.85)" />
-      {/* glow */}
-      <ellipse cx={x} cy={y} rx="5" ry="4" fill="rgba(160, 220, 60, 0.2)" />
-      <ellipse cx={x + 10} cy={y} rx="5" ry="4" fill="rgba(160, 220, 60, 0.2)" />
+    <g>
+      {/* wide outer glow, only visible at full brightness */}
+      <ellipse cx={x} cy={y} rx="11" ry="9" fill="rgba(150, 230, 70, 0.35)" />
+      <ellipse cx={x + 18} cy={y} rx="11" ry="9" fill="rgba(150, 230, 70, 0.35)" />
+      {/* tight glow */}
+      <ellipse cx={x} cy={y} rx="6" ry="5" fill="rgba(165, 235, 80, 0.55)" />
+      <ellipse cx={x + 18} cy={y} rx="6" ry="5" fill="rgba(165, 235, 80, 0.55)" />
+      {/* pupils */}
+      <ellipse cx={x} cy={y} rx="4" ry="3" fill="rgba(190, 245, 110, 0.95)" />
+      <ellipse cx={x + 18} cy={y} rx="4" ry="3" fill="rgba(190, 245, 110, 0.95)" />
     </g>
   )
 }
 
-// Hidden silhouette figure
-function HiddenFigure({ visible }: { visible: boolean }) {
+// Hidden silhouette figure — a motionless shape standing between the trees
+function HiddenFigure({ x, y }: { x: number; y: number }) {
   return (
-    <g
-      style={{
-        opacity: visible ? 0.18 : 0,
-        transition: 'opacity 4s ease',
-      }}
-      transform="translate(62%, 40%)"
-    >
-      <ellipse cx="0" cy="-80" rx="10" ry="12" fill="#020508" />
-      <path d="M0 -68 L-8 20 L0 18 L8 20Z" fill="#020508" />
-      <path d="M0 -20 L-18 20 L-14 22 L0 -5Z" fill="#020508" />
-      <path d="M0 -20 L18 15 L14 18 L0 -5Z" fill="#020508" />
-      <path d="M-8 20 L-12 55 L-8 56 L-5 20Z" fill="#020508" />
-      <path d="M8 20 L12 55 L8 56 L5 20Z" fill="#020508" />
+    <g transform={`translate(${x}, ${y}) scale(2.2)`}>
+      <ellipse cx="0" cy="-80" rx="10" ry="12" fill="#0b1a28" />
+      <path d="M0 -68 L-8 20 L0 18 L8 20Z" fill="#0b1a28" />
+      <path d="M0 -20 L-18 20 L-14 22 L0 -5Z" fill="#0b1a28" />
+      <path d="M0 -20 L18 15 L14 18 L0 -5Z" fill="#0b1a28" />
+      <path d="M-8 20 L-12 55 L-8 56 L-5 20Z" fill="#0b1a28" />
+      <path d="M8 20 L12 55 L8 56 L5 20Z" fill="#0b1a28" />
     </g>
   )
 }
@@ -144,6 +137,8 @@ export default function ForestEnvironment() {
   const nearRef = useRef<SVGSVGElement>(null)
   const fgRef = useRef<SVGSVGElement>(null)
   const eyesRef = useRef<SVGGElement>(null)
+  const eyes2Ref = useRef<SVGGElement>(null)
+  const figureRef = useRef<SVGGElement>(null)
   const lightningRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number>(0)
   const lastScrollY = useRef(0)
@@ -180,29 +175,60 @@ export default function ForestEnvironment() {
     }
   }, [])
 
-  // Hidden eyes easter egg
-  const eyesVisible = useRef(false)
+  // Hidden eyes easter egg — sits at a faint "always watching" glimmer,
+  // then flares to full brightness on a cadence so it's actually noticeable.
   const eyesTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   useEffect(() => {
     if (!atmosphereConfig.hiddenEyesEnabled || !atmosphereConfig.easterEggEnabled) return
 
+    const setEyes = (el: SVGGElement | null, opacity: number, transitionSec: number) => {
+      if (!el) return
+      el.style.transition = `opacity ${transitionSec}s ease`
+      el.style.opacity = String(opacity)
+    }
+
+    setEyes(eyesRef.current, atmosphereConfig.hiddenEyesIdleOpacity, 1)
+    setEyes(eyes2Ref.current, atmosphereConfig.hiddenEyesIdleOpacity, 1)
+
     const schedule = () => {
-      const delay = (atmosphereConfig.hiddenEyesCooldownSec + Math.random() * 30) * 1000
+      const delay = (atmosphereConfig.hiddenEyesCooldownSec + Math.random() * 10) * 1000
       eyesTimeoutRef.current = setTimeout(() => {
-        if (eyesRef.current) {
-          eyesRef.current.style.opacity = '1'
-          eyesRef.current.style.transition = 'opacity 2s ease'
-          setTimeout(() => {
-            if (eyesRef.current) {
-              eyesRef.current.style.opacity = '0'
-            }
-            schedule()
-          }, atmosphereConfig.hiddenEyesDurationSec * 1000)
-        }
+        const useSecond = Math.random() > 0.5
+        const target = useSecond ? eyes2Ref.current : eyesRef.current
+        setEyes(target, 1, 1.2)
+        setTimeout(() => {
+          setEyes(target, atmosphereConfig.hiddenEyesIdleOpacity, 2.5)
+          schedule()
+        }, atmosphereConfig.hiddenEyesDurationSec * 1000)
       }, delay)
     }
     schedule()
     return () => clearTimeout(eyesTimeoutRef.current)
+  }, [])
+
+  // Hidden figure easter egg — a shape that stands motionless between the trees, then is gone
+  useEffect(() => {
+    if (!atmosphereConfig.hiddenFigureEnabled || !atmosphereConfig.easterEggEnabled) return
+
+    let timeoutId: ReturnType<typeof setTimeout>
+    const schedule = () => {
+      const delay = (atmosphereConfig.hiddenFigureCooldownSec + Math.random() * 40) * 1000
+      timeoutId = setTimeout(() => {
+        if (figureRef.current) {
+          figureRef.current.style.transition = 'opacity 3s ease'
+          figureRef.current.style.opacity = '0.6'
+          setTimeout(() => {
+            if (figureRef.current) {
+              figureRef.current.style.transition = 'opacity 5s ease'
+              figureRef.current.style.opacity = '0'
+            }
+            schedule()
+          }, 9000)
+        }
+      }, delay)
+    }
+    schedule()
+    return () => clearTimeout(timeoutId)
   }, [])
 
   // Lightning easter egg
@@ -251,8 +277,8 @@ export default function ForestEnvironment() {
         <div className="forest-moonlight" />
 
         {/* ── Fog Layers ── */}
-        <div className="fog-layer fog-bg" style={{ opacity: atmosphereConfig.fogOpacityBase * 7 }} />
-        <div className="fog-layer fog-mid" style={{ opacity: atmosphereConfig.fogOpacityMid * 5.5 }} />
+        <div className="fog-layer fog-bg" />
+        <div className="fog-layer fog-mid" />
 
         {/* ── Distant treeline (SVG) ── */}
         <svg
@@ -294,7 +320,7 @@ export default function ForestEnvironment() {
                C1454 -86 1471 -83 1481 -66 C1493 -88 1510 -85 1520 -68
                C1532 -90 1548 -87 1558 -70 C1570 -92 1587 -89 1597 -72
                L1600 200Z`}
-            fill="#020508"
+            fill="#132335"
           />
         </svg>
 
@@ -312,24 +338,29 @@ export default function ForestEnvironment() {
             willChange: 'transform',
           }}
         >
-          {/* Scattered mid trees */}
-          <DeadTree x={120} y={400} scale={0.7} opacity={0.9} />
-          <FoliageTree x={220} y={400} scale={0.65} opacity={0.85} />
-          <DeadTree x={350} y={400} scale={0.8} flip opacity={0.95} />
-          <PineTree x={480} y={400} scale={1.1} opacity={0.9} />
-          <FoliageTree x={580} y={400} scale={0.72} opacity={0.88} />
-          <DeadTree x={720} y={400} scale={0.9} opacity={1} />
-          <PineTree x={850} y={400} scale={0.9} opacity={0.85} />
-          <FoliageTree x={960} y={400} scale={0.78} opacity={0.9} />
-          <DeadTree x={1080} y={400} scale={0.75} flip opacity={0.88} />
-          <FoliageTree x={1180} y={400} scale={0.7} opacity={0.85} />
-          <DeadTree x={1300} y={400} scale={0.85} opacity={0.92} />
-          <PineTree x={1420} y={400} scale={0.95} opacity={0.9} />
-          <FoliageTree x={1520} y={400} scale={0.68} opacity={0.82} />
+          {/* Scattered mid trees — medium-dark, hazier than near layer */}
+          <DeadTree x={120} y={400} scale={0.7} opacity={0.9} color="#0a1826" />
+          <FoliageTree x={220} y={400} scale={0.65} opacity={0.85} color="#0a1826" />
+          <DeadTree x={350} y={400} scale={0.8} flip opacity={0.95} color="#0a1826" />
+          <PineTree x={480} y={400} scale={1.1} opacity={0.9} color="#0a1826" />
+          <FoliageTree x={580} y={400} scale={0.72} opacity={0.88} color="#0a1826" />
+          <DeadTree x={720} y={400} scale={0.9} opacity={1} color="#0a1826" />
+          <PineTree x={850} y={400} scale={0.9} opacity={0.85} color="#0a1826" />
+          <FoliageTree x={960} y={400} scale={0.78} opacity={0.9} color="#0a1826" />
+          <DeadTree x={1080} y={400} scale={0.75} flip opacity={0.88} color="#0a1826" />
+          <FoliageTree x={1180} y={400} scale={0.7} opacity={0.85} color="#0a1826" />
+          <DeadTree x={1300} y={400} scale={0.85} opacity={0.92} color="#0a1826" />
+          <PineTree x={1420} y={400} scale={0.95} opacity={0.9} color="#0a1826" />
+          <FoliageTree x={1520} y={400} scale={0.68} opacity={0.82} color="#0a1826" />
 
           {/* Hidden eyes (mid-ground, between trees) */}
-          <g ref={eyesRef} style={{ opacity: 0 }}>
-            <HiddenEyes x={740} y={280} visible={false} />
+          <g ref={eyesRef} style={{ opacity: atmosphereConfig.hiddenEyesIdleOpacity }}>
+            <HiddenEyes x={735} y={272} />
+          </g>
+
+          {/* Hidden figure — standing motionless between the mid trees */}
+          <g ref={figureRef} style={{ opacity: 0 }}>
+            <HiddenFigure x={1250} y={400} />
           </g>
         </svg>
 
@@ -338,7 +369,6 @@ export default function ForestEnvironment() {
           bottom: '15%',
           top: 'auto',
           height: '40%',
-          opacity: atmosphereConfig.fogOpacityMid * 6,
         }} />
 
         {/* ── Near trees (SVG) ── */}
@@ -364,6 +394,11 @@ export default function ForestEnvironment() {
           <DeadTree x={1160} y={600} scale={1.1} flip opacity={0.9} />
           <FoliageTree x={1340} y={600} scale={1.05} opacity={0.92} />
           <DeadTree x={1500} y={600} scale={1.2} opacity={0.88} />
+
+          {/* Second hidden eyes — deep in the near foliage, closer to the viewer */}
+          <g ref={eyes2Ref} style={{ opacity: atmosphereConfig.hiddenEyesIdleOpacity }}>
+            <HiddenEyes x={1005} y={430} />
+          </g>
         </svg>
 
         {/* Ground fog */}
