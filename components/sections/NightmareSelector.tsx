@@ -13,12 +13,12 @@ function ForestCardSVG() {
       {/* Sky gradient */}
       <defs>
         <linearGradient id="forestCardSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#010305" />
-          <stop offset="60%" stopColor="#020810" />
-          <stop offset="100%" stopColor="#030d18" />
+          <stop offset="0%" stopColor="#050b14" />
+          <stop offset="60%" stopColor="#0a1826" />
+          <stop offset="100%" stopColor="#122236" />
         </linearGradient>
-        <radialGradient id="forestMoon" cx="30%" cy="15%" r="25%">
-          <stop offset="0%" stopColor="rgba(170, 210, 255, 0.08)" />
+        <radialGradient id="forestMoon" cx="30%" cy="15%" r="30%">
+          <stop offset="0%" stopColor="rgba(180, 218, 255, 0.22)" />
           <stop offset="100%" stopColor="rgba(0,0,0,0)" />
         </radialGradient>
       </defs>
@@ -28,52 +28,54 @@ function ForestCardSVG() {
       {/* Distant treeline */}
       <path
         d="M0 340 Q25 310 50 320 Q70 295 90 305 Q110 280 130 292 Q150 268 170 280 Q190 255 210 268 Q230 244 250 258 Q270 234 290 248 Q310 224 330 238 Q350 215 370 230 Q385 220 400 228 L400 600 L0 600Z"
-        fill="#020608"
+        fill="#16283e"
         opacity="0.9"
       />
 
       {/* Mid trees */}
       <path
         d="M-10 600 L-10 420 L10 380 L0 340 L15 380 L20 420 L30 380 L40 340 L50 380 L55 420 L65 380 L75 340 L85 380 L90 420 L100 380 L110 340 L120 380 L125 420 L135 380 L145 340 L155 380 L160 420"
-        stroke="#030a14"
+        stroke="#0d1c2e"
         strokeWidth="2"
         fill="none"
-        opacity="0.6"
+        opacity="0.8"
       />
 
       {/* Dead trees mid */}
       <path d="M60 600 C58 520 56 450 58 390 M58 390 C45 375 35 368 28 360 M58 390 C70 378 78 370 84 363 M58 420 C44 410 34 404 26 398 M58 430 C72 420 80 414 86 408"
-        stroke="#030a14" strokeWidth="10" strokeLinecap="round" fill="none" />
+        stroke="#0a1826" strokeWidth="10" strokeLinecap="round" fill="none" />
       <path d="M200 600 C198 510 196 440 198 375 M198 375 C183 358 172 350 164 342 M198 375 C212 360 222 352 228 344 M198 405 C182 393 172 386 164 379 M198 415 C214 403 224 396 230 389"
-        stroke="#030a14" strokeWidth="12" strokeLinecap="round" fill="none" />
+        stroke="#0a1826" strokeWidth="12" strokeLinecap="round" fill="none" />
       <path d="M340 600 C338 520 336 450 338 385 M338 385 C325 370 315 363 308 355 M338 385 C350 372 358 365 364 358 M338 415 C325 403 316 396 308 390"
-        stroke="#030a14" strokeWidth="9" strokeLinecap="round" fill="none" />
+        stroke="#0a1826" strokeWidth="9" strokeLinecap="round" fill="none" />
 
-      {/* Foliage trees near */}
+      {/* Foliage trees near — darkest, closest to viewer */}
       <path d="M-20 600 C-18 500 -15 420 -12 350 C-10 310 -12 280 -10 250
                M-10 250 C-28 238 -42 230 -50 220 M-10 250 C6 238 18 230 24 220
                M-12 310 C-30 300 -44 293 -52 284 M-12 310 C4 300 16 294 22 285
                M-14 360 C-30 352 -42 346 -50 338"
-        stroke="#040c18" strokeWidth="18" strokeLinecap="round" fill="none" />
+        stroke="#020508" strokeWidth="18" strokeLinecap="round" fill="none" />
 
       <path d="M420 600 C418 500 415 420 412 350 C410 310 412 280 410 250
                M410 250 C428 238 442 230 450 220 M410 250 C394 238 382 230 376 220
                M412 310 C430 300 444 293 452 284 M412 310 C396 300 384 294 378 285
                M414 360 C430 352 442 346 450 338"
-        stroke="#040c18" strokeWidth="18" strokeLinecap="round" fill="none" />
+        stroke="#020508" strokeWidth="18" strokeLinecap="round" fill="none" />
 
       {/* Ground fog */}
       <defs>
-        <radialGradient id="forestCardFog" cx="50%" cy="100%" r="60%">
-          <stop offset="0%" stopColor="rgba(110, 145, 180, 0.3)" />
+        <radialGradient id="forestCardFog" cx="50%" cy="100%" r="65%">
+          <stop offset="0%" stopColor="rgba(160, 190, 215, 0.55)" />
           <stop offset="100%" stopColor="rgba(0,0,0,0)" />
         </radialGradient>
       </defs>
       <rect width="400" height="600" fill="url(#forestCardFog)" />
 
-      {/* Hidden eyes — very subtle */}
-      <ellipse cx="195" cy="380" rx="2" ry="1.5" fill="rgba(150, 210, 50, 0.4)" />
-      <ellipse cx="205" cy="380" rx="2" ry="1.5" fill="rgba(150, 210, 50, 0.4)" />
+      {/* Hidden eyes — glowing, clearly visible in the dark */}
+      <ellipse cx="195" cy="380" rx="7" ry="5.5" fill="rgba(150, 230, 70, 0.3)" />
+      <ellipse cx="213" cy="380" rx="7" ry="5.5" fill="rgba(150, 230, 70, 0.3)" />
+      <ellipse cx="195" cy="380" rx="3.2" ry="2.4" fill="rgba(190, 245, 110, 0.95)" />
+      <ellipse cx="213" cy="380" rx="3.2" ry="2.4" fill="rgba(190, 245, 110, 0.95)" />
 
       {/* Bottom gradient */}
       <defs>
@@ -98,12 +100,12 @@ function CarnivalCardSVG() {
     >
       <defs>
         <linearGradient id="carnivalCardBg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#060103" />
-          <stop offset="50%" stopColor="#0a0205" />
-          <stop offset="100%" stopColor="#0e0308" />
+          <stop offset="0%" stopColor="#0c0304" />
+          <stop offset="50%" stopColor="#140409" />
+          <stop offset="100%" stopColor="#1a0610" />
         </linearGradient>
-        <radialGradient id="carnivalGlow" cx="50%" cy="30%" r="40%">
-          <stop offset="0%" stopColor="rgba(70, 8, 8, 0.2)" />
+        <radialGradient id="carnivalGlow" cx="50%" cy="30%" r="45%">
+          <stop offset="0%" stopColor="rgba(120, 15, 15, 0.35)" />
           <stop offset="100%" stopColor="rgba(0,0,0,0)" />
         </radialGradient>
         <linearGradient id="carnivalBottom" x1="0" y1="0.55" x2="0" y2="1">
@@ -155,11 +157,13 @@ function CarnivalCardSVG() {
       {/* Arch */}
       <path d="M130 250 Q200 215 270 250 L270 530 L130 530Z" fill="rgba(3,1,2,0.9)" />
 
-      {/* Eyes in doorway darkness */}
-      <ellipse cx="188" cy="360" rx="3.5" ry="2.5" fill="rgba(200, 160, 60, 0.35)" />
-      <ellipse cx="200" cy="360" rx="3.5" ry="2.5" fill="rgba(200, 160, 60, 0.35)" />
-      <ellipse cx="188" cy="390" rx="2" ry="1.5" fill="rgba(160, 30, 20, 0.3)" />
-      <ellipse cx="198" cy="390" rx="2" ry="1.5" fill="rgba(160, 30, 20, 0.3)" />
+      {/* Eyes in doorway darkness — unmistakably watching */}
+      <ellipse cx="186" cy="358" rx="6" ry="4.5" fill="rgba(220, 175, 70, 0.4)" />
+      <ellipse cx="204" cy="358" rx="6" ry="4.5" fill="rgba(220, 175, 70, 0.4)" />
+      <ellipse cx="186" cy="358" rx="3" ry="2.2" fill="rgba(235, 195, 90, 0.95)" />
+      <ellipse cx="204" cy="358" rx="3" ry="2.2" fill="rgba(235, 195, 90, 0.95)" />
+      <ellipse cx="186" cy="390" rx="3.5" ry="2.5" fill="rgba(200, 40, 25, 0.6)" />
+      <ellipse cx="198" cy="390" rx="3.5" ry="2.5" fill="rgba(200, 40, 25, 0.6)" />
 
       {/* Carnival sign - distressed */}
       <rect x="50" y="160" width="120" height="40" rx="2"
@@ -187,8 +191,8 @@ function CarnivalCardSVG() {
 
       {/* Carnival fog ground */}
       <defs>
-        <radialGradient id="carnivalFog" cx="50%" cy="100%" r="50%">
-          <stop offset="0%" stopColor="rgba(90, 50, 30, 0.25)" />
+        <radialGradient id="carnivalFog" cx="50%" cy="100%" r="55%">
+          <stop offset="0%" stopColor="rgba(150, 85, 45, 0.45)" />
           <stop offset="100%" stopColor="rgba(0,0,0,0)" />
         </radialGradient>
       </defs>

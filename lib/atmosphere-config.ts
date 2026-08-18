@@ -10,10 +10,10 @@
 export const atmosphereConfig = {
   // ─── Forest ──────────────────────────────────────────────────────────
   forestParallaxIntensity: 1.0,    // 0 = off, 1 = full, 0.5 = subtle
-  fogOpacityBase: 0.12,            // Background fog layer opacity
-  fogOpacityMid: 0.18,             // Midground fog layer opacity
-  fogOpacityGround: 0.28,          // Ground fog opacity
-  fogOpacityForeground: 0.04,      // Foreground mist (very low — never obscure text)
+  fogOpacityBase: 0.26,            // Background fog layer opacity
+  fogOpacityMid: 0.32,             // Midground fog layer opacity
+  fogOpacityGround: 0.42,          // Ground fog opacity
+  fogOpacityForeground: 0.12,      // Foreground mist (kept low — never obscure text)
   fogSpeedBase: 90,                // Background fog cycle in seconds
   fogSpeedMid: 65,                 // Midground fog cycle in seconds
   fogSpeedGround: 45,              // Ground fog cycle in seconds
@@ -23,20 +23,21 @@ export const atmosphereConfig = {
   // ─── Easter Eggs ─────────────────────────────────────────────────────
   easterEggEnabled: true,
   hiddenEyesEnabled: true,
-  hiddenEyesDurationSec: 5,        // How long eyes stay visible
-  hiddenEyesCooldownSec: 45,       // Minimum seconds between appearances
+  hiddenEyesIdleOpacity: 0.22,     // Faint "always watching" glimmer between flashes
+  hiddenEyesDurationSec: 8,        // How long eyes stay at full brightness
+  hiddenEyesCooldownSec: 14,       // Minimum seconds between full-bright appearances
   hiddenFigureEnabled: true,
-  hiddenFigureCooldownSec: 90,     // Minimum seconds between silhouette appearances
+  hiddenFigureCooldownSec: 55,     // Minimum seconds between silhouette appearances
   lightningEnabled: true,
-  lightningCooldownSec: 120,       // Minimum seconds between lightning events
+  lightningCooldownSec: 75,        // Minimum seconds between lightning events
   lightningDurationMs: 150,        // Duration of the brightness flash
 
   // ─── Clown ───────────────────────────────────────────────────────────
   clownPeekEnabled: true,
   clownPeekFrequency: 0.15,        // 0-1; lower = rarer
-  clownPeekMinTimeSec: 30,         // Min seconds on page before first peek
-  clownPeekCooldownSec: 90,        // Min seconds between peeks
-  clownPeekMaxPerSession: 3,       // Max peeks per session
+  clownPeekMinTimeSec: 10,         // Min seconds on page before first peek
+  clownPeekCooldownSec: 40,        // Min seconds between peeks
+  clownPeekMaxPerSession: 5,       // Max peeks per session
 
   // ─── Coulrophobia ────────────────────────────────────────────────────
   carnivalLightIntensity: 0.8,     // 0-1; lamp glow strength
@@ -45,7 +46,7 @@ export const atmosphereConfig = {
   analogDistortionOpacity: 0.04,   // Scanline/grain overlay opacity
   balloonEnabled: true,
   balloonFrequency: 0.2,           // 0-1; lower = rarer
-  balloonMinCooldownSec: 60,       // Min seconds between balloons
+  balloonMinCooldownSec: 20,       // Min seconds between balloons
   vhsDistortionDurationMs: 200,    // Duration of analog horror flash
 
   // ─── Night Mode ──────────────────────────────────────────────────────
