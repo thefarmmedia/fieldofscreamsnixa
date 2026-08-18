@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
+import FlyingGhost from '@/components/environment/FlyingGhost'
 
 export default function Hero() {
   const openingDate = siteConfig.season.openingDate
@@ -21,6 +22,8 @@ export default function Hero() {
           style={{ objectFit: 'cover', objectPosition: 'center top' }}
         />
       </div>
+
+      <FlyingGhost />
 
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 2, maxWidth: 900, width: '100%' }}>
