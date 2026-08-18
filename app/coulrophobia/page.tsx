@@ -6,6 +6,7 @@ import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import FAQSection from '@/components/sections/FAQSection'
 import Footer from '@/components/ui/Footer'
+import VideoBackground from '@/components/ui/VideoBackground'
 
 const attraction = siteConfig.attractions[1]
 
@@ -71,6 +72,11 @@ export default function CoulrophobiaPage() {
       <div className="site-content">
         {/* Hero */}
         <div className="attraction-hero" style={{ minHeight: '65vh' }}>
+          <VideoBackground
+            className="attraction-hero-bg"
+            src="/videos/coulrophobia-loop.mp4"
+            poster="/images/coulrophobia-poster.jpg"
+          />
           <div style={{
             position: 'absolute',
             inset: 0,

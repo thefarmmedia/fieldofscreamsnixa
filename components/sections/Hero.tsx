@@ -1,8 +1,8 @@
 'use client'
-import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
 import FlyingGhost from '@/components/environment/FlyingGhost'
+import VideoBackground from '@/components/ui/VideoBackground'
 
 export default function Hero() {
   const openingDate = siteConfig.season.openingDate
@@ -10,60 +10,63 @@ export default function Hero() {
 
   return (
     <section className="hero" aria-label="Field of Screams Nixa — Hero">
-      {/* Background image */}
-      <div className="hero-bg" aria-hidden="true">
-        <Image
-          src="/images/fos-banner.jpg"
-          alt=""
-          fill
-          priority
-          quality={85}
-          sizes="100vw"
-          style={{ objectFit: 'cover', objectPosition: 'center top' }}
-        />
-      </div>
+      {/* Background: real event footage, falls back to a still on mobile/reduced-motion */}
+      <VideoBackground
+        className="hero-bg"
+        src="/videos/hero-loop.mp4"
+        poster="/images/hero-poster.jpg"
+      />
 
       <FlyingGhost />
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 900, width: '100%' }}>
-        <p className="hero-eyebrow">Nixa, Missouri — Season {siteConfig.season.year}</p>
+      <div className="hero-frame">
+        <div className="hero-main">
+          <div className="hero-index">
+            <span className="hero-index-line" aria-hidden="true" />
+            <span className="hero-eyebrow">Nixa, Missouri — Season {siteConfig.season.year}</span>
+          </div>
 
-        <h1 className="hero-title">
-          Field of Screams
-          <span>Nixa</span>
-        </h1>
+          <h1 className="hero-title">
+            Field of Screams
+            <span>Nixa</span>
+          </h1>
 
-        <p className="hero-location">Southwest Missouri&apos;s Premier Haunted Attraction</p>
+          <p className="hero-tagline">{siteConfig.tagline}</p>
 
-        <p className="hero-tagline">{siteConfig.tagline}</p>
+          <div className="hero-cta-surface">
+            <div className="hero-attractions">
+              <span>Haunted Forest</span>
+              <span aria-hidden="true">•</span>
+              <span>Coulrophobia</span>
+            </div>
 
-        <div className="hero-attractions">
-          <span>Haunted Forest</span>
-          <span>•</span>
-          <span>Coulrophobia</span>
+            <div className="hero-cta-group">
+              <a
+                href={siteConfig.tickets.url}
+                className="btn-ticket"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'ticket_click', { location: 'hero' })
+                  }
+                }}
+              >
+                Get Tickets
+              </a>
+              <Link href="/#nightmare" className="btn-secondary">
+                Explore the Attractions
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="hero-cta-group">
-          <a
-            href={siteConfig.tickets.url}
-            className="btn-ticket"
-            onClick={() => {
-              if (typeof window !== 'undefined' && (window as any).gtag) {
-                (window as any).gtag('event', 'ticket_click', { location: 'hero' })
-              }
-            }}
-          >
-            Get Tickets
-          </a>
-          <Link href="/#nightmare" className="btn-secondary">
-            Explore the Attractions
-          </Link>
+        <div className="hero-meta-bar">
+          <span>Southwest Missouri&apos;s Premier Haunted Attraction</span>
+          <span className="hero-meta-divider" aria-hidden="true" />
+          <span>Opens {dateStr}</span>
+          <span className="hero-meta-divider" aria-hidden="true" />
+          <span>{siteConfig.season.hoursDisplay}</span>
         </div>
-
-        <p className="hero-dates">
-          Opens {dateStr} &nbsp;•&nbsp; {siteConfig.season.hoursDisplay}
-        </p>
       </div>
 
       {/* Scroll indicator */}
