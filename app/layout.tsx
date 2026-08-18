@@ -1,0 +1,178 @@
+import type { Metadata, Viewport } from 'next'
+import { Cinzel, Inter, Special_Elite } from 'next/font/google'
+import { siteConfig } from '@/lib/site-config'
+import './globals.css'
+
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  variable: '--font-cinzel',
+  display: 'swap',
+  weight: ['400', '600', '700', '800', '900'],
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const specialElite = Special_Elite({
+  subsets: ['latin'],
+  variable: '--font-special-elite',
+  display: 'swap',
+  weight: '400',
+})
+
+export const metadata: Metadata = {
+  metadataBase: new URL(`https://${siteConfig.domain}`),
+  title: {
+    default: siteConfig.seo.defaultTitle,
+    template: siteConfig.seo.titleTemplate,
+  },
+  description: siteConfig.seo.defaultDescription,
+  keywords: [
+    'haunted attraction',
+    'haunted house',
+    'Nixa Missouri',
+    'Springfield Missouri',
+    'Halloween',
+    'Haunted Forest',
+    'Coulrophobia',
+    'Field of Screams',
+    'Field of Screams Nixa',
+    'Southwest Missouri haunted',
+    'Ozarks haunted attraction',
+    'scary haunted house Missouri',
+  ],
+  authors: [{ name: 'Field of Screams Nixa' }],
+  creator: 'Field of Screams Nixa',
+  publisher: 'Field of Screams Nixa',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: `https://${siteConfig.domain}`,
+    siteName: siteConfig.name,
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
+    images: [
+      {
+        url: siteConfig.seo.ogImage,
+        width: 2047,
+        height: 779,
+        alt: 'Field of Screams Nixa — Haunted Attractions — Nixa, Missouri',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
+    images: [siteConfig.seo.ogImage],
+  },
+  alternates: {
+    canonical: `https://${siteConfig.domain}`,
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#010204',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+}
+
+// Local Business + AmusementPark schema
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['AmusementPark', 'LocalBusiness'],
+  name: siteConfig.name,
+  description: siteConfig.seo.defaultDescription,
+  url: `https://${siteConfig.domain}`,
+  image: `https://${siteConfig.domain}/images/fos-banner.jpg`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 37.0425,
+    longitude: -93.3301,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Friday', 'Saturday', 'Sunday'],
+      opens: '19:00',
+      closes: '23:00',
+      validFrom: '2026-10-02',
+      validThrough: '2026-11-01',
+    },
+  ],
+  sameAs: [
+    siteConfig.social.facebook,
+    siteConfig.social.instagram,
+  ].filter(Boolean),
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={`${cinzel.variable} ${inter.variable} ${specialElite.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/images/fos-banner.jpg" />
+        {/* Meta Pixel — insert actual ID when known */}
+        {siteConfig.analytics.metaPixelId && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '${siteConfig.analytics.metaPixelId}');
+                fbq('track', 'PageView');
+              `,
+            }}
+          />
+        )}
+      </head>
+      <body>
+        {children}
+        {/* Google Analytics */}
+        {siteConfig.analytics.gaId && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.gaId}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${siteConfig.analytics.gaId}', { page_path: window.location.pathname });
+                `,
+              }}
+            />
+          </>
+        )}
+      </body>
+    </html>
+  )
+}
