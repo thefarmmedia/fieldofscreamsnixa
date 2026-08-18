@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
 import FlyingGhost from '@/components/environment/FlyingGhost'
@@ -28,8 +29,14 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-title">
-            Field of Screams
-            <span>Nixa</span>
+            <Image
+              src="/images/sprites/fos-logotype.png"
+              alt="Field of Screams Nixa — Haunted Attractions"
+              width={650}
+              height={460}
+              priority
+              className="hero-logo-img"
+            />
           </h1>
 
           <p className="hero-tagline">{siteConfig.tagline}</p>
