@@ -692,12 +692,41 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6rem 1.5rem 3rem;
+  justify-content: flex-end;
   position: relative;
   overflow: hidden;
+  padding: 6rem 1.5rem 0;
+}
+
+.hero-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.hero-main {
+  max-width: 640px;
+  text-align: left;
+}
+
+.hero-index {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+.hero-index-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, var(--blood), var(--orange-fos));
+  flex-shrink: 0;
 }
 
 /* ─── Flying Ghosts ──────────────────────────────────────────────────── */
@@ -718,10 +747,10 @@ h1, h2, h3, h4, h5, h6 {
   filter: drop-shadow(0 0 14px rgba(90, 220, 230, 0.35));
 }
 
-/* Ghost 1 — reaching hand, left of the title, sweeps in from bottom-left */
+/* Ghost 1 — reaching hand, sweeps in from bottom-left, lands over the open right side */
 .flying-ghost-1 {
-  --land-x: 13%;
-  --land-y: 40%;
+  --land-x: 68%;
+  --land-y: 32%;
   --land-rotate: -3deg;
   --land-scale: 1;
   width: clamp(150px, 20vw, 320px);
@@ -730,10 +759,10 @@ h1, h2, h3, h4, h5, h6 {
     ghostIdle 8s ease-in-out 4.8s infinite;
 }
 
-/* Ghost 2 — small skull, upper-left, drifts down from above */
+/* Ghost 2 — small skull, upper-mid, drifts down from above */
 .flying-ghost-2 {
-  --land-x: 25%;
-  --land-y: 17%;
+  --land-x: 46%;
+  --land-y: 13%;
   --land-rotate: -4deg;
   --land-scale: 0.65;
   width: clamp(80px, 10vw, 160px);
@@ -745,7 +774,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Ghost 3 — small skull, upper-right, mirrored drift from above */
 .flying-ghost-3 {
-  --land-x: 75%;
+  --land-x: 84%;
   --land-y: 17%;
   --land-rotate: 4deg;
   --land-scale: 0.65;
@@ -756,10 +785,10 @@ h1, h2, h3, h4, h5, h6 {
     ghostIdle 7s ease-in-out 7.2s infinite;
 }
 
-/* Ghost 4 — reaching hand, right of the title, sweeps in from bottom-right */
+/* Ghost 4 — reaching hand, far right, sweeps in from bottom-right */
 .flying-ghost-4 {
-  --land-x: 87%;
-  --land-y: 42%;
+  --land-x: 93%;
+  --land-y: 46%;
   --land-rotate: 3deg;
   --land-scale: 1;
   width: clamp(150px, 20vw, 320px);
@@ -993,7 +1022,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  opacity: 0.35;
+  opacity: 0.62;
   transform: scale(1.05);
 }
 .hero-bg::after {
@@ -1001,8 +1030,9 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(1,2,4,0.4) 0%, transparent 30%, rgba(1,2,4,0.7) 80%, rgba(1,2,4,0.95) 100%),
-    linear-gradient(to right, rgba(1,2,4,0.3) 0%, transparent 50%, rgba(1,2,4,0.3) 100%);
+    radial-gradient(ellipse 90% 65% at 8% 100%, rgba(1,2,4,0.96) 0%, rgba(1,2,4,0.72) 42%, transparent 72%),
+    linear-gradient(to top, rgba(1,2,4,0.9) 0%, rgba(1,2,4,0.35) 32%, transparent 55%),
+    linear-gradient(to bottom, rgba(1,2,4,0.55) 0%, transparent 22%);
 }
 
 .hero-eyebrow {
@@ -1011,80 +1041,106 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.3em;
   color: var(--orange-fos);
   text-transform: uppercase;
-  margin-bottom: 1.25rem;
 }
 
 .hero-title {
   font-family: var(--font-cinzel), Georgia, serif;
-  font-size: clamp(2.8rem, 8vw, 7rem);
+  font-size: clamp(2.8rem, 7.5vw, 6.4rem);
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--bone-light);
   line-height: 0.95;
   text-transform: uppercase;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1.25rem;
   text-shadow:
     0 0 40px rgba(0, 196, 204, 0.15),
     0 2px 30px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 .hero-title span {
   display: block;
-  font-size: clamp(1.8rem, 5vw, 4.5rem);
-  letter-spacing: 0.1em;
+  font-size: clamp(1.7rem, 4.5vw, 3.8rem);
+  letter-spacing: 0.08em;
   color: var(--orange-fos);
 }
 
-.hero-location {
-  font-family: var(--font-cinzel), Georgia, serif;
-  font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-  letter-spacing: 0.3em;
-  color: rgba(232, 228, 220, 0.75);
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
+.hero-tagline {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  letter-spacing: 0.06em;
+  color: rgba(232, 228, 220, 0.88);
+  max-width: 46ch;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
 }
 
-.hero-tagline {
-  font-size: clamp(0.85rem, 2.5vw, 1.15rem);
-  letter-spacing: 0.12em;
-  color: rgba(232, 228, 220, 0.88);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+.hero-cta-surface {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  background: rgba(6, 12, 20, 0.4);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  opacity: 0;
+  animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
 }
 
 .hero-attractions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  gap: 0.85rem;
   font-family: var(--font-cinzel), Georgia, serif;
   font-size: clamp(0.6rem, 1.2vw, 0.7rem);
   letter-spacing: 0.2em;
-  color: rgba(0, 196, 204, 0.7);
+  color: rgba(0, 196, 204, 0.8);
   text-transform: uppercase;
-  margin-bottom: 2.5rem;
 }
-.hero-attractions span { color: rgba(196, 26, 0, 0.5); }
+.hero-attractions span:nth-child(2) { color: rgba(196, 26, 0, 0.6); }
 
 .hero-cta-group {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.hero-dates {
-  margin-top: 2rem;
+.hero-meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(232, 228, 220, 0.12);
   font-family: var(--font-cinzel), Georgia, serif;
   font-size: clamp(0.6rem, 1.2vw, 0.7rem);
-  letter-spacing: 0.2em;
-  color: rgba(232, 228, 220, 0.58);
+  letter-spacing: 0.15em;
+  color: rgba(232, 228, 220, 0.6);
   text-transform: uppercase;
+  opacity: 0;
+  animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+.hero-meta-divider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(196, 26, 0, 0.6);
+  flex-shrink: 0;
+}
+
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1092,6 +1148,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 0.5rem;
   animation: scrollBounce 2s ease-in-out infinite;
+  z-index: 2;
 }
 .scroll-indicator-line {
   width: 1px;
@@ -1717,6 +1774,11 @@ h1, h2, h3, h4, h5, h6 {
     --fog-opacity-mid: 0.12;
     --fog-opacity-ground: 0.18;
   }
+
+  .hero { padding: 5.5rem 1.25rem 0; }
+  .hero-frame { gap: 1.75rem; }
+  .hero-cta-surface { padding: 1.25rem; gap: 1rem; width: 100%; }
+  .hero-meta-bar { font-size: 0.58rem; gap: 0.6rem; row-gap: 0.5rem; }
 }
 
 /* ─── Print ──────────────────────────────────────────────────────────── */

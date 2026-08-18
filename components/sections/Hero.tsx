@@ -17,7 +17,7 @@ export default function Hero() {
           alt=""
           fill
           priority
-          quality={85}
+          quality={90}
           sizes="100vw"
           style={{ objectFit: 'cover', objectPosition: 'center top' }}
         />
@@ -26,44 +26,53 @@ export default function Hero() {
       <FlyingGhost />
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 900, width: '100%' }}>
-        <p className="hero-eyebrow">Nixa, Missouri — Season {siteConfig.season.year}</p>
+      <div className="hero-frame">
+        <div className="hero-main">
+          <div className="hero-index">
+            <span className="hero-index-line" aria-hidden="true" />
+            <span className="hero-eyebrow">Nixa, Missouri — Season {siteConfig.season.year}</span>
+          </div>
 
-        <h1 className="hero-title">
-          Field of Screams
-          <span>Nixa</span>
-        </h1>
+          <h1 className="hero-title">
+            Field of Screams
+            <span>Nixa</span>
+          </h1>
 
-        <p className="hero-location">Southwest Missouri&apos;s Premier Haunted Attraction</p>
+          <p className="hero-tagline">{siteConfig.tagline}</p>
 
-        <p className="hero-tagline">{siteConfig.tagline}</p>
+          <div className="hero-cta-surface">
+            <div className="hero-attractions">
+              <span>Haunted Forest</span>
+              <span aria-hidden="true">•</span>
+              <span>Coulrophobia</span>
+            </div>
 
-        <div className="hero-attractions">
-          <span>Haunted Forest</span>
-          <span>•</span>
-          <span>Coulrophobia</span>
+            <div className="hero-cta-group">
+              <a
+                href={siteConfig.tickets.url}
+                className="btn-ticket"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'ticket_click', { location: 'hero' })
+                  }
+                }}
+              >
+                Get Tickets
+              </a>
+              <Link href="/#nightmare" className="btn-secondary">
+                Explore the Attractions
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="hero-cta-group">
-          <a
-            href={siteConfig.tickets.url}
-            className="btn-ticket"
-            onClick={() => {
-              if (typeof window !== 'undefined' && (window as any).gtag) {
-                (window as any).gtag('event', 'ticket_click', { location: 'hero' })
-              }
-            }}
-          >
-            Get Tickets
-          </a>
-          <Link href="/#nightmare" className="btn-secondary">
-            Explore the Attractions
-          </Link>
+        <div className="hero-meta-bar">
+          <span>Southwest Missouri&apos;s Premier Haunted Attraction</span>
+          <span className="hero-meta-divider" aria-hidden="true" />
+          <span>Opens {dateStr}</span>
+          <span className="hero-meta-divider" aria-hidden="true" />
+          <span>{siteConfig.season.hoursDisplay}</span>
         </div>
-
-        <p className="hero-dates">
-          Opens {dateStr} &nbsp;•&nbsp; {siteConfig.season.hoursDisplay}
-        </p>
       </div>
 
       {/* Scroll indicator */}
