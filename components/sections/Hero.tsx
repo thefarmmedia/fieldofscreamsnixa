@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
-import VideoBackground from '@/components/ui/VideoBackground'
 
 export default function Hero() {
   const openingDate = siteConfig.season.openingDate
@@ -10,12 +9,18 @@ export default function Hero() {
 
   return (
     <section className="hero" aria-label="Field of Screams Nixa — Hero">
-      {/* Background: real event footage, falls back to a still on mobile/reduced-motion */}
-      <VideoBackground
-        className="hero-bg"
-        src="/videos/hero-loop.mp4"
-        poster="/images/hero-poster.jpg"
-      />
+      {/* Background: a real, dark, mostly-black shot — not the bright carnival
+          highlight-reel video, which read as a party rather than a threat */}
+      <div className="hero-bg" aria-hidden="true">
+        <Image
+          src="/images/attraction/forest-hooded-blue.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition: '60% 30%' }}
+        />
+      </div>
 
       {/* Layered fog — pure CSS, drifts slowly, never a hard-edged asset */}
       <div className="hero-fog" aria-hidden="true">
