@@ -1536,6 +1536,40 @@ h1, h2, h3, h4, h5, h6 {
   50% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
 }
 
+/* The single jump scare — sits above the blackout (z-30), below the
+   loading screen (z-50). Snaps in at full size with a hard shake; it is
+   only on screen ~170ms so there is no fade, which is the point. */
+.jump-scare {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  background: #000;
+  pointer-events: none;
+  overflow: hidden;
+  animation: jumpScareShake 0.17s steps(2) both;
+}
+/* Source is portrait; on a wide viewport `cover` shows only a horizontal
+   band of it, so the position is tuned to land that band on the face
+   rather than the chin. Zoom stays near 1 — the shake supplies the
+   motion, and extra scale just crops the eyes back out of frame. */
+.jump-scare img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 6%;
+  filter: contrast(1.25) saturate(1.1) brightness(1.15);
+}
+@keyframes jumpScareShake {
+  0% { transform: translate(0, 0) scale(1.01); }
+  25% { transform: translate(-1.2%, 0.8%) scale(1.03); }
+  50% { transform: translate(1%, -1%) scale(1.01); }
+  75% { transform: translate(-0.8%, -0.6%) scale(1.04); }
+  100% { transform: translate(0, 0) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jump-scare { display: none; }
+}
+
 .horror-text-layer {
   position: absolute;
   inset: 0;
