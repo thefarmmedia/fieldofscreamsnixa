@@ -62,11 +62,15 @@ export const horrorConfig = {
     // blackout-right-after line up with the geometry instead of just the
     // abstract progress number.
     gateOpenAt: 0.6,
-    blackoutStart: 0.74,
-    blackoutEnd: 0.8,
 
-    // The single jump scare — fires after the blackout is fully opaque so
-    // the face arrives out of pure black, not out of a half-lit forest.
-    jumpScareAt: 0.85,
+    // The single jump scare fires BEFORE the blackout, while the forest is
+    // still fully on screen. Firing it after the screen was already black
+    // meant it flashed into a stretch of dead black most people scroll
+    // straight past — it was landing, but with nothing to interrupt.
+    // Sequence is now: walking the trail -> face -> black.
+    jumpScareAt: 0.78,
+
+    blackoutStart: 0.8,
+    blackoutEnd: 0.88,
   },
 } as const
