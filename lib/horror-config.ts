@@ -59,5 +59,9 @@ export const horrorConfig = {
     gateOpenAt: 0.6,
     blackoutStart: 0.74,
     blackoutEnd: 0.8,
+
+    // The single jump scare — fires after the blackout is fully opaque so
+    // the face arrives out of pure black, not out of a half-lit forest.
+    jumpScareAt: 0.85,
   },
 } as const

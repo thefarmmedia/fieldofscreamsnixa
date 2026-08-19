@@ -130,7 +130,7 @@ function DistantGlow() {
   useFrame((state) => {
     if (!light.current) return
     const t = state.clock.getElapsedTime()
-    light.current.intensity = 2.2 + Math.sin(t * 0.6) * 0.4 + Math.sin(t * 3.1) * 0.15
+    light.current.intensity = 1.9 + Math.sin(t * 0.35) * 0.25
   })
   return (
     <group position={[2.5, 3, -34]}>
@@ -156,9 +156,10 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
     if (rightPivot.current) rightPivot.current.rotation.y = -angle
 
     if (lantern.current) {
+      // No fixture flicker — the light in these woods is the moon. This is
+      // a dim, steady oil lantern with only a faint breath of movement.
       const t = state.clock.getElapsedTime()
-      const flicker = 1 + Math.sin(t * 9) * 0.08 + (Math.sin(t * 23) > 0.92 ? -0.5 : 0)
-      lantern.current.intensity = 1.8 * flicker
+      lantern.current.intensity = 0.75 + Math.sin(t * 1.6) * 0.06
     }
   })
 
@@ -198,34 +199,121 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
       {/* Lantern */}
       <mesh position={[1.7, 4.3, 0.3]}>
         <sphereGeometry args={[0.12, 8, 8]} />
-        <meshBasicMaterial color="#e8a83c" />
+        <meshBasicMaterial color="#d99a42" />
       </mesh>
-      <pointLight ref={lantern} position={[1.7, 4.3, 0.3]} color="#e8a83c" intensity={1.8} distance={9} decay={2} />
+      <pointLight ref={lantern} position={[1.7, 4.3, 0.3]} color="#e0a04a" intensity={0.75} distance={8} decay={2} />
     </group>
   )
 }
 
-/** Fake volumetric shafts — additive cones catching the "moonlight"
- *  between the trees. Cheap, and reads as real atmosphere once bloom
- *  and grain are on top of it. */
-function LightShafts() {
-  const shafts: Array<{ pos: [number, number, number]; rot: [number, number, number]; scale: number; color: string }> = [
-    { pos: [-4.5, 6, 4], rot: [0.24, 0.4, 0.12], scale: 1, color: '#5f7690' },
-    { pos: [5.5, 6.5, -6], rot: [0.2, -0.5, -0.1], scale: 1.2, color: '#55697f' },
-    { pos: [-2.5, 6, -18], rot: [0.26, 0.2, 0.08], scale: 0.9, color: '#4e6076' },
-  ]
+/** The moon itself, hung low and back over the trail so it reads as the
+ *  source of everything else. Steady — the moon does not flicker. */
+function Moon() {
   return (
-    <group>
-      {shafts.map((s, i) => (
-        <mesh key={i} position={s.pos} rotation={s.rot} scale={[s.scale, 1, s.scale]}>
-          <coneGeometry args={[2.2, 12, 12, 1, true]} />
+    <group position={[-9, 17, -40]}>
+      <mesh>
+        <sphereGeometry args={[1.5, 20, 20]} />
+        <meshBasicMaterial color="#cfd8e6" fog={false} />
+      </mesh>
+      {/* Halo through the haze */}
+      <mesh>
+        <sphereGeometry args={[3.4, 20, 20]} />
+        <meshBasicMaterial
+          color="#7f93b0"
+          transparent
+          opacity={0.16}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          fog={false}
+        />
+      </mesh>
+      <pointLight color="#aebdd4" intensity={1.4} distance={70} decay={1.4} />
+    </group>
+  )
+}
+
+/** Moonlight raking down through the canopy. These are placed along the
+ *  whole trail and angled consistently — all from the moon's direction —
+ *  so as the camera walks forward it passes through them one after
+ *  another and the light sweeps over you. That read (walking under trees
+ *  in moonlight) is the point; nothing here flickers like a fixture.
+ *  Only a slow breathing shift, as if branches are moving overhead. */
+function Moonbeams() {
+  const group = useRef<THREE.Group>(null)
+  const beams = useMemo(() => {
+    const rand = mulberry32(4242)
+    const out: Array<{ pos: [number, number, number]; scale: number; phase: number }> = []
+    // Spread down the length of the trail the camera actually travels.
+    for (let z = 14; z > -34; z -= 3.4) {
+      const x = (rand() - 0.5) * 11
+      out.push({
+        pos: [x, 7.5, z + (rand() - 0.5) * 1.6],
+        scale: 0.7 + rand() * 0.75,
+        phase: rand() * Math.PI * 2,
+      })
+    }
+    return out
+  }, [])
+
+  useFrame((state) => {
+    if (!group.current) return
+    const t = state.clock.getElapsedTime()
+    group.current.children.forEach((child, i) => {
+      const mesh = child as THREE.Mesh
+      const mat = mesh.material as THREE.MeshBasicMaterial
+      // Slow canopy movement, not a flicker: never fully off, never a snap.
+      mat.opacity = 0.055 + Math.sin(t * 0.28 + beams[i].phase) * 0.028
+    })
+  })
+
+  return (
+    <group ref={group}>
+      {beams.map((b, i) => (
+        <mesh
+          key={i}
+          position={b.pos}
+          // Consistent tilt for every beam — one moon, one direction.
+          rotation={[0.2, 0, 0.16]}
+          scale={[b.scale, 1, b.scale]}
+        >
+          <coneGeometry args={[1.9, 15, 10, 1, true]} />
           <meshBasicMaterial
-            color={s.color}
+            color="#93a9c6"
             transparent
-            opacity={0.12}
+            opacity={0.055}
             blending={THREE.AdditiveBlending}
             depthWrite={false}
             side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/** Dappled moonlight on the ground the camera walks over — the pools of
+ *  light that fall between branches. Keeps the trail from reading as a
+ *  flat unlit plane. */
+function MoonPools() {
+  const pools = useMemo(() => {
+    const rand = mulberry32(99)
+    const out: Array<{ pos: [number, number, number]; r: number }> = []
+    for (let z = 14; z > -34; z -= 2.6) {
+      out.push({ pos: [(rand() - 0.5) * 9, 0.02, z], r: 0.9 + rand() * 1.5 })
+    }
+    return out
+  }, [])
+  return (
+    <group>
+      {pools.map((p, i) => (
+        <mesh key={i} position={p.pos} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[p.r, 14]} />
+          <meshBasicMaterial
+            color="#7288a6"
+            transparent
+            opacity={0.07}
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
           />
         </mesh>
       ))}
@@ -240,12 +328,16 @@ export default function IntroEnvironment({
 }) {
   return (
     <>
-      <ambientLight intensity={0.75} color="#5d6f85" />
-      <directionalLight position={[-6, 10, 8]} intensity={0.85} color="#6d7f96" />
-      <hemisphereLight args={['#3c4a68', '#050505', 0.6]} />
+      {/* Key light comes from the moon's actual position, so the trees are
+          lit from the same direction the beams fall. */}
+      <ambientLight intensity={0.42} color="#4a5c7c" />
+      <directionalLight position={[-9, 17, -40]} intensity={0.9} color="#aebdd4" />
+      <hemisphereLight args={['#3c4a68', '#050505', 0.55]} />
       <FogDriver progressRef={progressRef} />
+      <Moon />
       <DistantGlow />
-      <LightShafts />
+      <Moonbeams />
+      <MoonPools />
       <Silhouettes />
       <Gate progressRef={progressRef} />
       <Forest />

@@ -14,6 +14,7 @@ import CameraRig from './CameraRig'
 import EnvironmentalText from './EnvironmentalText'
 import LoadingExperience from './LoadingExperience'
 import HorrorFallback from './HorrorFallback'
+import JumpScare from './JumpScare'
 
 export default function HorrorWorld() {
   const { status, reducedMotion } = useHorrorSupport()
@@ -122,6 +123,12 @@ function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
           </Canvas>
           <EnvironmentalText cues={horrorConfig.intro.text} progressRef={progressRef} />
           <div ref={blackoutRef} className="horror-blackout" aria-hidden="true" />
+          <JumpScare
+            progressRef={progressRef}
+            at={horrorConfig.intro.jumpScareAt}
+            src="/images/attraction/clown-redhair-closeup.jpg"
+            reducedMotion={reducedMotion}
+          />
           {entered && <p className="horror-scroll-cue">Scroll</p>}
         </div>
       </div>
