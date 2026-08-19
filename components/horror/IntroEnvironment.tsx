@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Instances, Instance, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import { horrorConfig } from '@/lib/horror-config'
+import PhotoApparitions from './PhotoApparitions'
 
 // Deterministic PRNG so the forest layout is stable across renders/reloads.
 function mulberry32(seed: number) {
@@ -56,7 +57,7 @@ function Forest() {
     <group>
       <Instances limit={trunks.length}>
         <cylinderGeometry args={[0.12, 0.28, 1, 6]} />
-        <meshStandardMaterial color="#1a1510" roughness={1} />
+        <meshStandardMaterial color="#2b241b" roughness={1} />
         {trunks.map((t, i) => (
           <Instance
             key={i}
@@ -69,7 +70,7 @@ function Forest() {
 
       <Instances limit={Math.max(canopies.length, 1)}>
         <icosahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color="#0e1a0a" roughness={1} flatShading />
+        <meshStandardMaterial color="#16240f" roughness={1} flatShading />
         {canopies.map((t, i) => (
           <Instance
             key={i}
@@ -82,7 +83,7 @@ function Forest() {
 
       <Instances limit={Math.max(branchTrees.length * 3, 1)}>
         <cylinderGeometry args={[0.02, 0.05, 1, 4]} />
-        <meshStandardMaterial color="#1a1510" roughness={1} />
+        <meshStandardMaterial color="#2b241b" roughness={1} />
         {branchTrees.flatMap((t, i) =>
           [0, 1, 2].map((b) => {
             const rand = mulberry32(i * 97 + b * 13)
@@ -161,7 +162,7 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
     }
   })
 
-  const postMat = <meshStandardMaterial color="#161210" roughness={0.9} metalness={0.15} />
+  const postMat = <meshStandardMaterial color="#241d18" roughness={0.9} metalness={0.15} />
 
   return (
     <group position={[0, 0, -10]}>
@@ -204,6 +205,34 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
   )
 }
 
+/** Fake volumetric shafts — additive cones catching the "moonlight"
+ *  between the trees. Cheap, and reads as real atmosphere once bloom
+ *  and grain are on top of it. */
+function LightShafts() {
+  const shafts: Array<{ pos: [number, number, number]; rot: [number, number, number]; scale: number; color: string }> = [
+    { pos: [-4.5, 6, 4], rot: [0.24, 0.4, 0.12], scale: 1, color: '#5f7690' },
+    { pos: [5.5, 6.5, -6], rot: [0.2, -0.5, -0.1], scale: 1.2, color: '#55697f' },
+    { pos: [-2.5, 6, -18], rot: [0.26, 0.2, 0.08], scale: 0.9, color: '#4e6076' },
+  ]
+  return (
+    <group>
+      {shafts.map((s, i) => (
+        <mesh key={i} position={s.pos} rotation={s.rot} scale={[s.scale, 1, s.scale]}>
+          <coneGeometry args={[2.2, 12, 12, 1, true]} />
+          <meshBasicMaterial
+            color={s.color}
+            transparent
+            opacity={0.12}
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
 export default function IntroEnvironment({
   progressRef,
 }: {
@@ -211,16 +240,18 @@ export default function IntroEnvironment({
 }) {
   return (
     <>
-      <ambientLight intensity={0.34} color="#4a5568" />
-      <directionalLight position={[-6, 10, 8]} intensity={0.4} color="#5a6a7d" />
-      <hemisphereLight args={['#2a3550', '#020202', 0.3]} />
+      <ambientLight intensity={0.75} color="#5d6f85" />
+      <directionalLight position={[-6, 10, 8]} intensity={0.85} color="#6d7f96" />
+      <hemisphereLight args={['#3c4a68', '#050505', 0.6]} />
       <FogDriver progressRef={progressRef} />
       <DistantGlow />
+      <LightShafts />
+      <PhotoApparitions />
       <Gate progressRef={progressRef} />
       <Forest />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -10]}>
         <planeGeometry args={[80, 100]} />
-        <meshStandardMaterial color="#0a0806" roughness={1} />
+        <meshStandardMaterial color="#12100c" roughness={1} />
       </mesh>
       <Sparkles count={140} scale={[16, 6, 50]} size={1.4} speed={0.15} opacity={0.35} color="#aab4c0" />
     </>

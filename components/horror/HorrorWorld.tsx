@@ -1,13 +1,15 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import { horrorConfig } from '@/lib/horror-config'
 import { useHorrorSupport } from '@/lib/use-horror-support'
 import IntroEnvironment from './IntroEnvironment'
+import Effects from './Effects'
 import CameraRig from './CameraRig'
 import EnvironmentalText from './EnvironmentalText'
 import LoadingExperience from './LoadingExperience'
@@ -31,6 +33,15 @@ function HorrorWorldCanvas() {
   const blackoutRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef(0)
   const mouseRef = useRef({ x: 0, y: 0 })
+
+  // Coarse pointer (phones/tablets) drops the expensive post-processing
+  // passes and the DPR ceiling rather than dropping the experience.
+  const [tier, setTier] = useState<'high' | 'low'>('high')
+  useEffect(() => {
+    const coarse = window.matchMedia('(pointer: coarse)').matches
+    const smallCores = (navigator.hardwareConcurrency ?? 8) <= 4
+    setTier(coarse || smallCores ? 'low' : 'high')
+  }, [])
 
   // Mouse parallax — desktop only, harmless no-op on touch since no
   // pointermove fires.
@@ -82,12 +93,20 @@ function HorrorWorldCanvas() {
           {!entered && <LoadingExperience onEnter={() => setEntered(true)} />}
           <Canvas
             style={{ position: 'absolute', inset: 0 }}
-            dpr={[1, 1.75]}
-            gl={{ antialias: true, powerPreference: 'high-performance' }}
+            dpr={tier === 'high' ? [1, 1.75] : [1, 1.25]}
+            gl={{
+              antialias: false,
+              powerPreference: 'high-performance',
+              toneMapping: THREE.ACESFilmicToneMapping,
+              toneMappingExposure: 1.5,
+            }}
             camera={{ position: [0, 1.6, 22], fov: 45, near: 0.1, far: 100 }}
           >
-            <IntroEnvironment progressRef={progressRef} />
-            <CameraRig frames={horrorConfig.intro.camera} progressRef={progressRef} mouseRef={mouseRef} />
+            <Suspense fallback={null}>
+              <IntroEnvironment progressRef={progressRef} />
+              <CameraRig frames={horrorConfig.intro.camera} progressRef={progressRef} mouseRef={mouseRef} />
+              <Effects tier={tier} />
+            </Suspense>
           </Canvas>
           <EnvironmentalText cues={horrorConfig.intro.text} progressRef={progressRef} />
           <div ref={blackoutRef} className="horror-blackout" aria-hidden="true" />
