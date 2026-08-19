@@ -27,7 +27,7 @@ export default function NightmareSelector() {
         {/* Haunted Forest */}
         <Link href={forest.href} className="nightmare-panel" aria-label={`Learn about ${forest.name}`}>
           <Image
-            src="/images/attraction/forest-woman-teddybear.jpg"
+            src="/images/attraction/twisted-figure-red.jpg"
             alt="A costumed actor standing among the trees at the Haunted Forest attraction"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"

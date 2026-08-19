@@ -42,10 +42,14 @@ export default function CameraRig({
   frames,
   progressRef,
   mouseRef,
+  reducedMotion = false,
 }: {
   frames: readonly CameraKeyframe[]
   progressRef: React.MutableRefObject<number>
   mouseRef: React.MutableRefObject<{ x: number; y: number }>
+  /** Damps the idle bob and mouse parallax; the scroll-driven dolly
+   *  itself stays, since that's the visitor's own input. */
+  reducedMotion?: boolean
 }) {
   const { camera } = useThree()
   const target = useRef(new THREE.Vector3())
@@ -56,10 +60,11 @@ export default function CameraRig({
     const { position, lookAt, fov } = sample(frames, t)
     const time = state.clock.getElapsedTime()
 
-    const bobX = Math.sin(time * 0.35) * 0.06
-    const bobY = Math.sin(time * 0.5) * 0.04 + 1.5
-    const parallaxX = mouseRef.current.x * 0.35
-    const parallaxY = mouseRef.current.y * 0.2
+    const damp = reducedMotion ? 0 : 1
+    const bobX = Math.sin(time * 0.35) * 0.06 * damp
+    const bobY = Math.sin(time * 0.5) * 0.04 * damp + 1.5
+    const parallaxX = mouseRef.current.x * 0.35 * damp
+    const parallaxY = mouseRef.current.y * 0.2 * damp
 
     camera.position.set(
       position[0] + bobX + parallaxX,

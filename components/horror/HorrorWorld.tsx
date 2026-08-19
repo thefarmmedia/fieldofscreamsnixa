@@ -16,18 +16,18 @@ import LoadingExperience from './LoadingExperience'
 import HorrorFallback from './HorrorFallback'
 
 export default function HorrorWorld() {
-  const support = useHorrorSupport()
+  const { status, reducedMotion } = useHorrorSupport()
 
-  if (support === 'checking') {
+  if (status === 'checking') {
     return <div style={{ minHeight: '90vh', background: '#010204' }} aria-hidden="true" />
   }
-  if (support === 'fallback') {
+  if (status === 'fallback') {
     return <HorrorFallback />
   }
-  return <HorrorWorldCanvas />
+  return <HorrorWorldCanvas reducedMotion={reducedMotion} />
 }
 
-function HorrorWorldCanvas() {
+function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
   const [entered, setEntered] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const blackoutRef = useRef<HTMLDivElement>(null)
@@ -58,11 +58,18 @@ function HorrorWorldCanvas() {
     if (!entered || !trackRef.current) return
 
     gsap.registerPlugin(ScrollTrigger)
-    const lenis = new Lenis({ smoothWheel: true })
-    lenis.on('scroll', ScrollTrigger.update)
-    const raf = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(raf)
-    gsap.ticker.lagSmoothing(0)
+
+    // Smooth-scroll hijacking is itself motion — skip Lenis entirely for
+    // reduced-motion visitors and let ScrollTrigger read native scroll.
+    let lenis: Lenis | null = null
+    let raf: ((time: number) => void) | null = null
+    if (!reducedMotion) {
+      lenis = new Lenis({ smoothWheel: true })
+      lenis.on('scroll', ScrollTrigger.update)
+      raf = (time: number) => lenis!.raf(time * 1000)
+      gsap.ticker.add(raf)
+      gsap.ticker.lagSmoothing(0)
+    }
 
     const trigger = ScrollTrigger.create({
       trigger: trackRef.current,
@@ -81,10 +88,10 @@ function HorrorWorldCanvas() {
 
     return () => {
       trigger.kill()
-      gsap.ticker.remove(raf)
-      lenis.destroy()
+      if (raf) gsap.ticker.remove(raf)
+      lenis?.destroy()
     }
-  }, [entered])
+  }, [entered, reducedMotion])
 
   return (
     <div className="horror-world">
@@ -104,7 +111,12 @@ function HorrorWorldCanvas() {
           >
             <Suspense fallback={null}>
               <IntroEnvironment progressRef={progressRef} />
-              <CameraRig frames={horrorConfig.intro.camera} progressRef={progressRef} mouseRef={mouseRef} />
+              <CameraRig
+                frames={horrorConfig.intro.camera}
+                progressRef={progressRef}
+                mouseRef={mouseRef}
+                reducedMotion={reducedMotion}
+              />
               <Effects tier={tier} />
             </Suspense>
           </Canvas>
