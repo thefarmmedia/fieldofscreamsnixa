@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { siteConfig } from '@/lib/site-config'
 
 // Reviews should be real — these are clearly marked as placeholders.
@@ -39,7 +40,17 @@ const TESTIMONIALS = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="section" aria-labelledby="testimonials-heading">
+    <section className="testimonials-section" aria-labelledby="testimonials-heading">
+      <div className="testimonials-bg" aria-hidden="true">
+        <Image
+          src="/images/attraction/clown-skull-dark.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition: '50% 20%' }}
+        />
+      </div>
+
       <div className="section-inner">
         <p className="section-label">Reviews</p>
         <h2 className="section-title" id="testimonials-heading">
@@ -47,15 +58,15 @@ export default function TestimonialsSection() {
         </h2>
         <div className="section-divider" />
 
-        <div className="testimonials-grid">
+        <div className="testimonial-rail">
           {TESTIMONIALS.map((t, i) => (
-            <div key={i} className="testimonial-card">
+            <figure key={i} className="testimonial-slide">
               <div className="testimonial-stars" aria-label={`${t.stars} out of 5 stars`}>
                 {'★'.repeat(t.stars)}
               </div>
-              <p className="testimonial-text">{t.text}</p>
-              <p className="testimonial-author">{t.author}</p>
-            </div>
+              <blockquote className="testimonial-quote">{t.text}</blockquote>
+              <figcaption className="testimonial-author">{t.author}</figcaption>
+            </figure>
           ))}
         </div>
 

@@ -174,6 +174,28 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: translate(0, 0); }
 }
 
+/* Flashlight cursor — desktop + fine pointer + motion-ok only (see
+   FlashlightCursor.tsx). Darkens the periphery around the pointer so the
+   visitor's cursor reads as the only light source. Capped well short of
+   full black so text stays readable no matter where the pointer sits. */
+.flashlight-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  --fx: 50vw;
+  --fy: 50vh;
+  --fo: 1;
+  background: radial-gradient(
+    circle at var(--fx) var(--fy),
+    transparent 0,
+    transparent 120px,
+    rgba(1, 2, 4, calc(0.55 * var(--fo))) 480px
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    COULROPHOBIA ENVIRONMENT
    ═══════════════════════════════════════════════════════════════════════ */
@@ -1345,57 +1367,135 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-/* ─── Testimonials ───────────────────────────────────────────────────── */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
-@media (min-width: 640px) {
-  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1024px) {
-  .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.testimonial-card {
-  padding: 1.5rem;
-  border: 1px solid rgba(232, 228, 220, 0.07);
-  border-radius: 2px;
-  background: rgba(5, 12, 20, 0.5);
+/* ─── Testimonials — documentary style, real photo backdrop ─────────── */
+.testimonials-section {
   position: relative;
+  overflow: hidden;
+  padding: 6rem 1.5rem;
 }
-.testimonial-card::before {
-  content: '"';
+@media (min-width: 768px) { .testimonials-section { padding: 7rem 2.5rem; } }
+@media (min-width: 1280px) { .testimonials-section { padding: 8rem 4rem; } }
+
+.testimonials-bg {
   position: absolute;
-  top: -0.5rem;
-  left: 1rem;
-  font-family: Georgia, serif;
-  font-size: 4rem;
-  color: rgba(196, 26, 0, 0.2);
-  line-height: 1;
+  inset: 0;
+  z-index: 0;
+}
+.testimonials-bg img { filter: grayscale(0.25) contrast(1.05); }
+.testimonials-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(1,2,4,0.88) 0%, rgba(1,2,4,0.8) 40%, rgba(1,2,4,0.92) 100%),
+    linear-gradient(to right, rgba(1,2,4,0.5) 0%, transparent 25%, transparent 75%, rgba(1,2,4,0.5) 100%);
+}
+.testimonials-section .section-inner {
+  position: relative;
+  z-index: 1;
 }
 
-.testimonial-text {
-  font-size: 0.875rem;
-  line-height: 1.7;
-  color: rgba(232, 228, 220, 0.85);
+.testimonial-rail {
+  display: flex;
+  gap: 1px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin: 2.5rem -1.5rem 0;
+  padding: 0 1.5rem 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+@media (min-width: 768px) { .testimonial-rail { margin: 3rem -2.5rem 0; padding: 0 2.5rem 1rem; } }
+
+.testimonial-slide {
+  flex: 0 0 auto;
+  width: min(84vw, 380px);
+  scroll-snap-align: start;
+  padding: 0 2rem 0 0;
+  margin: 0;
+  border-left: 2px solid rgba(196, 26, 0, 0.4);
+  padding-left: 1.5rem;
+}
+
+.testimonial-quote {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--bone-light);
   font-style: italic;
-  margin-bottom: 1rem;
+  margin: 0 0 1.25rem;
 }
 
 .testimonial-author {
   font-family: var(--font-cinzel), Georgia, serif;
   font-size: 0.65rem;
   letter-spacing: 0.15em;
-  color: rgba(196, 26, 0, 0.6);
+  color: rgba(232, 228, 220, 0.5);
   text-transform: uppercase;
 }
 .testimonial-stars {
   color: var(--orange-fos);
-  font-size: 0.7rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+/* ─── Final CTA ──────────────────────────────────────────────────────── */
+.final-cta {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 5rem 1.5rem;
+}
+.final-cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.final-cta-bg img { transform: scale(1.04); }
+.final-cta-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(1,2,4,0.55) 0%, rgba(1,2,4,0.88) 100%),
+    linear-gradient(to bottom, rgba(1,2,4,0.5) 0%, transparent 25%, transparent 70%, rgba(1,2,4,0.75) 100%);
+}
+.final-cta-content {
+  position: relative;
+  z-index: 1;
+}
+.final-cta-eyebrow {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+  letter-spacing: 0.3em;
+  color: var(--blood);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.final-cta-heading {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: var(--bone-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+}
+.final-cta-sub {
+  font-size: 0.9rem;
+  color: rgba(232,228,220,0.55);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+}
+.final-cta-btn {
+  font-size: 0.95rem;
+  padding: 1.1rem 2.75rem;
 }
 
 /* ─── Footer ─────────────────────────────────────────────────────────── */

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
@@ -58,44 +59,29 @@ export default function HomePage() {
 
         <LocationSection />
 
-        {/* Final CTA */}
-        <section style={{
-          textAlign: 'center',
-          padding: '5rem 1.5rem 6rem',
-          borderTop: '1px solid rgba(196,26,0,0.1)',
-          background: 'linear-gradient(to bottom, transparent, rgba(196,26,0,0.03), transparent)',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-cinzel), Georgia, serif',
-            fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)',
-            letterSpacing: '0.3em',
-            color: 'var(--blood)',
-            textTransform: 'uppercase',
-            marginBottom: '1rem',
-          }}>
-            {siteConfig.season.year} Season
-          </p>
-          <h2 style={{
-            fontFamily: 'var(--font-cinzel), Georgia, serif',
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            color: 'var(--bone-light)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            marginBottom: '0.75rem',
-          }}>
-            Are You Ready?
-          </h2>
-          <p style={{
-            fontSize: '0.9rem',
-            color: 'rgba(232,228,220,0.4)',
-            marginBottom: '2.5rem',
-            letterSpacing: '0.08em',
-          }}>
-            Nixa, Missouri &nbsp;•&nbsp; October {siteConfig.season.year}
-          </p>
-          <a href={siteConfig.tickets.url} className="btn-ticket" style={{ fontSize: '0.9rem', padding: '1rem 2.5rem' }}>
-            Secure Your Ticket
-          </a>
+        {/* Final CTA — full-bleed, real photo, no more chances to look away */}
+        <section className="final-cta" aria-labelledby="final-cta-heading">
+          <div className="final-cta-bg" aria-hidden="true">
+            <Image
+              src="/images/attraction/red-wood-door.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: '50% 50%' }}
+            />
+          </div>
+          <div className="final-cta-content">
+            <p className="final-cta-eyebrow">{siteConfig.season.year} Season</p>
+            <h2 className="final-cta-heading" id="final-cta-heading">
+              Are You Ready?
+            </h2>
+            <p className="final-cta-sub">
+              Nixa, Missouri &nbsp;•&nbsp; October {siteConfig.season.year}
+            </p>
+            <a href={siteConfig.tickets.url} className="btn-ticket final-cta-btn">
+              Secure Your Ticket
+            </a>
+          </div>
         </section>
 
         <Footer />
