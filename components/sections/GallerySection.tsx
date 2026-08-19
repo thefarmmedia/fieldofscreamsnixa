@@ -6,7 +6,6 @@ import Lightbox from '@/components/ui/Lightbox'
 // Real photography — cast, sets, guests. Pulled from official event
 // photos and footage, not stock or placeholder imagery.
 const GALLERY_ITEMS = [
-  { src: '/images/attraction/forest-woman-teddybear.jpg', alt: 'A costumed actor among the trees, holding a teddy bear', size: 'tall' as const },
   { src: '/images/attraction/sideshow-banner.jpg', alt: 'The Coulrophobia entrance lined with vintage sideshow banners', size: 'wide' as const },
   { src: '/images/attraction/clown-redhair-closeup.jpg', alt: 'A red-haired clown character in close-up', size: 'normal' as const },
   { src: '/images/gallery/fos-graffiti.jpg', alt: 'The full cast lined up in front of the Field of Screams sign', size: 'wide' as const },

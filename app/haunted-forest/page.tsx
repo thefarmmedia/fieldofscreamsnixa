@@ -75,7 +75,7 @@ export default function HauntedForestPage() {
         <div className="attraction-hero" style={{ minHeight: '75vh' }}>
           <div className="attraction-hero-bg" aria-hidden="true">
             <Image
-              src="/images/attraction/forest-woman-teddybear.jpg"
+              src="/images/attraction/twisted-figure-red.jpg"
               alt=""
               fill
               priority

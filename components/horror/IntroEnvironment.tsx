@@ -5,7 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Instances, Instance, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import { horrorConfig } from '@/lib/horror-config'
-import PhotoApparitions from './PhotoApparitions'
+import Silhouettes from './Silhouettes'
 
 // Deterministic PRNG so the forest layout is stable across renders/reloads.
 function mulberry32(seed: number) {
@@ -246,7 +246,7 @@ export default function IntroEnvironment({
       <FogDriver progressRef={progressRef} />
       <DistantGlow />
       <LightShafts />
-      <PhotoApparitions />
+      <Silhouettes />
       <Gate progressRef={progressRef} />
       <Forest />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -10]}>

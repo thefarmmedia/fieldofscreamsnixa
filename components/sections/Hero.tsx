@@ -9,17 +9,17 @@ export default function Hero() {
 
   return (
     <section className="hero" aria-label="Field of Screams Nixa — Hero">
-      {/* Background: real trees, real fog, real actor in the woods — not the
-          bright carnival highlight-reel video (read as a party, not a threat)
-          and not the blue tunnel shot (read as an indoor hallway, not a forest) */}
+      {/* Background: a figure barely readable in the dark. Deliberately not
+          a clear portrait of any cast member — showing the actors online
+          spoils the attraction. Atmosphere, not a reveal. */}
       <div className="hero-bg" aria-hidden="true">
         <Image
-          src="/images/attraction/forest-woman-teddybear.jpg"
+          src="/images/attraction/twisted-figure-red.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          style={{ objectFit: 'cover', objectPosition: '50% 20%' }}
+          style={{ objectFit: 'cover', objectPosition: '50% 35%' }}
         />
       </div>
 
