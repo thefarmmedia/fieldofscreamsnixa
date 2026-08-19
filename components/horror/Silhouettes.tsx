@@ -3,6 +3,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { groundHeightAt } from './IntroEnvironment'
 
 /**
  * Figures standing between the trees — pure black silhouettes, never lit,
@@ -55,7 +56,7 @@ function Figure({ data }: { data: Figure }) {
 
   const h = data.height
   return (
-    <group ref={group} position={data.position}>
+    <group ref={group} position={[data.position[0], groundHeightAt(data.position[2]), data.position[2]]}>
       {/* Torso/legs — a tapered column, human proportioned */}
       <mesh position={[0, h * 0.42, 0]}>
         <capsuleGeometry args={[h * 0.13, h * 0.62, 4, 8]} />

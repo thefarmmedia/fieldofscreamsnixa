@@ -37,13 +37,18 @@ export const horrorConfig = {
       farDensity: 0.09,
     },
 
+    // Eye height ~1.6m, rising as the trail climbs — you're walking UP
+    // through the woods, not gliding along a level rail. The x values
+    // weave a little so the path bends around trees instead of running
+    // dead straight, and each lookAt leads slightly into the next bend
+    // the way you look where you're about to walk.
     camera: [
-      { t: 0, position: [0, 1.6, 22], lookAt: [0, 1.4, 0], fov: 45 },
-      { t: 0.2, position: [0, 1.55, 12], lookAt: [0.3, 1.3, -4], fov: 42 },
-      { t: 0.38, position: [0, 1.5, 3], lookAt: [0, 1.3, -10], fov: 38 },
-      { t: 0.55, position: [0, 1.5, -4], lookAt: [0, 1.6, -14], fov: 36 },
-      { t: 0.7, position: [0, 1.5, -9], lookAt: [0, 1.6, -20], fov: 34 },
-      { t: 1, position: [0, 1.4, -16], lookAt: [0, 1.3, -30], fov: 40 },
+      { t: 0, position: [0, 1.62, 22], lookAt: [0.4, 1.5, 12], fov: 46 },
+      { t: 0.2, position: [-0.7, 1.78, 12], lookAt: [0.5, 1.7, 3], fov: 44 },
+      { t: 0.38, position: [0.5, 1.95, 3], lookAt: [-0.3, 1.9, -6], fov: 42 },
+      { t: 0.55, position: [-0.4, 2.12, -4], lookAt: [0.2, 2.1, -13], fov: 40 },
+      { t: 0.7, position: [0.3, 2.3, -9], lookAt: [0, 2.3, -19], fov: 38 },
+      { t: 1, position: [-0.2, 2.55, -16], lookAt: [0, 2.5, -30], fov: 42 },
     ] as CameraKeyframe[],
 
     text: [
