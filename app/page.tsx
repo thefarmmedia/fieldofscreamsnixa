@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
@@ -33,7 +34,7 @@ export default function HomePage() {
         {/* Atmospheric interstitial */}
         <div style={{
           textAlign: 'center',
-          padding: '2rem 1.5rem',
+          padding: '2rem 1.5rem 2.5rem',
           background: 'linear-gradient(to bottom, transparent, rgba(2,5,8,0.6), transparent)',
         }}>
           <p style={{
@@ -42,9 +43,13 @@ export default function HomePage() {
             letterSpacing: '0.25em',
             color: 'rgba(232,228,220,0.2)',
             textTransform: 'uppercase',
+            marginBottom: '1.5rem',
           }}>
             You shouldn&apos;t have come here alone.
           </p>
+          <Link href="/enter-the-nightmare" className="btn-secondary">
+            Enter the Nightmare →
+          </Link>
         </div>
 
         <NightmareSelector />
