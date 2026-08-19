@@ -1546,7 +1546,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #000;
   pointer-events: none;
   overflow: hidden;
-  animation: jumpScareShake 0.17s steps(2) both;
+  animation: jumpScarePunch 0.26s steps(3) both;
 }
 /* Source is portrait; on a wide viewport `cover` shows only a horizontal
    band of it, so the position is tuned to land that band on the face
@@ -1557,14 +1557,18 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   object-fit: cover;
   object-position: 50% 6%;
-  filter: contrast(1.25) saturate(1.1) brightness(1.15);
+  filter: contrast(1.45) saturate(1.15) brightness(1.35);
 }
-@keyframes jumpScareShake {
-  0% { transform: translate(0, 0) scale(1.01); }
-  25% { transform: translate(-1.2%, 0.8%) scale(1.03); }
-  50% { transform: translate(1%, -1%) scale(1.01); }
-  75% { transform: translate(-0.8%, -0.6%) scale(1.04); }
-  100% { transform: translate(0, 0) scale(1.02); }
+/* Hard punch-in: lands already large and lurches CLOSER across the hold,
+   so it reads as something rushing the camera rather than a still frame
+   fading in. Stepped, not eased — smooth interpolation reads as a
+   transition, and a scare is not a transition. */
+@keyframes jumpScarePunch {
+  0%   { transform: translate(0, 0) scale(1.14); }
+  20%  { transform: translate(-1.8%, 1.2%) scale(1.2); }
+  45%  { transform: translate(1.4%, -1.4%) scale(1.26); }
+  70%  { transform: translate(-1.5%, -0.9%) scale(1.32); }
+  100% { transform: translate(0.6%, 0.4%) scale(1.38); }
 }
 @media (prefers-reduced-motion: reduce) {
   .jump-scare { display: none; }

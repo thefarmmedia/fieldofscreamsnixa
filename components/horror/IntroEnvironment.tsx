@@ -27,16 +27,26 @@ type Tree = {
   canopyScale: number
 }
 
+/** The trail climbs as it goes: ground height at a given depth. Camera
+ *  keyframes in horror-config rise on the same grade, so you are walking
+ *  up a slope rather than along a flat plane. */
+export function groundHeightAt(z: number) {
+  // Higher the further in (more negative z) you go.
+  return THREE.MathUtils.clamp((18 - z) * 0.026, 0, 1.6)
+}
+
 function generateTrees(count: number): Tree[] {
   const rand = mulberry32(1337)
   const trees: Tree[] = []
   for (let i = 0; i < count; i++) {
     const z = 18 - rand() * 46 // 18 down to -28
     const side = rand() < 0.5 ? -1 : 1
-    const x = side * (3 + rand() * 11)
+    // Pulled in close to the trail — you are walking THROUGH the woods,
+    // with trunks passing near the camera, not down a clearing.
+    const x = side * (1.9 + rand() * 9)
     const height = 4.5 + rand() * 5
     trees.push({
-      position: [x, 0, z],
+      position: [x, groundHeightAt(z), z],
       height,
       radius: 0.18 + rand() * 0.16,
       rotationY: rand() * Math.PI,
@@ -61,7 +71,7 @@ function Forest() {
         {trunks.map((t, i) => (
           <Instance
             key={i}
-            position={[t.position[0], t.height / 2, t.position[2]]}
+            position={[t.position[0], t.position[1] + t.height / 2, t.position[2]]}
             scale={[t.radius * 4, t.height, t.radius * 4]}
             rotation={[0, t.rotationY, 0]}
           />
@@ -74,7 +84,7 @@ function Forest() {
         {canopies.map((t, i) => (
           <Instance
             key={i}
-            position={[t.position[0], t.height + t.canopyScale * 0.5, t.position[2]]}
+            position={[t.position[0], t.position[1] + t.height + t.canopyScale * 0.5, t.position[2]]}
             scale={[t.canopyScale, t.canopyScale * 0.85, t.canopyScale]}
             rotation={[t.rotationY * 0.4, t.rotationY, 0]}
           />
@@ -90,7 +100,7 @@ function Forest() {
             const angle = rand() * Math.PI * 2
             const tilt = 0.5 + rand() * 0.6
             const len = 1.2 + rand() * 1.4
-            const y = t.height * (0.6 + rand() * 0.35)
+            const y = t.position[1] + t.height * (0.6 + rand() * 0.35)
             return (
               <Instance
                 key={`${i}-${b}`}
@@ -143,6 +153,33 @@ function DistantGlow() {
   )
 }
 
+/** Ground that actually climbs, so the slope is visible underfoot rather
+ *  than only implied by the camera rising. Displaces a plane's vertices
+ *  along the same grade the camera follows, plus a little roll so it
+ *  reads as uneven ground rather than a ramp. */
+function SlopedGround() {
+  const geom = useMemo(() => {
+    const g = new THREE.PlaneGeometry(90, 110, 40, 60)
+    const pos = g.attributes.position
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i)
+      const y = pos.getY(i) // pre-rotation, this maps to world z
+      const worldZ = -y - 10
+      const h = groundHeightAt(worldZ)
+      const bumps = Math.sin(x * 0.5) * 0.08 + Math.sin(worldZ * 0.7 + x * 0.2) * 0.1
+      pos.setZ(i, h + bumps)
+    }
+    g.computeVertexNormals()
+    return g
+  }, [])
+
+  return (
+    <mesh geometry={geom} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -10]}>
+      <meshStandardMaterial color="#12100c" roughness={1} />
+    </mesh>
+  )
+}
+
 function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
   const leftPivot = useRef<THREE.Group>(null)
   const rightPivot = useRef<THREE.Group>(null)
@@ -166,7 +203,7 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
   const postMat = <meshStandardMaterial color="#241d18" roughness={0.9} metalness={0.15} />
 
   return (
-    <group position={[0, 0, -10]}>
+    <group position={[0, groundHeightAt(-10), -10]}>
       {/* Left post, hinged at its inner edge */}
       <group ref={leftPivot} position={[-3.2, 0, 0]}>
         <mesh position={[0, 2.5, 0]}>
@@ -247,7 +284,7 @@ function Moonbeams() {
     for (let z = 14; z > -34; z -= 3.4) {
       const x = (rand() - 0.5) * 11
       out.push({
-        pos: [x, 7.5, z + (rand() - 0.5) * 1.6],
+        pos: [x, groundHeightAt(z) + 7.5, z + (rand() - 0.5) * 1.6],
         scale: 0.7 + rand() * 0.75,
         phase: rand() * Math.PI * 2,
       })
@@ -299,7 +336,7 @@ function MoonPools() {
     const rand = mulberry32(99)
     const out: Array<{ pos: [number, number, number]; r: number }> = []
     for (let z = 14; z > -34; z -= 2.6) {
-      out.push({ pos: [(rand() - 0.5) * 9, 0.02, z], r: 0.9 + rand() * 1.5 })
+      out.push({ pos: [(rand() - 0.5) * 9, groundHeightAt(z) + 0.02, z], r: 0.9 + rand() * 1.5 })
     }
     return out
   }, [])
@@ -341,10 +378,7 @@ export default function IntroEnvironment({
       <Silhouettes />
       <Gate progressRef={progressRef} />
       <Forest />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -10]}>
-        <planeGeometry args={[80, 100]} />
-        <meshStandardMaterial color="#12100c" roughness={1} />
-      </mesh>
+      <SlopedGround />
       <Sparkles count={140} scale={[16, 6, 50]} size={1.4} speed={0.15} opacity={0.35} color="#aab4c0" />
     </>
   )

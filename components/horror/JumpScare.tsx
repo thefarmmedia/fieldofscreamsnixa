@@ -57,7 +57,7 @@ export default function JumpScare({
       if (!fired.current && ready.current && progressRef.current >= at) {
         fired.current = true
         setVisible(true)
-        hideTimer = setTimeout(() => setVisible(false), 170)
+        hideTimer = setTimeout(() => setVisible(false), 260)
         return
       }
       raf = requestAnimationFrame(tick)
