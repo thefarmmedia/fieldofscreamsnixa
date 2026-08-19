@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Cinzel, Inter, Special_Elite } from 'next/font/google'
 import { siteConfig } from '@/lib/site-config'
+import FlashlightCursor from '@/components/ui/FlashlightCursor'
 import './globals.css'
 
 const cinzel = Cinzel({
@@ -150,6 +151,7 @@ export default function RootLayout({
         )}
       </head>
       <body>
+        <FlashlightCursor />
         {children}
         {/* Google Analytics */}
         {siteConfig.analytics.gaId && (
