@@ -6,7 +6,7 @@ import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import Countdown from '@/components/ui/Countdown'
 import BannerHero from '@/components/horror/BannerHero'
-import HorrorWorldLoader from '@/components/horror/HorrorWorldLoader'
+import ScrollScare from '@/components/horror/ScrollScare'
 import NightmareSelector from '@/components/sections/NightmareSelector'
 import GallerySection from '@/components/sections/GallerySection'
 import FAQSection from '@/components/sections/FAQSection'
@@ -37,11 +37,6 @@ export default function HomePage() {
       <div className="site-content">
         {/* Top of the site: the banner, alive. */}
         <BannerHero />
-
-        {/* Then the scroll-driven walk through the woods to the gate.
-            Falls back to the static photographic hero when WebGL is
-            unavailable. */}
-        <HorrorWorldLoader />
 
         <NightmareSelector />
 
@@ -84,6 +79,7 @@ export default function HomePage() {
       </div>
 
       <StickyTicketCTA />
+      <ScrollScare />
     </>
   )
 }
