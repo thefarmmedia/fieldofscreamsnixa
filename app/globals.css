@@ -208,13 +208,6 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
-  animation: atmoGrain 0.6s steps(3) infinite;
-}
-@keyframes atmoGrain {
-  0% { transform: translate(0, 0); }
-  33% { transform: translate(-1%, 1%); }
-  66% { transform: translate(1%, -1%); }
-  100% { transform: translate(0, 0); }
 }
 
 /* Flashlight cursor — desktop + fine pointer + motion-ok only (see
@@ -380,13 +373,7 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
   background-size: 128px 128px;
-  animation: grainShift 0.5s steps(2) infinite;
   opacity: 0.3;
-}
-@keyframes grainShift {
-  0% { background-position: 0 0; }
-  50% { background-position: 64px 32px; }
-  100% { background-position: 128px 64px; }
 }
 
 /* Clown peek */
@@ -1067,11 +1054,11 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(196, 26, 0, 0.3);
   line-height: 1;
   padding-top: 0.1em;
-  animation: separatorPulse 1s ease-in-out infinite;
+  animation: separatorPulse 2.8s ease-in-out infinite;
 }
 @keyframes separatorPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+  0%, 100% { opacity: 0.34; }
+  50% { opacity: 0.6; }
 }
 
 .countdown-open-message {
@@ -2137,6 +2124,18 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Mobile ─────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
   .clown-peek-container { display: none; }
+
+  /* Mobile calm-down. Several fixed, animated, compositing layers stacked
+     on a phone GPU is the other common source of on-screen flicker, on top
+     of the grain strobe that was removed outright. Keep the woods and the
+     fog, but hold most of it still: one drifting bank instead of three,
+     and no moving trees or glow. */
+  .atmosphere-fogbank-3 { display: none; }
+  .atmosphere-trees,
+  .atmosphere-glow,
+  .atmosphere-fogbank-2 { animation: none; }
+  .atmosphere-fogbank-2 { opacity: 0.22; }
+  .atmosphere-grain { opacity: 0.025; }
   /* Lighter fog on mobile */
   :root {
     --fog-opacity-base: 0.08;
