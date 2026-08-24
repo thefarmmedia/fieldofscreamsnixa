@@ -103,12 +103,24 @@ const localBusinessSchema = {
     addressRegion: siteConfig.address.state,
     addressCountry: 'US',
   },
+  // Split into two specifications because the schedule genuinely differs
+  // by month: September runs Friday/Saturday only, October adds Sundays.
+  // The one-off Thursday (Oct 29) is covered by the eventSchedule dates
+  // rather than being asserted as a weekly rule.
   openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Friday', 'Saturday'],
+      opens: '19:00',
+      closes: '24:00',
+      validFrom: '2026-09-18',
+      validThrough: '2026-09-26',
+    },
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Friday', 'Saturday', 'Sunday'],
       opens: '19:00',
-      closes: '23:00',
+      closes: '24:00',
       validFrom: '2026-10-02',
       validThrough: '2026-11-01',
     },

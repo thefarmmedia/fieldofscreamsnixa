@@ -25,15 +25,18 @@ export const siteConfig = {
   phone: '', // TODO: Add phone number from site
 
   // ─── 2026 Season ──────────────────────────────────────────────────────
-  // TODO: Confirm actual 2026 operating dates from the live site
+  // Confirmed 2026 schedule from the official dates listing.
   season: {
     year: 2026,
-    // First opening night — used for countdown
-    openingDate: new Date('2026-10-02T19:00:00'),
-    closingDate: new Date('2026-11-01T23:00:00'),
-    hoursDisplay: 'Gates open at 7:00 PM',
-    // Operating dates — update with confirmed 2026 schedule
+    // First opening night — used for the countdown.
+    openingDate: new Date('2026-09-18T19:00:00'),
+    // Final night runs past midnight, so the close is the small hours of
+    // the 2nd rather than 23:00 on the 1st.
+    closingDate: new Date('2026-11-02T00:00:00'),
+    hoursDisplay: 'Open 7:00 PM – 12:00 AM',
     dates: [
+      'September 18', 'September 19',
+      'September 25', 'September 26',
       'October 2', 'October 3', 'October 4',
       'October 9', 'October 10', 'October 11',
       'October 16', 'October 17', 'October 18',
@@ -41,7 +44,12 @@ export const siteConfig = {
       'October 29', 'October 30', 'October 31',
       'November 1',
     ],
-    specialNote: 'Open Friday, Saturday & Sunday nights in October',
+    // The pattern genuinely differs by month, so this states it plainly
+    // rather than flattening it to one rule: September is Fri/Sat only,
+    // October adds Sundays, and Halloween week picks up Thursday the 29th.
+    specialNote:
+      'September: Friday & Saturday. October: Friday, Saturday & Sunday, plus Thursday the 29th. Closing night Sunday, November 1.',
+    displayRange: 'Sept 18 – Nov 1, 2026',
   },
 
   // ─── Tickets ──────────────────────────────────────────────────────────
@@ -107,7 +115,7 @@ export const siteConfig = {
     defaultTitle: 'Field of Screams Nixa | Haunted Attraction | Nixa, Missouri',
     titleTemplate: '%s | Field of Screams Nixa',
     defaultDescription:
-      'Field of Screams Nixa is Southwest Missouri\'s premier haunted attraction. Two terrifying experiences — The Haunted Forest and Coulrophobia — in Nixa, MO. Open October 2026.',
+      'Field of Screams Nixa is Southwest Missouri\'s premier haunted attraction. Two terrifying experiences — The Haunted Forest and Coulrophobia — in Nixa, MO. Open September 18 through November 1, 2026.',
     ogImage: '/images/fos-banner.jpg',
     twitterCard: 'summary_large_image',
   },

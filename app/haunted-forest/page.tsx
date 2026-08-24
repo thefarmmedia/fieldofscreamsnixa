@@ -36,7 +36,7 @@ const FOREST_DETAILS = [
   },
   {
     label: 'What to Expect',
-    content: 'An intense, multi-actor, full-immersion experience in the dark. The trail is designed to disorient your sense of direction. You will be startled. Your group will scatter. Wear closed-toe shoes and dress for Missouri October weather.',
+    content: 'An intense, multi-actor, full-immersion experience in the dark. The trail is designed to disorient your sense of direction. You will be startled. Your group will scatter. Wear closed-toe shoes and dress for Missouri fall weather — September nights and November nights are very different.',
   },
   {
     label: 'Duration',
