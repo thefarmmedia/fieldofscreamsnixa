@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useProgress } from '@react-three/drei'
+import LivingBanner from './LivingBanner'
 
 // Phase 1 has almost no bytes to load (procedural geometry, no textures/
 // models yet), so real useProgress alone would flash past instantly. This
@@ -34,18 +35,25 @@ export default function LoadingExperience({ onEnter }: { onEnter: () => void }) 
 
   return (
     <div className="horror-loading" role="status" aria-live="polite">
-      <div className="horror-loading-logo">FIELD OF SCREAMS</div>
-      <div className="horror-loading-bar-track">
-        <div className="horror-loading-bar-fill" style={{ width: `${shown}%` }} />
-      </div>
-      <p className="horror-loading-label">
-        {shown < 90 ? 'PREPARING YOUR NIGHTMARE…' : 'ONE LAST CHANCE TO LEAVE.'}
-      </p>
-      {ready && (
-        <button type="button" className="horror-enter-btn" onClick={onEnter} autoFocus>
-          ENTER
-        </button>
-      )}
+      <LivingBanner>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="lb-logo"
+          src="/images/sprites/fos-logotype.png"
+          alt="Field of Screams Nixa — Haunted Attractions"
+        />
+        <div className="horror-loading-bar-track">
+          <div className="horror-loading-bar-fill" style={{ width: `${shown}%` }} />
+        </div>
+        <p className="horror-loading-label">
+          {shown < 90 ? 'PREPARING YOUR NIGHTMARE…' : 'ONE LAST CHANCE TO LEAVE.'}
+        </p>
+        {ready && (
+          <button type="button" className="horror-enter-btn" onClick={onEnter} autoFocus>
+            ENTER
+          </button>
+        )}
+      </LivingBanner>
     </div>
   )
 }

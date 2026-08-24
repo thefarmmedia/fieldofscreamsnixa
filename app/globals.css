@@ -1536,6 +1536,198 @@ h1, h2, h3, h4, h5, h6 {
   50% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
 }
 
+/* ─── Living Banner (animated entry screen) ──────────────────────────── */
+.living-banner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #04080c;
+  --px: 0;
+  --py: 0;
+}
+
+.lb-plate {
+  position: absolute;
+  inset: -4%;
+  background-image: url('/images/wraiths/banner-plate.jpg');
+  background-size: cover;
+  background-position: center 40%;
+  transform: translate(calc(var(--px) * -8px), calc(var(--py) * -5px)) scale(1.06);
+  animation: lbPlateDrift 90s ease-in-out infinite;
+}
+@keyframes lbPlateDrift {
+  0%, 100% { background-position: 48% 40%; }
+  50% { background-position: 52% 43%; }
+}
+
+.lb-wraith {
+  position: absolute;
+  animation-name: lbFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+  /* Pointer parallax scaled by each wraith's depth, on top of the float */
+  translate: calc(var(--px) * var(--depth) * 1px) calc(var(--py) * var(--depth) * 0.5px);
+}
+.lb-wraith img {
+  height: 100%;
+  width: auto;
+  display: block;
+  /* The art is already luminous; a touch of glow seats it in the fog. */
+  filter: drop-shadow(0 0 26px rgba(60, 190, 220, 0.28));
+}
+@keyframes lbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.82; }
+  25% { transform: translate3d(1.2%, -2.2%, 0) scale(1.018); opacity: 0.95; }
+  50% { transform: translate3d(-0.8%, -3.4%, 0) scale(1.03); opacity: 0.88; }
+  75% { transform: translate3d(-1.4%, -1.4%, 0) scale(1.012); opacity: 0.97; }
+}
+/* Stagger the breathing so the group never pulses together */
+.lb-wraith-2 { animation-name: lbFloatAlt; }
+.lb-wraith-4 { animation-name: lbFloatAlt; }
+@keyframes lbFloatAlt {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.02); opacity: 0.9; }
+  33% { transform: translate3d(-1.6%, -2.8%, 0) scale(1); opacity: 0.76; }
+  66% { transform: translate3d(1%, -1.2%, 0) scale(1.035); opacity: 0.98; }
+}
+
+.lb-fog {
+  position: absolute;
+  left: -25%;
+  right: -25%;
+  bottom: -10%;
+  height: 62%;
+  pointer-events: none;
+}
+.lb-fog-a {
+  background: linear-gradient(
+    to top,
+    rgba(38, 150, 175, 0.5) 0%,
+    rgba(28, 110, 135, 0.24) 38%,
+    transparent 100%
+  );
+  animation: lbFogA 46s ease-in-out infinite;
+}
+.lb-fog-b {
+  height: 44%;
+  background: radial-gradient(ellipse 60% 100% at 30% 100%, rgba(70, 190, 215, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 100% at 78% 100%, rgba(50, 165, 195, 0.26) 0%, transparent 70%);
+  animation: lbFogB 61s ease-in-out infinite reverse;
+}
+@keyframes lbFogA {
+  0%, 100% { transform: translateX(0) scaleY(1); }
+  50% { transform: translateX(4%) scaleY(1.12); }
+}
+@keyframes lbFogB {
+  0%, 100% { transform: translateX(0) scaleY(1); }
+  50% { transform: translateX(-5%) scaleY(1.16); }
+}
+
+.lb-motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.lb-motes span {
+  position: absolute;
+  bottom: -6%;
+  left: calc(var(--i) * 5.6% + 2%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(150, 232, 246, 0.75);
+  box-shadow: 0 0 7px rgba(90, 210, 235, 0.8);
+  opacity: 0;
+  animation: lbMote linear infinite;
+  animation-duration: calc(17s + var(--i) * 1.6s);
+  animation-delay: calc(var(--i) * -2.4s);
+}
+@keyframes lbMote {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  12% { opacity: 0.9; }
+  80% { opacity: 0.5; }
+  100% { transform: translateY(-88vh) translateX(26px); opacity: 0; }
+}
+
+.lb-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 78% 72% at 50% 45%, transparent 38%, rgba(2, 6, 10, 0.82) 100%);
+}
+
+/* Scrim directly behind the wordmark and CTA. The wraiths are busy and
+   high-contrast; without this the type competes with them and loses. */
+.lb-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 46% 44% at 50% 48%,
+    rgba(2, 8, 12, 0.82) 0%,
+    rgba(2, 8, 12, 0.55) 45%,
+    transparent 78%
+  );
+}
+.lb-content > * {
+  position: relative;
+}
+
+.lb-content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* On a narrow screen the wraiths are wider than the viewport and bury the
+   wordmark. Shrink them, push them off the edges so only the outer halves
+   intrude, and drop the two inner ones entirely — four overlapping ghosts
+   in 390px is noise, not atmosphere. */
+@media (max-width: 767px) {
+  .lb-wraith-1 {
+    height: 46% !important;
+    left: -16% !important;
+    bottom: 2% !important;
+  }
+  .lb-wraith-4 {
+    height: 44% !important;
+    right: -18% !important;
+    bottom: 4% !important;
+  }
+  .lb-wraith-2,
+  .lb-wraith-3 {
+    display: none;
+  }
+  .lb-content::before {
+    background: radial-gradient(
+      ellipse 68% 40% at 50% 48%,
+      rgba(2, 8, 12, 0.88) 0%,
+      rgba(2, 8, 12, 0.6) 50%,
+      transparent 82%
+    );
+  }
+  .lb-logo { width: min(78vw, 340px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-plate,
+  .lb-wraith,
+  .lb-fog,
+  .lb-motes span {
+    animation: none;
+  }
+  .lb-wraith { opacity: 0.9; }
+  .lb-motes { display: none; }
+}
+
 /* The single jump scare — sits above the blackout (z-30), below the
    loading screen (z-50). Snaps in at full size with a hard shake; it is
    only on screen ~170ms so there is no fade, which is the point. */
@@ -1612,14 +1804,23 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   z-index: 50;
-  background: #010204;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.75rem;
-  padding: 1.5rem;
-  text-align: center;
+  background: #04080c;
+}
+
+/* Wordmark sits over the living banner, breathing with the same pulse as
+   the wraiths so the whole plate feels like one moving image. */
+.lb-logo {
+  width: min(74vw, 560px);
+  height: auto;
+  filter: drop-shadow(0 0 34px rgba(60, 200, 225, 0.35));
+  animation: lbLogoBreathe 7s ease-in-out infinite;
+}
+@keyframes lbLogoBreathe {
+  0%, 100% { filter: drop-shadow(0 0 26px rgba(60, 200, 225, 0.28)); }
+  50% { filter: drop-shadow(0 0 44px rgba(90, 225, 245, 0.5)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lb-logo { animation: none; }
 }
 .horror-loading-logo {
   font-family: var(--font-cinzel), Georgia, serif;
