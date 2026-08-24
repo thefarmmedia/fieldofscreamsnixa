@@ -2,7 +2,7 @@
 
 import { useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Instances, Instance, Sparkles } from '@react-three/drei'
+import { Instances, Instance, Sparkles, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { horrorConfig } from '@/lib/horror-config'
 import Silhouettes from './Silhouettes'
@@ -57,17 +57,42 @@ function generateTrees(count: number): Tree[] {
   return trees
 }
 
+/** Loads a tiling albedo + normal pair. The textures are procedurally
+ *  generated (see scripts note in public/textures) and seamless, so they
+ *  can be repeated hard without visible seams. */
+function useTiling(base: string, repeat: [number, number]) {
+  const [map, normalMap] = useTexture([`/textures/${base}.jpg`, `/textures/${base}-normal.jpg`])
+  return useMemo(() => {
+    for (const t of [map, normalMap]) {
+      t.wrapS = t.wrapT = THREE.RepeatWrapping
+      t.repeat.set(repeat[0], repeat[1])
+      t.anisotropy = 4
+    }
+    map.colorSpace = THREE.SRGBColorSpace
+    return { map, normalMap }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, normalMap])
+}
+
 function Forest() {
   const trees = useMemo(() => generateTrees(90), [])
   const trunks = trees
   const canopies = trees.filter((t) => t.hasCanopy)
   const branchTrees = trees.filter((t) => !t.hasCanopy)
+  // Repeat hard along the trunk so the grain reads at human scale rather
+  // than one stretched texture per tree.
+  const bark = useTiling('bark', [1, 3])
 
   return (
     <group>
       <Instances limit={trunks.length}>
         <cylinderGeometry args={[0.12, 0.28, 1, 6]} />
-        <meshStandardMaterial color="#2b241b" roughness={1} />
+        <meshStandardMaterial
+          {...bark}
+          color="#ffffff"
+          roughness={0.95}
+          normalScale={new THREE.Vector2(1.3, 1.3)}
+        />
         {trunks.map((t, i) => (
           <Instance
             key={i}
@@ -93,7 +118,7 @@ function Forest() {
 
       <Instances limit={Math.max(branchTrees.length * 3, 1)}>
         <cylinderGeometry args={[0.02, 0.05, 1, 4]} />
-        <meshStandardMaterial color="#2b241b" roughness={1} />
+        <meshStandardMaterial {...bark} color="#ffffff" roughness={0.95} />
         {branchTrees.flatMap((t, i) =>
           [0, 1, 2].map((b) => {
             const rand = mulberry32(i * 97 + b * 13)
@@ -158,6 +183,7 @@ function DistantGlow() {
  *  along the same grade the camera follows, plus a little roll so it
  *  reads as uneven ground rather than a ramp. */
 function SlopedGround() {
+  const dirt = useTiling('ground', [18, 22])
   const geom = useMemo(() => {
     const g = new THREE.PlaneGeometry(90, 110, 40, 60)
     const pos = g.attributes.position
@@ -175,12 +201,18 @@ function SlopedGround() {
 
   return (
     <mesh geometry={geom} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -10]}>
-      <meshStandardMaterial color="#12100c" roughness={1} />
+      <meshStandardMaterial
+        {...dirt}
+        color="#ffffff"
+        roughness={1}
+        normalScale={new THREE.Vector2(0.9, 0.9)}
+      />
     </mesh>
   )
 }
 
 function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
+  const gateWood = useTiling('bark', [1, 2])
   const leftPivot = useRef<THREE.Group>(null)
   const rightPivot = useRef<THREE.Group>(null)
   const lantern = useRef<THREE.PointLight>(null)
@@ -200,7 +232,9 @@ function Gate({ progressRef }: { progressRef: React.MutableRefObject<number> }) 
     }
   })
 
-  const postMat = <meshStandardMaterial color="#241d18" roughness={0.9} metalness={0.15} />
+  const postMat = (
+    <meshStandardMaterial {...gateWood} color="#d8cbb4" roughness={0.92} metalness={0.05} />
+  )
 
   return (
     <group position={[0, groundHeightAt(-10), -10]}>
