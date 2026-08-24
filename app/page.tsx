@@ -5,6 +5,7 @@ import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import Countdown from '@/components/ui/Countdown'
+import BannerHero from '@/components/horror/BannerHero'
 import HorrorWorldLoader from '@/components/horror/HorrorWorldLoader'
 import NightmareSelector from '@/components/sections/NightmareSelector'
 import GallerySection from '@/components/sections/GallerySection'
@@ -34,9 +35,12 @@ export default function HomePage() {
       </h1>
 
       <div className="site-content">
-        {/* The homepage IS the experience: a scroll-driven journey through
-            the woods to the gate. Falls back to the static photographic
-            hero when WebGL is unavailable or reduced-motion is set. */}
+        {/* Top of the site: the banner, alive. */}
+        <BannerHero />
+
+        {/* Then the scroll-driven walk through the woods to the gate.
+            Falls back to the static photographic hero when WebGL is
+            unavailable. */}
         <HorrorWorldLoader />
 
         <NightmareSelector />

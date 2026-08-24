@@ -112,9 +112,16 @@ export default function LivingBanner({ children }: { children?: React.ReactNode 
         </div>
       ))}
 
-      {/* Ground fog rolling across the base, as on the banner */}
+      {/* Real fog: a seamless cloud texture drifting at three different
+          scales and speeds. Each bank's opacity swings on its own long
+          cycle, so fog genuinely thickens and thins out rather than
+          sitting at a constant haze. */}
+      <div className="lb-fogbank lb-fogbank-1" aria-hidden="true" />
+      <div className="lb-fogbank lb-fogbank-2" aria-hidden="true" />
+      <div className="lb-fogbank lb-fogbank-3" aria-hidden="true" />
+
+      {/* Teal ground glow at the base, as on the banner */}
       <div className="lb-fog lb-fog-a" aria-hidden="true" />
-      <div className="lb-fog lb-fog-b" aria-hidden="true" />
 
       {/* Drifting motes catching the light */}
       <div className="lb-motes" aria-hidden="true">

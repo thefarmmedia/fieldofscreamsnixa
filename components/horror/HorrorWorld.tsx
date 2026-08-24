@@ -12,7 +12,6 @@ import IntroEnvironment from './IntroEnvironment'
 import Effects from './Effects'
 import CameraRig from './CameraRig'
 import EnvironmentalText from './EnvironmentalText'
-import LoadingExperience from './LoadingExperience'
 import HorrorFallback from './HorrorFallback'
 import JumpScare from './JumpScare'
 
@@ -29,7 +28,6 @@ export default function HorrorWorld() {
 }
 
 function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
-  const [entered, setEntered] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const blackoutRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef(0)
@@ -56,7 +54,7 @@ function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
   }, [])
 
   useEffect(() => {
-    if (!entered || !trackRef.current) return
+    if (!trackRef.current) return
 
     gsap.registerPlugin(ScrollTrigger)
 
@@ -92,13 +90,12 @@ function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
       if (raf) gsap.ticker.remove(raf)
       lenis?.destroy()
     }
-  }, [entered, reducedMotion])
+  }, [reducedMotion])
 
   return (
     <div className="horror-world">
       <div ref={trackRef} className="horror-track" style={{ height: `${horrorConfig.intro.heightVh}vh` }}>
         <div className="horror-pin">
-          {!entered && <LoadingExperience onEnter={() => setEntered(true)} />}
           <Canvas
             style={{ position: 'absolute', inset: 0 }}
             dpr={tier === 'high' ? [1, 1.75] : [1, 1.25]}
@@ -129,7 +126,7 @@ function HorrorWorldCanvas({ reducedMotion }: { reducedMotion: boolean }) {
             src="/images/attraction/clown-redhair-closeup.jpg"
             reducedMotion={reducedMotion}
           />
-          {entered && <p className="horror-scroll-cue">Scroll</p>}
+          <p className="horror-scroll-cue">Keep going</p>
         </div>
       </div>
     </div>
