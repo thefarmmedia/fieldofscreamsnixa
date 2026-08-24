@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
+import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export default function NotFound() {
   return (
     <>
       <AtmosphereBackground />
+      <AnnouncementBar />
       <Navigation />
 
       <div className="site-content" style={{

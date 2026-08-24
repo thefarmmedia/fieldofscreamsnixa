@@ -4,6 +4,7 @@ import Image from 'next/image'
 // Note: ticket CTA onClick tracking is handled by Navigation component
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
+import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import FAQSection from '@/components/sections/FAQSection'
@@ -64,6 +65,7 @@ export default function HauntedForestPage() {
   return (
     <>
       <AtmosphereBackground />
+      <AnnouncementBar />
       <Navigation />
       <script
         type="application/ld+json"

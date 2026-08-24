@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
+import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import GallerySection from '@/components/sections/GallerySection'
@@ -18,6 +19,7 @@ export default function GalleryPage() {
   return (
     <>
       <AtmosphereBackground />
+      <AnnouncementBar />
       <Navigation />
 
       <div className="site-content">
