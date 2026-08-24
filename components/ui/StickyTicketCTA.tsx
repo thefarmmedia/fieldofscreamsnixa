@@ -23,7 +23,7 @@ export default function StickyTicketCTA() {
     >
       <div>
         <div className="sticky-cta-dates">
-          Oct 2 – Nov 1, 2026
+          {siteConfig.season.displayRange}
         </div>
         <div className="sticky-cta-dates" style={{ color: 'rgba(232,228,220,0.3)' }}>
           Nixa, Missouri
