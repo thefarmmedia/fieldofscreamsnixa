@@ -91,6 +91,11 @@ export default function LivingBanner({ children }: { children?: React.ReactNode 
 
   return (
     <div className="living-banner" ref={rootRef}>
+      {/* Every visual layer lives in one wrapper so its bottom edge can be
+          masked as a unit — that hard cut where the banner met the page was
+          the line under the hero. Content stays outside the wrapper so the
+          wordmark and CTAs are never faded. */}
+      <div className="lb-scene" aria-hidden="true">
       <div className="lb-plate" aria-hidden="true" />
 
       {WRAITHS.map((w, i) => (
@@ -131,6 +136,7 @@ export default function LivingBanner({ children }: { children?: React.ReactNode 
       </div>
 
       <div className="lb-vignette" aria-hidden="true" />
+      </div>
 
       <div className="lb-content">{children}</div>
     </div>

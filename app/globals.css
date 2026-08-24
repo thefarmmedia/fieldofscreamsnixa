@@ -431,7 +431,13 @@ h1, h2, h3, h4, h5, h6 {
 .section {
   position: relative;
   padding: 5rem 1.5rem;
-  background: linear-gradient(to bottom, rgba(3, 11, 16, 0.62), rgba(2, 9, 14, 0.76));
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 11, 16, 0) 0%,
+    rgba(3, 11, 16, 0.62) 14%,
+    rgba(2, 9, 14, 0.76) 86%,
+    rgba(2, 9, 14, 0) 100%
+  );
 }
 @media (min-width: 768px) {
   .section { padding: 7rem 2.5rem; }
@@ -889,6 +895,10 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   grid-template-columns: 1fr;
   min-height: 70vh;
+  /* Soften only the outer edges of the pair; the seam BETWEEN the two
+     panels is intentional. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
 }
 @media (min-width: 900px) {
   .nightmare-split { grid-template-columns: 1fr 1fr; min-height: 85vh; }
@@ -1411,6 +1421,8 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
 }
 .testimonials-bg img { filter: grayscale(0.25) contrast(1.05); }
 .testimonials-bg::after {
@@ -1488,6 +1500,8 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
 }
 .final-cta-bg img { transform: scale(1.04); }
 .final-cta-bg::after {
@@ -1679,9 +1693,19 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #04080c;
   --px: 0;
   --py: 0;
+}
+
+/* All banner visuals in one masked layer. Fading its bottom edge lets the
+   fixed woods behind the page show through, so the hero dissolves into the
+   site instead of ending on a cut. */
+.lb-scene {
+  position: absolute;
+  inset: 0;
+  background: #04080c;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 74%, transparent 99%);
 }
 
 .lb-plate {
@@ -1987,7 +2011,6 @@ h1, h2, h3, h4, h5, h6 {
 .footer {
   position: relative;
   padding: 3rem 1.5rem;
-  border-top: 1px solid rgba(232, 228, 220, 0.07);
   text-align: center;
 }
 .footer-logo { margin: 0 auto 1.5rem; display: block; width: 72px; }
