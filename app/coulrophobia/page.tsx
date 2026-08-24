@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteConfig } from '@/lib/site-config'
 import CoulrophobiaEnvironment from '@/components/environment/CoulrophobiaEnvironment'
+import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import FAQSection from '@/components/sections/FAQSection'
@@ -63,6 +64,7 @@ export default function CoulrophobiaPage() {
   return (
     <>
       <CoulrophobiaEnvironment />
+      <AnnouncementBar />
       <Navigation />
       <script
         type="application/ld+json"
