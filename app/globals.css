@@ -1499,43 +1499,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1.1rem 2.75rem;
 }
 
-/* ─── Horror World (Enter the Nightmare WebGL intro) ─────────────────── */
-.horror-world { position: relative; }
-.horror-track { position: relative; }
-.horror-pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  background: #010204;
-}
-.horror-blackout {
-  position: absolute;
-  inset: 0;
-  z-index: 30;
-  background: #000103;
-  opacity: 0;
-  pointer-events: none;
-}
-.horror-scroll-cue {
-  position: absolute;
-  bottom: 2.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  font-family: var(--font-cinzel), Georgia, serif;
-  letter-spacing: 0.3em;
-  font-size: 0.6rem;
-  color: rgba(232, 228, 220, 0.4);
-  text-transform: uppercase;
-  animation: horrorScrollBounce 2.4s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes horrorScrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
-  50% { transform: translateX(-50%) translateY(8px); opacity: 0.9; }
-}
-
 /* ─── Banner hero (top of the site) ──────────────────────────────────── */
 .banner-hero {
   position: relative;
@@ -1842,9 +1805,9 @@ h1, h2, h3, h4, h5, h6 {
    loading screen (z-50). Snaps in at full size with a hard shake; it is
    only on screen ~170ms so there is no fade, which is the point. */
 .jump-scare {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 35;
+  z-index: 90;
   background: #000;
   pointer-events: none;
   overflow: hidden;
@@ -1876,47 +1839,6 @@ h1, h2, h3, h4, h5, h6 {
   .jump-scare { display: none; }
 }
 
-.horror-text-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-.horror-text-cue {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(90vw, 700px);
-  text-align: center;
-  opacity: 0;
-  will-change: opacity, transform, filter;
-}
-.horror-text-main {
-  font-family: var(--font-cinzel), Georgia, serif;
-  font-size: clamp(1.8rem, 6vw, 4rem);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--bone-light);
-  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.9);
-  margin: 0 0 0.5rem;
-  line-height: 1.05;
-}
-.horror-text-sub {
-  font-family: var(--font-cinzel), Georgia, serif;
-  font-size: clamp(0.7rem, 1.6vw, 0.9rem);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--blood);
-  margin: 0;
-}
-
-.horror-loading {
-  position: absolute;
-  inset: 0;
-  z-index: 50;
-  background: #04080c;
-}
-
 /* Wordmark sits over the living banner, breathing with the same pulse as
    the wraiths so the whole plate feels like one moving image. */
 .lb-logo {
@@ -1944,52 +1866,6 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .lb-logo { animation: none; }
 }
-.horror-loading-logo {
-  font-family: var(--font-cinzel), Georgia, serif;
-  letter-spacing: 0.3em;
-  font-size: clamp(1rem, 3vw, 1.6rem);
-  color: var(--bone-light);
-  text-transform: uppercase;
-}
-.horror-loading-bar-track {
-  width: min(70vw, 320px);
-  height: 2px;
-  background: rgba(232, 228, 220, 0.15);
-}
-.horror-loading-bar-fill {
-  height: 100%;
-  background: var(--blood);
-  transition: width 0.15s linear;
-}
-.horror-loading-label {
-  font-family: var(--font-cinzel), Georgia, serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(232, 228, 220, 0.45);
-  min-height: 1em;
-}
-.horror-enter-btn {
-  padding: 0.9rem 2.75rem;
-  border: 1px solid var(--blood);
-  color: var(--bone-light);
-  background: transparent;
-  font-family: var(--font-cinzel), Georgia, serif;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.horror-enter-btn:hover,
-.horror-enter-btn:focus-visible {
-  background: var(--blood);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .horror-scroll-cue { animation: none; }
-}
-
 /* ─── Footer ─────────────────────────────────────────────────────────── */
 .footer {
   position: relative;
