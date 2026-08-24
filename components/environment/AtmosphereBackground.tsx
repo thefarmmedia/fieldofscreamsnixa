@@ -14,6 +14,7 @@ export default function AtmosphereBackground() {
       <div className="atmosphere-glow" />
       <div className="atmosphere-fogbank atmosphere-fogbank-1" />
       <div className="atmosphere-fogbank atmosphere-fogbank-2" />
+      <div className="atmosphere-fogbank atmosphere-fogbank-3" />
       <div className="atmosphere-vignette" />
       <div className="atmosphere-grain" />
     </div>

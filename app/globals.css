@@ -106,10 +106,10 @@ h1, h2, h3, h4, h5, h6 {
 .atmosphere-trees {
   position: absolute;
   inset: -6%;
-  background-image: url('/images/wraiths/banner-plate.jpg');
+  background-image: url('/images/wraiths/woods-plate.jpg');
   background-size: cover;
-  background-position: center 35%;
-  opacity: 0.9;
+  background-position: center 30%;
+  opacity: 1;
   animation: atmoTreeDrift 120s ease-in-out infinite;
 }
 @keyframes atmoTreeDrift {
@@ -126,8 +126,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 55%;
   background: linear-gradient(
     to top,
-    rgba(30, 132, 158, 0.34) 0%,
-    rgba(20, 92, 116, 0.16) 42%,
+    rgba(34, 148, 178, 0.46) 0%,
+    rgba(22, 104, 132, 0.22) 44%,
     transparent 100%
   );
   animation: atmoGlow 74s ease-in-out infinite;
@@ -149,17 +149,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 .atmosphere-fogbank-1 {
   bottom: 0;
-  height: 74%;
+  height: 92%;
   background-size: auto 100%;
   opacity: 0;
   animation: atmoDrift 155s linear infinite, atmoSwellA 53s ease-in-out infinite;
 }
 .atmosphere-fogbank-2 {
   bottom: -6%;
-  height: 48%;
+  height: 62%;
   background-size: auto 145%;
   opacity: 0;
   animation: atmoDriftRev 112s linear infinite, atmoSwellB 71s ease-in-out infinite;
+}
+/* Nearest bank: largest scale, fastest drift, so some fog reads as
+   passing close to the viewer rather than all of it sitting far off. */
+.atmosphere-fogbank-3 {
+  bottom: -14%;
+  height: 46%;
+  background-size: auto 210%;
+  opacity: 0;
+  animation: atmoDrift 74s linear infinite, atmoSwellC 43s ease-in-out infinite;
 }
 @keyframes atmoDrift {
   from { background-position: 0 100%; }
@@ -170,14 +179,19 @@ h1, h2, h3, h4, h5, h6 {
   to { background-position: 0 100%; }
 }
 @keyframes atmoSwellA {
-  0%, 100% { opacity: 0.05; }
-  45% { opacity: 0.2; }
-  72% { opacity: 0.1; }
+  0%, 100% { opacity: 0.1; }
+  45% { opacity: 0.44; }
+  72% { opacity: 0.2; }
 }
 @keyframes atmoSwellB {
-  0%, 100% { opacity: 0.14; }
-  38% { opacity: 0.04; }
-  66% { opacity: 0.24; }
+  0%, 100% { opacity: 0.26; }
+  38% { opacity: 0.07; }
+  66% { opacity: 0.5; }
+}
+@keyframes atmoSwellC {
+  0%, 100% { opacity: 0.05; }
+  30% { opacity: 0.3; }
+  60% { opacity: 0.12; }
 }
 
 .atmosphere-vignette {
@@ -430,7 +444,7 @@ h1, h2, h3, h4, h5, h6 {
 .section {
   position: relative;
   padding: 5rem 1.5rem;
-  background: linear-gradient(to bottom, rgba(3, 11, 16, 0.5), rgba(2, 9, 14, 0.68));
+  background: linear-gradient(to bottom, rgba(3, 11, 16, 0.62), rgba(2, 9, 14, 0.76));
 }
 @media (min-width: 768px) {
   .section { padding: 7rem 2.5rem; }
@@ -2029,8 +2043,9 @@ h1, h2, h3, h4, h5, h6 {
      run, which would leave the fog banks parked on whatever their final
      keyframe happens to be. Pin them to a deliberate resting value so
      reduced-motion visitors still get the woods, just still. */
-  .atmosphere-fogbank-1 { opacity: 0.12 !important; }
-  .atmosphere-fogbank-2 { opacity: 0.16 !important; }
+  .atmosphere-fogbank-1 { opacity: 0.24 !important; }
+  .atmosphere-fogbank-2 { opacity: 0.28 !important; }
+  .atmosphere-fogbank-3 { opacity: 0.16 !important; }
   body { background: #030a10; }
 }
 
