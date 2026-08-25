@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { siteConfig } from '@/lib/site-config'
 import CoulrophobiaEnvironment from '@/components/environment/CoulrophobiaEnvironment'
 import AnnouncementBar from '@/components/ui/AnnouncementBar'
@@ -97,21 +98,15 @@ export default function CoulrophobiaPage() {
             </nav>
 
             <p className="section-label">Attraction 02</p>
-            <h1
-              className="glitch-text"
-              data-glitch="Coulrophobia"
-              style={{
-                fontFamily: 'var(--font-cinzel), Georgia, serif',
-                fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
-                fontWeight: 900,
-                color: 'var(--bone-light)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                lineHeight: 1,
-                marginBottom: '1rem',
-              }}
-            >
-              Coulrophobia
+            <h1 style={{ marginBottom: '1rem' }}>
+              <Image
+                src="/images/sprites/coulrophobia-wordmark.png"
+                alt={attraction.name}
+                width={1700}
+                height={624}
+                priority
+                className="attraction-hero-logo"
+              />
             </h1>
             <p style={{
               fontFamily: 'var(--font-cinzel), Georgia, serif',

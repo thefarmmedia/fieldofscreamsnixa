@@ -37,7 +37,15 @@ export default function NightmareSelector() {
           <div className="nightmare-panel-scrim nightmare-panel-scrim-forest" />
           <div className="nightmare-panel-content">
             <p className="nightmare-panel-number">Attraction 01</p>
-            <h3 className="nightmare-panel-name">{forest.name}</h3>
+            <h3 className="nightmare-panel-name">
+              <Image
+                src="/images/sprites/haunted-forest-wordmark.png"
+                alt={forest.name}
+                width={1631}
+                height={480}
+                className="nightmare-panel-logo"
+              />
+            </h3>
             <p className="nightmare-panel-tagline">{forest.tagline}</p>
             <span className="nightmare-panel-cta">
               Enter the Forest
@@ -61,8 +69,14 @@ export default function NightmareSelector() {
           <div className="nightmare-panel-scrim nightmare-panel-scrim-carnival" />
           <div className="nightmare-panel-content">
             <p className="nightmare-panel-number">Attraction 02</p>
-            <h3 className="nightmare-panel-name glitch-text" data-glitch={carnival.name}>
-              {carnival.name}
+            <h3 className="nightmare-panel-name">
+              <Image
+                src="/images/sprites/coulrophobia-wordmark.png"
+                alt={carnival.name}
+                width={1700}
+                height={624}
+                className="nightmare-panel-logo"
+              />
             </h3>
             <p className="nightmare-panel-tagline">{carnival.tagline}</p>
             <span className="nightmare-panel-cta">

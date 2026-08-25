@@ -104,17 +104,15 @@ export default function HauntedForestPage() {
             </nav>
 
             <p className="section-label">Attraction 01</p>
-            <h1 style={{
-              fontFamily: 'var(--font-cinzel), Georgia, serif',
-              fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
-              fontWeight: 900,
-              color: 'var(--bone-light)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              lineHeight: 1,
-              marginBottom: '1rem',
-            }}>
-              Haunted Forest
+            <h1 style={{ marginBottom: '1rem' }}>
+              <Image
+                src="/images/sprites/haunted-forest-wordmark.png"
+                alt={attraction.name}
+                width={1631}
+                height={480}
+                priority
+                className="attraction-hero-logo"
+              />
             </h1>
             <p style={{
               fontFamily: 'var(--font-cinzel), Georgia, serif',
