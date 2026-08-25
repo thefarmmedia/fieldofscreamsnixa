@@ -138,7 +138,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Fog banks, same texture and same trick as the hero: drift and opacity
-   run on non-harmonic periods so the fog never visibly loops. */
+   run on non-harmonic periods so the fog never visibly loops. Heights
+   reach well up into the canopy (not just the ground), and the swell
+   floor is high enough that fog is always at least partly visible —
+   it used to dip to 0.05-0.1, which meant it was gone most of the time.
+   Drift is fast enough to read as real movement in a few seconds. */
 .atmosphere-fogbank {
   position: absolute;
   left: 0;
@@ -149,26 +153,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 .atmosphere-fogbank-1 {
   bottom: 0;
-  height: 92%;
+  height: 96%;
   background-size: auto 100%;
   opacity: 0;
-  animation: atmoDrift 155s linear infinite, atmoSwellA 53s ease-in-out infinite;
+  animation: atmoDrift 42s linear infinite, atmoSwellA 33s ease-in-out infinite;
 }
 .atmosphere-fogbank-2 {
   bottom: -6%;
-  height: 62%;
+  height: 70%;
   background-size: auto 145%;
   opacity: 0;
-  animation: atmoDriftRev 112s linear infinite, atmoSwellB 71s ease-in-out infinite;
+  animation: atmoDriftRev 29s linear infinite, atmoSwellB 41s ease-in-out infinite;
 }
 /* Nearest bank: largest scale, fastest drift, so some fog reads as
    passing close to the viewer rather than all of it sitting far off. */
 .atmosphere-fogbank-3 {
   bottom: -14%;
-  height: 46%;
+  height: 52%;
   background-size: auto 210%;
   opacity: 0;
-  animation: atmoDrift 74s linear infinite, atmoSwellC 43s ease-in-out infinite;
+  animation: atmoDrift 21s linear infinite, atmoSwellC 26s ease-in-out infinite;
 }
 @keyframes atmoDrift {
   from { background-position: 0 100%; }
@@ -179,19 +183,19 @@ h1, h2, h3, h4, h5, h6 {
   to { background-position: 0 100%; }
 }
 @keyframes atmoSwellA {
-  0%, 100% { opacity: 0.1; }
-  45% { opacity: 0.44; }
-  72% { opacity: 0.2; }
+  0%, 100% { opacity: 0.34; }
+  45% { opacity: 0.58; }
+  72% { opacity: 0.4; }
 }
 @keyframes atmoSwellB {
-  0%, 100% { opacity: 0.26; }
-  38% { opacity: 0.07; }
-  66% { opacity: 0.5; }
+  0%, 100% { opacity: 0.3; }
+  38% { opacity: 0.22; }
+  66% { opacity: 0.48; }
 }
 @keyframes atmoSwellC {
-  0%, 100% { opacity: 0.05; }
-  30% { opacity: 0.3; }
-  60% { opacity: 0.12; }
+  0%, 100% { opacity: 0.22; }
+  30% { opacity: 0.38; }
+  60% { opacity: 0.26; }
 }
 
 .atmosphere-vignette {
@@ -1013,9 +1017,13 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
+  /* Was rgba(...,0.3) at both 0% and 100% — a flat non-zero edge that
+     didn't match the .section scrim it sits on top of (which fades to
+     true 0 at its own edges), so the seam with the sections above and
+     below showed up as a hard line. Now fades to 0 at both edges too. */
   background:
     radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196, 26, 0, 0.04) 0%, transparent 70%),
-    linear-gradient(to bottom, rgba(1, 2, 4, 0.3) 0%, transparent 50%, rgba(1, 2, 4, 0.3) 100%);
+    linear-gradient(to bottom, transparent 0%, rgba(1, 2, 4, 0.3) 50%, transparent 100%);
   pointer-events: none;
 }
 
@@ -1804,26 +1812,31 @@ h1, h2, h3, h4, h5, h6 {
   background-repeat: repeat-x;
   will-change: background-position, opacity;
 }
+/* Reaches up into the canopy (not just the ground) and never fully
+   fades — the swell keyframes used to dip to 0.05-0.1, which meant the
+   fog was invisible more often than not. Drift is also fast enough now
+   to actually read as movement within a few seconds of looking at it,
+   not just over a couple of minutes. */
 .lb-fogbank-1 {
   bottom: -4%;
-  height: 70%;
+  height: 88%;
   background-size: auto 100%;
   opacity: 0;
-  animation: lbDrift 130s linear infinite, lbSwell1 47s ease-in-out infinite;
+  animation: lbDrift 38s linear infinite, lbSwell1 29s ease-in-out infinite;
 }
 .lb-fogbank-2 {
-  bottom: -8%;
-  height: 46%;
+  bottom: -6%;
+  height: 64%;
   background-size: auto 130%;
   opacity: 0;
-  animation: lbDriftRev 96s linear infinite, lbSwell2 61s ease-in-out infinite;
+  animation: lbDriftRev 26s linear infinite, lbSwell2 37s ease-in-out infinite;
 }
 .lb-fogbank-3 {
-  bottom: -12%;
-  height: 34%;
+  bottom: -10%;
+  height: 46%;
   background-size: auto 170%;
   opacity: 0;
-  animation: lbDrift 68s linear infinite, lbSwell3 39s ease-in-out infinite;
+  animation: lbDrift 19s linear infinite, lbSwell3 24s ease-in-out infinite;
 }
 @keyframes lbDrift {
   from { background-position: 0 100%; }
@@ -1834,18 +1847,18 @@ h1, h2, h3, h4, h5, h6 {
   to { background-position: 0 100%; }
 }
 @keyframes lbSwell1 {
-  0%, 100% { opacity: 0.06; }
-  45% { opacity: 0.34; }
-  70% { opacity: 0.16; }
+  0%, 100% { opacity: 0.32; }
+  45% { opacity: 0.58; }
+  70% { opacity: 0.4; }
 }
 @keyframes lbSwell2 {
-  0%, 100% { opacity: 0.22; }
-  35% { opacity: 0.05; }
-  65% { opacity: 0.4; }
+  0%, 100% { opacity: 0.28; }
+  35% { opacity: 0.4; }
+  65% { opacity: 0.22; }
 }
 @keyframes lbSwell3 {
   0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.1; }
+  50% { opacity: 0.46; }
 }
 @keyframes lbFogA {
   0%, 100% { transform: translateX(0) scaleY(1); }
@@ -2167,9 +2180,9 @@ h1, h2, h3, h4, h5, h6 {
      run, which would leave the fog banks parked on whatever their final
      keyframe happens to be. Pin them to a deliberate resting value so
      reduced-motion visitors still get the woods, just still. */
-  .atmosphere-fogbank-1 { opacity: 0.24 !important; }
-  .atmosphere-fogbank-2 { opacity: 0.28 !important; }
-  .atmosphere-fogbank-3 { opacity: 0.16 !important; }
+  .atmosphere-fogbank-1 { opacity: 0.4 !important; }
+  .atmosphere-fogbank-2 { opacity: 0.34 !important; }
+  .atmosphere-fogbank-3 { opacity: 0.28 !important; }
   body { background: #030a10; }
 }
 
@@ -2187,9 +2200,18 @@ h1, h2, h3, h4, h5, h6 {
   .atmosphere-glow,
   .atmosphere-fogbank-2,
   .atmosphere-fogbank-3 { animation: none; }
-  .atmosphere-fogbank-2 { opacity: 0.3; }
-  .atmosphere-fogbank-3 { opacity: 0.22; }
+  .atmosphere-fogbank-2 { opacity: 0.4; }
+  .atmosphere-fogbank-3 { opacity: 0.3; }
   .atmosphere-grain { opacity: 0.025; }
+  /* Same calm-down for the banner's own fog layers — these got
+     noticeably faster to make the motion actually readable, which on a
+     phone GPU is exactly the kind of stacked-animated-layer load that
+     caused the flicker before. One drifting bank, two held static. */
+  .lb-plate,
+  .lb-fogbank-2,
+  .lb-fogbank-3 { animation: none; }
+  .lb-fogbank-2 { opacity: 0.32; }
+  .lb-fogbank-3 { opacity: 0.36; }
   /* Lighter fog on mobile */
   :root {
     --fog-opacity-base: 0.08;
