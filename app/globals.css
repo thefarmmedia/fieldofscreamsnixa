@@ -968,15 +968,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nightmare-panel-name {
-  font-family: var(--font-cinzel), Georgia, serif;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 900;
-  color: var(--bone-light);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
   line-height: 1;
   margin-bottom: 0.6rem;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.95);
+}
+
+/* Attraction wordmarks — real neon artwork replacing plain styled text.
+   Sized by width (each logo has its own aspect ratio); a drop-shadow
+   grounds them against the photo the same way the old text-shadow did. */
+.nightmare-panel-logo {
+  display: block;
+  width: min(72%, 380px);
+  height: auto;
+  filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.75));
+}
+
+.attraction-hero-logo {
+  display: block;
+  margin: 0 auto;
+  width: clamp(260px, 60vw, 620px);
+  height: auto;
+  filter: drop-shadow(0 8px 34px rgba(0, 0, 0, 0.8));
 }
 
 .nightmare-panel-tagline {
