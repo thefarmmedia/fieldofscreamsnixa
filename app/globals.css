@@ -427,15 +427,18 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
 }
 
-/* Section spacing */
+/* Section spacing. The scrim exists so text stays readable over the fixed
+   woods behind it — but at 0.62-0.76 it was crushing the (deliberately
+   dark, nighttime-toned) trees and fog to invisible. Lightened so the
+   background actually reads through; text contrast re-verified below. */
 .section {
   position: relative;
   padding: 5rem 1.5rem;
   background: linear-gradient(
     to bottom,
     rgba(3, 11, 16, 0) 0%,
-    rgba(3, 11, 16, 0.62) 14%,
-    rgba(2, 9, 14, 0.76) 86%,
+    rgba(3, 11, 16, 0.4) 14%,
+    rgba(2, 9, 14, 0.5) 86%,
     rgba(2, 9, 14, 0) 100%
   );
 }
@@ -2102,7 +2105,12 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(232, 228, 220, 0.88);
 }
 
-/* Glitch text effect (decorative headings only) */
+/* Glitch text effect (decorative headings only). Used to auto-loop every
+   8s, which read as a periodic screen flicker rather than a one-off
+   effect — same class of problem as the grain strobe removed earlier.
+   Now a single hover-triggered blip, and only where hover actually means
+   something (a fine pointer) — nothing fires on its own, ever, so there
+   is nothing to flicker on mobile or on a page left sitting open. */
 .glitch-text {
   position: relative;
   display: inline-block;
@@ -2113,14 +2121,18 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  opacity: 0;
 }
-.glitch-text[data-glitch]::before {
-  color: rgba(0, 196, 204, 0.5);
-  animation: glitchBefore 8s step-start infinite;
-}
-.glitch-text[data-glitch]::after {
-  color: rgba(196, 26, 0, 0.5);
-  animation: glitchAfter 8s step-start infinite;
+.glitch-text[data-glitch]::before { color: rgba(0, 196, 204, 0.5); }
+.glitch-text[data-glitch]::after { color: rgba(196, 26, 0, 0.5); }
+
+@media (hover: hover) and (pointer: fine) {
+  .glitch-text:hover[data-glitch]::before {
+    animation: glitchBefore 1.3s step-start 1;
+  }
+  .glitch-text:hover[data-glitch]::after {
+    animation: glitchAfter 1.3s step-start 1;
+  }
 }
 @keyframes glitchBefore {
   0%, 94%, 100% { clip-path: none; transform: none; opacity: 0; }
@@ -2166,12 +2178,14 @@ h1, h2, h3, h4, h5, h6 {
      on a phone GPU is the other common source of on-screen flicker, on top
      of the grain strobe that was removed outright. Keep the woods and the
      fog, but hold most of it still: one drifting bank instead of three,
-     and no moving trees or glow. */
-  .atmosphere-fogbank-3 { display: none; }
+     and no moving trees or glow. Held static (not hidden) rather than
+     removed, so there is still real fog to see, not just a thinner haze. */
   .atmosphere-trees,
   .atmosphere-glow,
-  .atmosphere-fogbank-2 { animation: none; }
-  .atmosphere-fogbank-2 { opacity: 0.22; }
+  .atmosphere-fogbank-2,
+  .atmosphere-fogbank-3 { animation: none; }
+  .atmosphere-fogbank-2 { opacity: 0.3; }
+  .atmosphere-fogbank-3 { opacity: 0.22; }
   .atmosphere-grain { opacity: 0.025; }
   /* Lighter fog on mobile */
   :root {
