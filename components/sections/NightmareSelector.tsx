@@ -41,8 +41,8 @@ export default function NightmareSelector() {
               <Image
                 src="/images/sprites/haunted-forest-wordmark.png"
                 alt={forest.name}
-                width={1631}
-                height={480}
+                width={1827}
+                height={820}
                 className="nightmare-panel-logo"
               />
             </h3>

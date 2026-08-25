@@ -2243,6 +2243,13 @@ h1, h2, h3, h4, h5, h6 {
   .nightmare-panel-content { align-items: center; text-align: center; }
   .nightmare-panel-logo { margin: 0 auto; }
   .nightmare-panel-cta { margin: 0 auto; }
+
+  /* Every section heading, centered on mobile regardless of how its
+     parent aligns text -- some sections' intro copy is left-aligned by
+     design, but a left-hung title on a narrow screen reads as unstyled
+     rather than intentional. Desktop is untouched. */
+  .section-label,
+  .section-title { text-align: center; }
 }
 
 /* ─── Print ──────────────────────────────────────────────────────────── */
