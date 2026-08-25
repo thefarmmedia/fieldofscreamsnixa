@@ -134,7 +134,7 @@ export default function CoulrophobiaPage() {
             }}>
               You Will Be.
             </p>
-            <a href={siteConfig.tickets.url} className="btn-ticket">
+            <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
               Get Tickets
             </a>
           </div>
@@ -267,7 +267,7 @@ export default function CoulrophobiaPage() {
             {/* CTA */}
             <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
               <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a href={siteConfig.tickets.url} className="btn-ticket">
+                <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
                   Get Tickets
                 </a>
                 <Link href="/haunted-forest" className="btn-secondary">

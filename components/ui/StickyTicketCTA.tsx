@@ -30,7 +30,7 @@ export default function StickyTicketCTA() {
         </div>
       </div>
       <a
-        href={siteConfig.tickets.url}
+        href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer"
         className="btn-ticket"
         onClick={() => {
           if (typeof window !== 'undefined' && (window as any).gtag) {

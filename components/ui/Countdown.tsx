@@ -76,7 +76,7 @@ export default function Countdown() {
               We&apos;re waiting for you.
             </p>
             <div style={{ marginTop: '2rem' }}>
-              <a href={siteConfig.tickets.url} className="btn-ticket">
+              <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
                 Get Tickets Now
               </a>
             </div>
@@ -108,7 +108,7 @@ export default function Countdown() {
             </p>
 
             <div style={{ marginTop: '2rem' }}>
-              <a href={siteConfig.tickets.url} className="btn-ticket">
+              <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
                 Secure Your Ticket
               </a>
             </div>

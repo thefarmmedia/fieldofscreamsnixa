@@ -22,7 +22,7 @@ export default function BannerHero() {
         <p className="lb-tagline">{siteConfig.tagline}</p>
 
         <div className="lb-cta-row">
-          <a href={siteConfig.tickets.url} className="btn-ticket">
+          <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
             Get Tickets
           </a>
           <a href="#choose" className="btn-secondary">

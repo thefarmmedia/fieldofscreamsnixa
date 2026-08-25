@@ -56,7 +56,7 @@ export default function AnnouncementBar() {
           <span className="announce-sep" aria-hidden="true" />
           <span>Opening night — {opens}. {siteConfig.season.hoursDisplay}.</span>
         </p>
-        <a href={siteConfig.tickets.url} className="announce-cta">
+        <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="announce-cta">
           Get Tickets
         </a>
       </div>

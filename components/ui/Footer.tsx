@@ -28,14 +28,22 @@ export default function Footer() {
               { href: '/gallery', label: 'Gallery' },
               { href: '/sponsors', label: 'Sponsors' },
               { href: '/#location', label: 'Directions' },
-              { href: siteConfig.tickets.url, label: 'Tickets' },
-            ].map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="footer-nav-link">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+              { href: siteConfig.tickets.url, label: 'Tickets', external: true },
+            ].map((link) =>
+              link.external ? (
+                <li key={link.href}>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="footer-nav-link">
+                    {link.label}
+                  </a>
+                </li>
+              ) : (
+                <li key={link.href}>
+                  <Link href={link.href} className="footer-nav-link">
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
         </nav>
 

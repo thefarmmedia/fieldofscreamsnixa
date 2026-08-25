@@ -53,9 +53,10 @@ export const siteConfig = {
   },
 
   // ─── Tickets ──────────────────────────────────────────────────────────
-  // TODO: Confirm actual ticket URL and pricing
+  // Sold through HauntPay. This is an EXTERNAL host, so every link to it
+  // opens in a new tab and must not be routed through next/link.
   tickets: {
-    url: 'https://fieldofscreamsnixa.com/tickets',
+    url: 'https://app.hauntpay.com/events/field-of-scream-2026',
     generalLabel: 'General Admission',
     vipLabel: 'VIP Fast Pass',
   },
