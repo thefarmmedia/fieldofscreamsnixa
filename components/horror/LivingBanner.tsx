@@ -25,6 +25,10 @@ type Wraith = {
   drift: number
   /** Phase offset so they never move in unison */
   delay: number
+  /** Seconds for one glitch cycle — deliberately not a multiple of any
+   *  other wraith's, so the "did that just move?" blips never sync up */
+  glitch: number
+  glitchDelay: number
 }
 
 const WRAITHS: Wraith[] = [
@@ -34,6 +38,8 @@ const WRAITHS: Wraith[] = [
     depth: 26,
     drift: 17,
     delay: 0,
+    glitch: 31,
+    glitchDelay: -4,
   },
   {
     src: '/images/wraiths/wraith-2.webp',
@@ -41,6 +47,8 @@ const WRAITHS: Wraith[] = [
     depth: 14,
     drift: 21,
     delay: -6,
+    glitch: 37,
+    glitchDelay: -19,
   },
   {
     src: '/images/wraiths/wraith-3.webp',
@@ -48,6 +56,8 @@ const WRAITHS: Wraith[] = [
     depth: 16,
     drift: 19,
     delay: -11,
+    glitch: 43,
+    glitchDelay: -8,
   },
   {
     src: '/images/wraiths/wraith-4.webp',
@@ -55,6 +65,8 @@ const WRAITHS: Wraith[] = [
     depth: 24,
     drift: 23,
     delay: -3,
+    glitch: 53,
+    glitchDelay: -27,
   },
 ]
 
@@ -113,7 +125,17 @@ export default function LivingBanner({ children }: { children?: React.ReactNode 
           }
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={w.src} alt="" draggable={false} />
+          <img
+            src={w.src}
+            alt=""
+            draggable={false}
+            style={
+              {
+                '--glitch-duration': `${w.glitch}s`,
+                '--glitch-delay': `${w.glitchDelay}s`,
+              } as React.CSSProperties
+            }
+          />
         </div>
       ))}
 

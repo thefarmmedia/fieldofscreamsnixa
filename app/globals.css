@@ -1737,6 +1737,19 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   /* The art is already luminous; a touch of glow seats it in the fog. */
   filter: drop-shadow(0 0 26px rgba(60, 190, 220, 0.28));
+  /* Sits still almost the entire cycle, then blips a few px sideways
+     twice a cycle and snaps back — too brief to register as "animation",
+     just long enough that a viewer questions whether it moved at all. */
+  animation: lbGhostGlitch var(--glitch-duration, 31s) linear infinite;
+  animation-delay: var(--glitch-delay, 0s);
+  will-change: transform, opacity;
+}
+@keyframes lbGhostGlitch {
+  0%, 41%, 43.4%, 88.6%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  41.7% { transform: translate3d(5px, -3px, 0) scale(1.008); opacity: 0.86; }
+  42.2% { transform: translate3d(-3px, 2px, 0) scale(0.996); opacity: 1; }
+  88.9% { transform: translate3d(-6px, 3px, 0) scale(1.01); opacity: 0.8; }
+  89.3% { transform: translate3d(3px, -1px, 0) scale(1); opacity: 1; }
 }
 @keyframes lbFloat {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.82; }
@@ -1934,6 +1947,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .lb-plate,
   .lb-wraith,
+  .lb-wraith img,
   .lb-fog,
   .lb-motes span {
     animation: none;
