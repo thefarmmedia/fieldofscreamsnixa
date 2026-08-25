@@ -71,7 +71,7 @@ export default function HomePage() {
             <p className="final-cta-sub">
               Nixa, Missouri &nbsp;•&nbsp; October {siteConfig.season.year}
             </p>
-            <a href={siteConfig.tickets.url} className="btn-ticket final-cta-btn">
+            <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket final-cta-btn">
               Secure Your Ticket
             </a>
           </div>

@@ -77,7 +77,7 @@ export default function SponsorsPage() {
             </ul>
 
             <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-              <a href={siteConfig.tickets.url} className="btn-ticket">
+              <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
                 Get Tickets
               </a>
             </div>

@@ -77,7 +77,7 @@ export default function LocationSection() {
               >
                 Get Directions
               </a>
-              <a href={siteConfig.tickets.url} className="btn-secondary">
+              <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-secondary">
                 Buy Tickets
               </a>
             </div>

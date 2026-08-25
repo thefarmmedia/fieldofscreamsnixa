@@ -68,9 +68,9 @@ export default function NotFound() {
           <Link href="/" className="btn-ticket" style={{ animation: 'none' }}>
             Return to Field of Screams
           </Link>
-          <Link href={siteConfig.tickets.url} className="btn-secondary">
+          <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-secondary">
             Get Tickets
-          </Link>
+          </a>
         </div>
 
         {/* Atmospheric code */}

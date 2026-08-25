@@ -86,7 +86,7 @@ export default function NightmareSelector() {
         }}>
           One ticket. Both nightmares.
         </p>
-        <a href={siteConfig.tickets.url} className="btn-ticket">
+        <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
           Get Tickets
         </a>
       </div>
