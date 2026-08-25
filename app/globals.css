@@ -1714,7 +1714,10 @@ h1, h2, h3, h4, h5, h6 {
 .lb-plate {
   position: absolute;
   inset: -4%;
-  background-image: url('/images/wraiths/banner-plate.jpg');
+  /* Same real forest photo as the rest of the site (woods-plate.jpg) —
+     was a separate blurred banner-art derivative before, so the ghosts
+     sat in front of a different backdrop than everything below them. */
+  background-image: url('/images/wraiths/woods-plate.jpg');
   background-size: cover;
   background-position: center 40%;
   transform: translate(calc(var(--px) * -8px), calc(var(--py) * -5px)) scale(1.06);
