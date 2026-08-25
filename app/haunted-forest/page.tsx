@@ -108,8 +108,8 @@ export default function HauntedForestPage() {
               <Image
                 src="/images/sprites/haunted-forest-wordmark.png"
                 alt={attraction.name}
-                width={1631}
-                height={480}
+                width={1827}
+                height={820}
                 priority
                 className="attraction-hero-logo"
               />
