@@ -2201,6 +2201,19 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 767px) {
   .clown-peek-container { display: none; }
 
+  /* The flashlight radius was tuned for a wide desktop viewport -- on a
+     ~390px phone screen, 480px reaches almost the whole width, so the
+     "dark away from the touch point" half of the effect barely showed.
+     Tightened so the beam actually reads as localized. */
+  .flashlight-mask {
+    background: radial-gradient(
+      circle at var(--fx) var(--fy),
+      transparent 0,
+      transparent 55px,
+      rgba(1, 2, 4, calc(0.6 * var(--fo))) 210px
+    );
+  }
+
   /* Mobile calm-down. Several fixed, animated, compositing layers stacked
      on a phone GPU is the other common source of on-screen flicker, on top
      of the grain strobe that was removed outright. Keep the woods and the
