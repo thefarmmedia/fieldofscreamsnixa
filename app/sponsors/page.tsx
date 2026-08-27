@@ -4,6 +4,7 @@ import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import Footer from '@/components/ui/Footer'
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function SponsorsPage() {
           }} aria-hidden="true" />
 
           <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: 800 }}>
+            <Breadcrumbs items={[{ label: 'Sponsors' }]} />
             <p className="section-label">Backed By Nixa &amp; Springfield</p>
             <h1 style={{
               fontFamily: 'var(--font-cinzel), Georgia, serif',
