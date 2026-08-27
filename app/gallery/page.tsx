@@ -4,6 +4,7 @@ import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import GallerySection from '@/components/sections/GallerySection'
 import Footer from '@/components/ui/Footer'
 
@@ -24,6 +25,7 @@ export default function GalleryPage() {
 
       <div className="site-content">
         <div style={{ paddingTop: '7rem', paddingBottom: '2rem', textAlign: 'center' }}>
+          <Breadcrumbs items={[{ label: 'Gallery' }]} />
           <p className="section-label">Field of Screams Nixa</p>
           <h1 style={{
             fontFamily: 'var(--font-cinzel), Georgia, serif',

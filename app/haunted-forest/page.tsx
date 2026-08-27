@@ -7,6 +7,7 @@ import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
 import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import FAQSection from '@/components/sections/FAQSection'
 import Footer from '@/components/ui/Footer'
 
@@ -94,14 +95,7 @@ export default function HauntedForestPage() {
           }} aria-hidden="true" />
 
           <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: 800 }}>
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" style={{ marginBottom: '2rem' }}>
-              <ol style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', justifyContent: 'center', gap: '0.75rem', fontSize: '0.65rem', letterSpacing: '0.15em' }}>
-                <li><Link href="/" style={{ color: 'rgba(232,228,220,0.35)', textDecoration: 'none' }}>Home</Link></li>
-                <li aria-hidden="true" style={{ color: 'rgba(196,26,0,0.4)' }}>›</li>
-                <li style={{ color: 'rgba(232,228,220,0.6)' }} aria-current="page">Haunted Forest</li>
-              </ol>
-            </nav>
+            <Breadcrumbs items={[{ label: 'Haunted Forest' }]} />
 
             <p className="section-label">Attraction 01</p>
             <h1 style={{ marginBottom: '1rem' }}>
