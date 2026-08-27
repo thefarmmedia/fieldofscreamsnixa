@@ -128,7 +128,16 @@ const localBusinessSchema = {
   sameAs: [
     siteConfig.social.facebook,
     siteConfig.social.instagram,
+    siteConfig.social.tiktok,
   ].filter(Boolean),
+  // Mirrors the reviews actually shown in TestimonialsSection — keep the
+  // two in sync rather than asserting a rating beyond what's visible.
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5.0',
+    reviewCount: 6,
+    bestRating: '5',
+  },
 }
 
 export default function RootLayout({

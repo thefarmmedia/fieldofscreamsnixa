@@ -2,45 +2,66 @@
 import Image from 'next/image'
 import { siteConfig } from '@/lib/site-config'
 
-// Reviews should be real — these are clearly marked as placeholders.
-// TODO: Replace with actual verified reviews from Google/Facebook.
-
+// Real reviews, pulled directly from the business's Google listing.
 const TESTIMONIALS = [
   {
-    text: "I've been to a lot of haunted houses. This one is different. The forest walk-through alone is worth it — by the end I genuinely could not tell how far from the entrance I was.",
-    author: "Sarah M. — Springfield, MO",
+    text: "This was definitely a fun experience, the trail was well designed with a good variety of different scenes to walk through the actors were great and interactive. Definitely worth the visit!",
+    author: "Robin Barnes",
     stars: 5,
+    datePublished: '2025-11',
   },
   {
-    text: "Coulrophobia broke me. I'm a grown adult and I was screaming. My kids are still making fun of me. 10/10 would be traumatized again.",
-    author: "James T. — Nixa, MO",
+    text: "This is our 4th time coming to Field of Screams and this is the best year yet! So much attention to detail and lots of jump scares. Had a phenomenal time and can't wait for next year!!! 💀🪦🦇",
+    author: "Skylyn Lindsey",
     stars: 5,
+    datePublished: '2025-11',
   },
   {
-    text: "The production quality is insane for a regional attraction. These aren't college kids in masks. This is legitimate horror.",
-    author: "Kevin R. — Republic, MO",
+    text: "we had such an expectedly great time when we went! both attractions were well done and thoroughly scaring. we cried in both. the forest was my favorite and the actors/actresses did phenomenal, especially kiara. i cant wait to go back next season.",
+    author: "Samantha Determan",
     stars: 5,
+    datePublished: '2025-11',
   },
   {
-    text: "Went with a group of 8. All 8 of us screamed. The fog in the forest section is incredible — you genuinely can't see what's coming.",
-    author: "Amanda K. — Ozark, MO",
+    text: "I've been to Field of Screams every year since it's inception. It's grown in leaps and bounds every year, driven by the passion and vision of the folks behind it. Reasonable prices, incredible customer service, and a real dedication to the horror are why I'd recommend it to everyone and anyone who loves a good spook.",
+    author: "Nathan Lee",
     stars: 5,
+    datePublished: '2025-11',
   },
   {
-    text: "The actors are incredible. They know exactly when you let your guard down. The timing is what makes it scary.",
-    author: "Tyler B. — Springfield, MO",
+    text: "A creative haunt with Soo many activities too! Great staff, amazing bonfires, delicious concessions, and pure autumn spookiness.",
+    author: "Brandon Lauthern",
     stars: 5,
+    datePublished: '2025-11',
   },
   {
-    text: "Bought tickets online, showed up, got absolutely destroyed by clowns. Outstanding evening. Already bought tickets for next year.",
-    author: "Melissa H. — Branson, MO",
+    text: "So much fun! Great scare actors and such beautiful and creepy sets! Definitely recommend!",
+    author: "Rachael Shepherd",
     stars: 5,
+    datePublished: '2025-10',
   },
 ]
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AmusementPark',
+  name: siteConfig.name,
+  review: TESTIMONIALS.map((t) => ({
+    '@type': 'Review',
+    reviewRating: { '@type': 'Rating', ratingValue: t.stars, bestRating: 5 },
+    author: { '@type': 'Person', name: t.author },
+    reviewBody: t.text,
+    datePublished: t.datePublished,
+  })),
+}
 
 export default function TestimonialsSection() {
   return (
     <section className="testimonials-section" aria-labelledby="testimonials-heading">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
       <div className="testimonials-bg" aria-hidden="true">
         <Image
           src="/images/attraction/clown-skull-dark.jpg"
