@@ -110,8 +110,22 @@ export default function Footer() {
             href="https://thefarmmedia.com"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ opacity: 0.4, fontSize: '0.65rem', color: 'inherit', textDecoration: 'none' }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              opacity: 0.4,
+              fontSize: '0.65rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
+            <Image
+              src="/images/the-farm-media-logo.png"
+              alt=""
+              width={22}
+              height={22}
+            />
             Site by The Farm Media
           </a>
         </p>
