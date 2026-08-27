@@ -48,14 +48,31 @@ export default function AnnouncementBar() {
     day: 'numeric',
   })
 
+  // One line of content, rendered twice back-to-back inside the marquee
+  // track so the loop point is invisible — the moment copy #1 scrolls
+  // fully offscreen, copy #2 is sitting exactly where #1 started.
+  const line = (
+    <>
+      <span className="announce-tag">{siteConfig.season.year} Season</span>
+      <span className="announce-sep" aria-hidden="true" />
+      <span>Opening night — {opens}. {siteConfig.season.hoursDisplay}.</span>
+      <span className="announce-sep" aria-hidden="true" />
+      <span>
+        Use promo code <strong>JASON</strong> and save <strong>$13</strong> on a Combo
+        Pass — good <strong>any night in September</strong>!
+      </span>
+    </>
+  )
+
   return (
     <aside className="announce" aria-label="Season announcement">
       <div className="announce-inner">
-        <p className="announce-text">
-          <span className="announce-tag">{siteConfig.season.year} Season</span>
-          <span className="announce-sep" aria-hidden="true" />
-          <span>Opening night — {opens}. {siteConfig.season.hoursDisplay}.</span>
-        </p>
+        <div className="announce-marquee">
+          <div className="announce-marquee-track">
+            <p className="announce-text">{line}</p>
+            <p className="announce-text" aria-hidden="true">{line}</p>
+          </div>
+        </div>
         <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="announce-cta">
           Get Tickets
         </a>
