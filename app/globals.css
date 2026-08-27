@@ -214,13 +214,35 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 180px 180px;
 }
 
-/* Flashlight cursor — desktop + fine pointer + motion-ok only (see
-   FlashlightCursor.tsx). Darkens the periphery around the pointer so the
-   visitor's cursor reads as the only light source. Capped well short of
-   full black so text stays readable no matter where the pointer sits. */
+/* Flashlight cursor (see FlashlightCursor.tsx). Darkens the periphery
+   around the pointer/touch so the visitor's cursor reads as the only
+   light source. Capped well short of full black so text stays readable
+   no matter where it sits.
+
+   The hole is painted ONCE into an oversized (3x viewport) layer, and
+   tracking the finger/cursor moves that whole layer with `transform`
+   instead of changing the gradient's own center point. A moving
+   background-position/gradient-center forces the browser to repaint the
+   layer's content on every single update -- same class of bug as the
+   fog drift jank fixed earlier -- whereas transform is compositor-only
+   and costs nothing extra per frame, which matters here specifically
+   because touchmove now fires in the middle of the page's own scroll
+   repaint, not on top of an idle frame like a desktop mousemove. */
 .flashlight-mask {
   position: fixed;
-  inset: 0;
+  /* 220vw/220vh is the tight minimum: the hole can be dragged up to 50vw
+     off-center in any direction (a touch at the viewport's edge), so the
+     layer needs to extend at least 100vw + 2*50vw beyond the viewport to
+     never reveal its own edge. A few points of margin over the true
+     200vw/200vh minimum for rounding, not padding for its own sake --
+     this is squarely a "just bytes" tradeoff so quadrupling it (300vw)
+     would be a real GPU memory cost on mobile for no visible benefit. */
+  top: 50%;
+  left: 50%;
+  width: 220vw;
+  height: 220vh;
+  margin-left: -110vw;
+  margin-top: -110vh;
   z-index: 40;
   pointer-events: none;
   opacity: 0;
@@ -228,8 +250,10 @@ h1, h2, h3, h4, h5, h6 {
   --fx: 50vw;
   --fy: 50vh;
   --fo: 1;
+  will-change: transform;
+  transform: translate3d(calc(var(--fx) - 50vw), calc(var(--fy) - 50vh), 0);
   background: radial-gradient(
-    circle at var(--fx) var(--fy),
+    circle at center,
     transparent 0,
     transparent 120px,
     rgba(1, 2, 4, calc(0.55 * var(--fo))) 480px
@@ -1760,6 +1784,7 @@ h1, h2, h3, h4, h5, h6 {
   background-image: url('/images/wraiths/woods-plate.jpg');
   background-size: cover;
   background-position: center 40%;
+  filter: brightness(0.82);
   transform: translate(calc(var(--px) * -8px), calc(var(--py) * -5px)) scale(1.06);
   animation: lbPlateDrift 90s ease-in-out infinite;
 }
@@ -2118,6 +2143,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Attraction Detail Pages ────────────────────────────────────────── */
+/* Each page's own dark overlay div stays fairly opaque right up to this
+   hero's bottom edge, while the .section below it starts fully
+   transparent -- same hard-seam bug as the countdown section, different
+   shape: fades the WHOLE hero (photo, overlay, and centered content
+   alike) to transparent over its last ~12%, revealing the same bare
+   fixed background the next section's top also reveals to, so both
+   sides of the seam converge on the same thing instead of one being
+   darker than the other. Content is vertically centered well clear of
+   that zone, same as the .lb-scene mask on the homepage banner. */
 .attraction-hero {
   min-height: 60vh;
   display: flex;
@@ -2128,6 +2162,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 8rem 1.5rem 4rem;
   position: relative;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 85%, transparent 100%);
 }
 
 .attraction-hero-bg {
@@ -2228,7 +2264,7 @@ h1, h2, h3, h4, h5, h6 {
      Tightened so the beam actually reads as localized. */
   .flashlight-mask {
     background: radial-gradient(
-      circle at var(--fx) var(--fy),
+      circle at center,
       transparent 0,
       transparent 55px,
       rgba(1, 2, 4, calc(0.6 * var(--fo))) 210px
