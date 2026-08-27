@@ -93,12 +93,12 @@ export default function TestimonialsSection() {
 
         <div style={{ textAlign: 'center', marginTop: '3rem' }}>
           <a
-            href={siteConfig.social.facebook}
+            href={siteConfig.address.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-secondary"
           >
-            Read More Reviews on Facebook
+            Read More Reviews on Google
           </a>
         </div>
       </div>
