@@ -130,12 +130,13 @@ const localBusinessSchema = {
     siteConfig.social.instagram,
     siteConfig.social.tiktok,
   ].filter(Boolean),
-  // Mirrors the reviews actually shown in TestimonialsSection — keep the
-  // two in sync rather than asserting a rating beyond what's visible.
+  // Real totals from the business's Google listing (not just the 6
+  // reviews quoted in TestimonialsSection) -- update these two numbers
+  // if the Google rating/count changes materially before launch.
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    reviewCount: 6,
+    ratingValue: '4.7',
+    reviewCount: 714,
     bestRating: '5',
   },
 }
