@@ -3,6 +3,16 @@
 import { useEffect, useRef, useState } from 'react'
 import JumpScare from './JumpScare'
 
+// Pool of faces the scare can draw from. Kept to close-up, front-facing
+// shots that read instantly at a glance — the scare only shows for
+// ~170ms, so anything busier than a single face doesn't land in time.
+const FACES = [
+  '/images/attraction/clown-redhair-closeup.jpg',
+  '/images/attraction/clown-skull-dark.jpg',
+  '/images/attraction/chainsaw-crown-blue.jpg',
+  '/images/attraction/ghost-masks-pair.jpg',
+]
+
 /**
  * Fires the one jump scare off ordinary page scroll.
  *
@@ -12,13 +22,17 @@ import JumpScare from './JumpScare'
  */
 export default function ScrollScare({
   at = 0.55,
-  src = '/images/attraction/clown-redhair-closeup.jpg',
+  src,
 }: {
   /** Fraction of the page scrolled before it triggers */
   at?: number
+  /** Defaults to a random pick from FACES, re-rolled on every page load */
   src?: string
 }) {
   const progressRef = useRef(0)
+  // Picked once per mount, not on every render — a face shouldn't change
+  // mid-visit just because something re-rendered this component.
+  const [face] = useState(() => src ?? FACES[Math.floor(Math.random() * FACES.length)])
   // Resolved in an effect, never during render — `window` does not exist
   // when this is server-rendered.
   const [reducedMotion, setReducedMotion] = useState(true)
@@ -47,7 +61,7 @@ export default function ScrollScare({
 
   return (
     <div className="scroll-scare-host">
-      <JumpScare progressRef={progressRef} at={at} src={src} reducedMotion={reducedMotion} />
+      <JumpScare progressRef={progressRef} at={at} src={face} reducedMotion={reducedMotion} />
     </div>
   )
 }
