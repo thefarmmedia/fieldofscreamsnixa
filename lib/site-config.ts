@@ -20,7 +20,7 @@ export const siteConfig = {
     state: 'MO',
     zip: '',
     display: 'Summers at the River, 2142 N. Sports Complex Ln., Nixa, MO',
-    mapsUrl: 'https://maps.google.com/?q=Summers+at+the+River+2142+N+Sports+Complex+Ln+Nixa+MO',
+    mapsUrl: 'https://maps.app.goo.gl/uockRQnBPToZLvkk8',
   },
   phone: '', // TODO: Add phone number from site
 
@@ -86,11 +86,10 @@ export const siteConfig = {
   ],
 
   // ─── Social ───────────────────────────────────────────────────────────
-  // TODO: Confirm actual social media URLs
   social: {
-    facebook: 'https://www.facebook.com/FieldOfScreamsNixa',
-    instagram: 'https://www.instagram.com/fieldofscreamsnixa',
-    tiktok: '',
+    facebook: 'https://www.facebook.com/FieldofScreamsNixa',
+    instagram: 'https://www.instagram.com/fieldofscreams417/',
+    tiktok: 'https://www.tiktok.com/discover/field-of-screams-nixa-missouri',
   },
 
   // ─── Sponsors ─────────────────────────────────────────────────────────
