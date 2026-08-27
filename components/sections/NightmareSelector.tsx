@@ -27,11 +27,11 @@ export default function NightmareSelector() {
         {/* Haunted Forest */}
         <Link href={forest.href} className="nightmare-panel" aria-label={`Learn about ${forest.name}`}>
           <Image
-            src="/images/attraction/twisted-figure-red.jpg"
+            src="/images/attraction/forest-figure-green.jpg"
             alt="A costumed actor standing among the trees at the Haunted Forest attraction"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            style={{ objectFit: 'cover', objectPosition: '50% 25%' }}
+            style={{ objectFit: 'cover', objectPosition: '50% 40%' }}
             className="nightmare-panel-img"
           />
           <div className="nightmare-panel-scrim nightmare-panel-scrim-forest" />
