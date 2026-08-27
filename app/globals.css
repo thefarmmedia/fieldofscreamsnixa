@@ -1629,22 +1629,50 @@ h1, h2, h3, h4, h5, h6 {
 .announce-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
   padding: 0.6rem 3rem 0.6rem 1.25rem;
-  text-align: center;
+}
+/* Clips the scrolling line; the CTA/close button stay put outside it. */
+.announce-marquee {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+}
+.announce-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: announce-scroll 26s linear infinite;
+}
+.announce-marquee:hover .announce-marquee-track {
+  animation-play-state: paused;
 }
 .announce-text {
   margin: 0;
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   font-size: 0.78rem;
   color: rgba(240, 236, 228, 0.9);
   letter-spacing: 0.03em;
+  padding-right: 3rem;
+}
+.announce-text strong {
+  font-weight: 700;
+  color: var(--orange-fos);
+}
+@keyframes announce-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announce-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .announce-marquee-track { animation: none; }
+  .announce-marquee-track .announce-text[aria-hidden] { display: none; }
 }
 .announce-tag {
   font-family: var(--font-cinzel), Georgia, serif;
