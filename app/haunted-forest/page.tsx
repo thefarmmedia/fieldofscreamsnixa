@@ -77,12 +77,12 @@ export default function HauntedForestPage() {
         <div className="attraction-hero" style={{ minHeight: '75vh' }}>
           <div className="attraction-hero-bg" aria-hidden="true">
             <Image
-              src="/images/attraction/twisted-figure-red.jpg"
+              src="/images/attraction/forest-figure-green.jpg"
               alt=""
               fill
               priority
               sizes="100vw"
-              style={{ objectFit: 'cover', objectPosition: '50% 20%' }}
+              style={{ objectFit: 'cover', objectPosition: '50% 45%' }}
             />
           </div>
           {/* Atmospheric dark overlay deeper in forest */}
