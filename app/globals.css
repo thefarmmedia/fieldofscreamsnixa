@@ -2258,6 +2258,11 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 767px) {
   .clown-peek-container { display: none; }
 
+  /* The sticky ticket CTA is fixed to the bottom of the viewport on
+     mobile, and the footer has no bottom clearance for it -- the last
+     line or two always sat hidden behind the bar. */
+  .footer { padding-bottom: 6rem; }
+
   /* The flashlight radius was tuned for a wide desktop viewport -- on a
      ~390px phone screen, 480px reaches almost the whole width, so the
      "dark away from the touch point" half of the effect barely showed.
