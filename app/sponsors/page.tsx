@@ -48,33 +48,17 @@ export default function SponsorsPage() {
 
         <div className="section">
           <div className="section-inner">
-            <p style={{
-              textAlign: 'center',
-              maxWidth: 640,
-              margin: '0 auto 3.5rem',
-              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-              lineHeight: 1.85,
-              color: 'rgba(232,228,220,0.85)',
-            }}>
-              Field of Screams Nixa doesn&apos;t happen without the local businesses that back it every
-              season. The following sponsors are part of what makes this property possible.
-            </p>
-
-            <div className="sponsor-grid">
-              {siteConfig.sponsors.map((s) => (
-                <div key={s.name} className="sponsor-tile" title={s.name}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.logo} alt={s.name} loading="lazy" />
-                </div>
-              ))}
+            {/* Sponsor lineup pulled for now -- siteConfig.sponsors is left
+                intact in lib/site-config.ts so the grid below can come back
+                by restoring the .map() once sponsors are ready to announce. */}
+            <div className="sponsors-coming-soon">
+              <p className="section-label">Announcing Soon</p>
+              <p className="sponsors-coming-soon-title">Sponsors Coming Soon</p>
+              <p className="sponsors-coming-soon-body">
+                We&apos;re finalizing this season&apos;s lineup of local Nixa and Springfield-area
+                businesses backing {siteConfig.name}. Check back soon.
+              </p>
             </div>
-
-            {/* Real text list for SEO/accessibility — the grid above is visual, this is the record */}
-            <ul className="sponsor-text-list" aria-label="Full list of sponsors">
-              {siteConfig.sponsors.map((s) => (
-                <li key={s.name}>{s.name}</li>
-              ))}
-            </ul>
 
             <div style={{ textAlign: 'center', marginTop: '3rem' }}>
               <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">

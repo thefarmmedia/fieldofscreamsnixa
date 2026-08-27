@@ -1166,6 +1166,27 @@ h1, h2, h3, h4, h5, h6 {
   filter: saturate(1.1) brightness(1.1);
   transform: scale(1.04);
 }
+.sponsors-coming-soon {
+  text-align: center;
+  padding: 2rem 1.5rem 1rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.sponsors-coming-soon-title {
+  font-family: var(--font-cinzel), Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--bone-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.sponsors-coming-soon-body {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  line-height: 1.85;
+  color: rgba(232, 228, 220, 0.65);
+}
 .sponsor-text-list,
 .sr-only {
   position: absolute;
