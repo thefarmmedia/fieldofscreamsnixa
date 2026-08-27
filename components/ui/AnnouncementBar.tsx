@@ -10,7 +10,10 @@ import { siteConfig } from '@/lib/site-config'
 // action + close), but styled in the site's own system rather than
 // pulling in a component library and its Tailwind preset, which would
 // have restyled everything else on the page.
-const STORAGE_KEY = 'fos-announce-dismissed-2026'
+// Bump this whenever the bar's content changes meaningfully (like adding
+// the JASON promo) so visitors who dismissed an earlier version see the
+// new one instead of it staying hidden forever from an old dismissal.
+const STORAGE_KEY = 'fos-announce-dismissed-2026-promo'
 
 export default function AnnouncementBar() {
   // Start hidden so the server-rendered markup matches the first client
