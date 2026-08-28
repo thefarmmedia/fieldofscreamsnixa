@@ -120,7 +120,7 @@ export default function Countdown() {
           <p className="section-label">2026 Operating Dates</p>
           <p style={{
             fontSize: '0.8rem',
-            color: 'rgba(232,228,220,0.4)',
+            color: 'rgba(232,228,220,0.55)',
             marginBottom: '1.5rem',
             letterSpacing: '0.05em',
           }}>
