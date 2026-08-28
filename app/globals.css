@@ -1141,12 +1141,16 @@ h1, h2, h3, h4, h5, h6 {
 .date-item {
   padding: 0.6rem 0.5rem;
   text-align: center;
-  border: 1px solid rgba(232, 228, 220, 0.08);
+  /* A bare border with no fill let the busy forest photo behind it show
+     straight through, which was fighting the text for contrast. A dark
+     fill gives the pill its own flat ground to read against. */
+  background: rgba(1, 4, 10, 0.55);
+  border: 1px solid rgba(232, 228, 220, 0.14);
   border-radius: 1px;
   font-family: var(--font-cinzel), Georgia, serif;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  color: rgba(232, 228, 220, 0.72);
+  color: rgba(232, 228, 220, 0.85);
   text-transform: uppercase;
   transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
