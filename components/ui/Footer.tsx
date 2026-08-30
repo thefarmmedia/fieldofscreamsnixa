@@ -23,11 +23,12 @@ export default function Footer() {
               { href: '/', label: 'Home' },
               { href: '/haunted-forest', label: 'Haunted Forest' },
               { href: '/coulrophobia', label: 'Coulrophobia' },
-              { href: '/#dates', label: 'Dates' },
+              { href: '/dates', label: 'Dates' },
               { href: '/faq', label: 'FAQ' },
               { href: '/gallery', label: 'Gallery' },
               { href: '/sponsors', label: 'Sponsors' },
-              { href: '/#location', label: 'Directions' },
+              { href: '/directions', label: 'Directions' },
+              { href: '/safety-rules', label: 'Safety & Rules' },
               { href: siteConfig.tickets.url, label: 'Tickets', external: true },
             ].map((link) =>
               link.external ? (

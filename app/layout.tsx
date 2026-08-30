@@ -51,7 +51,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
   openGraph: {
     type: 'website',
@@ -101,7 +107,16 @@ const localBusinessSchema = {
     streetAddress: siteConfig.address.street,
     addressLocality: siteConfig.address.city,
     addressRegion: siteConfig.address.state,
+    postalCode: siteConfig.address.zip,
     addressCountry: 'US',
+  },
+  telephone: siteConfig.phone,
+  priceRange: '$$',
+  hasMap: siteConfig.address.mapsUrl,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 37.0434,
+    longitude: -93.3312,
   },
   // Split into two specifications because the schedule genuinely differs
   // by month: September runs Friday/Saturday only, October adds Sundays.
@@ -139,6 +154,47 @@ const localBusinessSchema = {
     reviewCount: 714,
     bestRating: '5',
   },
+  potentialAction: {
+    '@type': 'BuyAction',
+    target: siteConfig.tickets.url,
+    name: 'Buy Field of Screams Nixa tickets',
+  },
+}
+
+const eventSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: `Field of Screams Nixa ${siteConfig.season.year}`,
+  description: siteConfig.seo.defaultDescription,
+  startDate: '2026-09-18T19:00:00-05:00',
+  endDate: '2026-11-02T00:00:00-06:00',
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  image: [`https://${siteConfig.domain}/images/fos-banner.jpg`],
+  url: `https://${siteConfig.domain}/dates`,
+  location: {
+    '@type': 'Place',
+    name: siteConfig.address.venue,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.city,
+      addressRegion: siteConfig.address.state,
+      postalCode: siteConfig.address.zip,
+      addressCountry: 'US',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: siteConfig.name,
+    url: `https://${siteConfig.domain}`,
+  },
+  offers: {
+    '@type': 'Offer',
+    url: siteConfig.tickets.url,
+    availability: 'https://schema.org/InStock',
+    validFrom: '2026-01-01',
+  },
 }
 
 export default function RootLayout({
@@ -152,6 +208,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
         />
         {/* Preload critical hero background */}
         <link rel="preload" as="image" href="/images/hero-poster.jpg" />

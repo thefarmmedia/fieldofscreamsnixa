@@ -9,11 +9,11 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/haunted-forest', label: 'Haunted Forest' },
   { href: '/coulrophobia', label: 'Coulrophobia' },
-  { href: '/#dates', label: 'Dates' },
+  { href: '/dates', label: 'Dates' },
   { href: '/faq', label: 'FAQ' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/sponsors', label: 'Sponsors' },
-  { href: '/#location', label: 'Directions' },
+  { href: '/directions', label: 'Directions' },
 ]
 
 export default function Navigation() {

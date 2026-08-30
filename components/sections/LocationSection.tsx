@@ -34,7 +34,7 @@ export default function LocationSection() {
                 <address className="location-detail-value" style={{ fontStyle: 'normal' }}>
                   {address.venue}<br />
                   {address.street}<br />
-                  {address.city}, {address.state}
+                  {address.city}, {address.state} {address.zip}
                 </address>
               </div>
             </div>

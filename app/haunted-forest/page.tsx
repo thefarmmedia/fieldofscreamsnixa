@@ -57,10 +57,15 @@ export default function HauntedForestPage() {
       name: siteConfig.name,
       address: {
         '@type': 'PostalAddress',
+        streetAddress: siteConfig.address.street,
         addressLocality: siteConfig.address.city,
         addressRegion: siteConfig.address.state,
+        postalCode: siteConfig.address.zip,
+        addressCountry: 'US',
       },
     },
+    image: `https://${siteConfig.domain}/images/attraction/forest-figure-green.jpg`,
+    isAccessibleForFree: false,
   }
 
   return (

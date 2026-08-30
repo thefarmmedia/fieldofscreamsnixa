@@ -18,11 +18,11 @@ export const siteConfig = {
     street: '2142 N. Sports Complex Ln.',
     city: 'Nixa',
     state: 'MO',
-    zip: '',
-    display: 'Summers at the River, 2142 N. Sports Complex Ln., Nixa, MO',
+    zip: '65714',
+    display: 'Summers at the River, 2142 N. Sports Complex Ln., Nixa, MO 65714',
     mapsUrl: 'https://maps.app.goo.gl/uockRQnBPToZLvkk8',
   },
-  phone: '', // TODO: Add phone number from site
+  phone: '(417) 319-4555',
 
   // ─── 2026 Season ──────────────────────────────────────────────────────
   // Confirmed 2026 schedule from the official dates listing.

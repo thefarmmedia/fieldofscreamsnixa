@@ -57,10 +57,15 @@ export default function CoulrophobiaPage() {
       name: siteConfig.name,
       address: {
         '@type': 'PostalAddress',
+        streetAddress: siteConfig.address.street,
         addressLocality: siteConfig.address.city,
         addressRegion: siteConfig.address.state,
+        postalCode: siteConfig.address.zip,
+        addressCountry: 'US',
       },
     },
+    image: `https://${siteConfig.domain}/images/coulrophobia-poster.jpg`,
+    isAccessibleForFree: false,
   }
 
   return (

@@ -28,7 +28,10 @@ ${attractions.map((a) => `- ${a.name} (${a.href}): ${a.description}`).join('\n')
 - [Home](${base}/): Overview, countdown to opening night, dates, and location
 - [Haunted Forest](${base}/haunted-forest): Details on the outdoor forest walk-through attraction
 - [Coulrophobia](${base}/coulrophobia): Details on the clown-themed carnival attraction
+- [2026 Dates & Hours](${base}/dates): Every operating date and nightly hours for the 2026 season
+- [Directions & Parking](${base}/directions): Address, embedded map, driving directions, and free parking information
 - [FAQ](${base}/faq): Answers about tickets, age recommendations, parking, and policies
+- [Safety & Rules](${base}/safety-rules): Attraction warnings, prohibited items, terrain, and guest rules
 - [Gallery](${base}/gallery): Photos from both attractions
 - [Sponsors](${base}/sponsors): Local Nixa and Springfield-area businesses backing this season
 
