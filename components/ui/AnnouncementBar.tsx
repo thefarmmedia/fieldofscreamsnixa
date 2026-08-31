@@ -1,88 +1,189 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useEffect } from 'react'
 import { siteConfig } from '@/lib/site-config'
 
-// Season announcement bar across the top of the site. Dismissible, and
-// the dismissal sticks so it doesn't nag on every page.
-//
-// Structure follows the standard announcement-bar pattern (message +
-// action + close), but styled in the site's own system rather than
-// pulling in a component library and its Tailwind preset, which would
-// have restyled everything else on the page.
-// Bump this whenever the bar's content changes meaningfully (like adding
-// the JASON promo) so visitors who dismissed an earlier version see the
-// new one instead of it staying hidden forever from an old dismissal.
-const STORAGE_KEY = 'fos-announce-dismissed-2026-promo'
-
 export default function AnnouncementBar() {
-  // Start hidden so the server-rendered markup matches the first client
-  // paint; a visitor who dismissed it never sees a flash of it returning.
-  const [visible, setVisible] = useState(false)
-
   useEffect(() => {
-    let dismissed = false
-    try {
-      dismissed = window.localStorage.getItem(STORAGE_KEY) === '1'
-    } catch {
-      // Private mode / blocked storage: just show it.
-    }
-    if (!dismissed) {
-      setVisible(true)
-      document.documentElement.classList.add('has-announce')
-    }
+    document.documentElement.classList.add('has-announce')
+    return () => document.documentElement.classList.remove('has-announce')
   }, [])
 
-  const dismiss = () => {
-    setVisible(false)
-    document.documentElement.classList.remove('has-announce')
-    try {
-      window.localStorage.setItem(STORAGE_KEY, '1')
-    } catch {
-      // Non-fatal — it just reappears next visit.
-    }
-  }
-
-  if (!visible) return null
-
-  const opens = siteConfig.season.openingDate.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  })
-
-  // One line of content, rendered twice back-to-back inside the marquee
-  // track so the loop point is invisible — the moment copy #1 scrolls
-  // fully offscreen, copy #2 is sitting exactly where #1 started.
   const line = (
     <>
-      <span className="announce-tag">{siteConfig.season.year} Season</span>
-      <span className="announce-sep" aria-hidden="true" />
-      <span>Opening night — {opens}. {siteConfig.season.hoursDisplay}.</span>
-      <span className="announce-sep" aria-hidden="true" />
-      <span>
-        Use promo code <strong>JASON</strong> and save <strong>$13</strong> on a Combo
-        Pass — good <strong>any night in September</strong>!
-      </span>
+      <a
+        href={siteConfig.tickets.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="sponsor-ticker-message"
+      >
+        Buy Coulrophobia + Haunted Forest together for the best value.
+      </a>
+      <span className="sponsor-ticker-divider" aria-hidden="true" />
+
+      {siteConfig.sponsors.map((sponsor) => (
+        <a
+          className="sponsor-ticker-logo"
+          href={sponsor.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          key={sponsor.name}
+          aria-label={`Visit ${sponsor.name}`}
+          title={sponsor.name}
+        >
+          <Image
+            src={sponsor.logo}
+            alt={`${sponsor.name} logo`}
+            width={180}
+            height={56}
+            sizes="180px"
+          />
+        </a>
+      ))}
+
+      <span className="sponsor-ticker-divider" aria-hidden="true" />
     </>
   )
 
   return (
-    <aside className="announce" aria-label="Season announcement">
-      <div className="announce-inner">
-        <div className="announce-marquee">
-          <div className="announce-marquee-track">
-            <p className="announce-text">{line}</p>
-            <p className="announce-text" aria-hidden="true">{line}</p>
-          </div>
+    <aside className="sponsor-ticker" aria-label="Field of Screams sponsors and ticket information">
+      <div className="sponsor-ticker-marquee">
+        <div className="sponsor-ticker-track">
+          <div className="sponsor-ticker-line">{line}</div>
+          <div className="sponsor-ticker-line" aria-hidden="true">{line}</div>
         </div>
-        <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="announce-cta">
-          Get Tickets
-        </a>
       </div>
-      <button type="button" className="announce-close" onClick={dismiss} aria-label="Dismiss announcement">
-        <span aria-hidden="true">×</span>
-      </button>
+
+      <style jsx global>{`
+        .sponsor-ticker {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+          height: 54px;
+          overflow: hidden;
+          background: linear-gradient(90deg, #090204 0%, #170506 50%, #090204 100%);
+          border-bottom: 1px solid rgba(196, 26, 0, 0.42);
+          box-shadow: 0 5px 22px rgba(0, 0, 0, 0.35);
+        }
+        .sponsor-ticker-marquee {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+        }
+        .sponsor-ticker-track {
+          display: flex;
+          align-items: center;
+          width: max-content;
+          height: 100%;
+          animation: sponsorTickerScroll 54s linear infinite;
+          will-change: transform;
+        }
+        .sponsor-ticker-marquee:hover .sponsor-ticker-track {
+          animation-play-state: paused;
+        }
+        .sponsor-ticker-line {
+          display: flex;
+          align-items: center;
+          flex: none;
+          height: 100%;
+          gap: 34px;
+          padding-right: 34px;
+          white-space: nowrap;
+        }
+        .sponsor-ticker-message {
+          display: inline-flex;
+          align-items: center;
+          height: 100%;
+          color: #f0ece4;
+          text-decoration: none;
+          font-family: var(--font-cinzel), Georgia, serif;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .sponsor-ticker-message:hover,
+        .sponsor-ticker-message:focus-visible {
+          color: var(--orange-fos);
+        }
+        .sponsor-ticker-divider {
+          width: 1px;
+          height: 24px;
+          flex: none;
+          background: rgba(232, 228, 220, 0.28);
+        }
+        .sponsor-ticker-logo {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: none;
+          height: 44px;
+          min-width: 92px;
+          text-decoration: none;
+          opacity: 0.92;
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .sponsor-ticker-logo:hover,
+        .sponsor-ticker-logo:focus-visible {
+          opacity: 1;
+          transform: scale(1.06);
+        }
+        .sponsor-ticker-logo img {
+          width: auto !important;
+          height: 31px !important;
+          max-width: 145px !important;
+          object-fit: contain;
+        }
+        .has-announce .nav {
+          top: 54px;
+        }
+        @keyframes sponsorTickerScroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @media (max-width: 640px) {
+          .sponsor-ticker {
+            height: 48px;
+          }
+          .sponsor-ticker-line {
+            gap: 24px;
+            padding-right: 24px;
+          }
+          .sponsor-ticker-message {
+            font-size: 0.64rem;
+            letter-spacing: 0.055em;
+          }
+          .sponsor-ticker-logo {
+            height: 40px;
+            min-width: 78px;
+          }
+          .sponsor-ticker-logo img {
+            height: 27px !important;
+            max-width: 122px !important;
+          }
+          .has-announce .nav {
+            top: 48px;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .sponsor-ticker-marquee {
+            overflow-x: auto;
+            -webkit-mask-image: none;
+            mask-image: none;
+          }
+          .sponsor-ticker-track {
+            animation: none;
+          }
+          .sponsor-ticker-line[aria-hidden='true'] {
+            display: none;
+          }
+        }
+      `}</style>
     </aside>
   )
 }
