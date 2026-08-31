@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { siteConfig } from '@/lib/site-config'
 import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
-import AnnouncementBar from '@/components/ui/AnnouncementBar'
 import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import Countdown from '@/components/ui/Countdown'
@@ -28,7 +27,6 @@ export default function HomePage() {
   return (
     <>
       <AtmosphereBackground />
-      <AnnouncementBar />
       <Navigation />
 
       {/* Real crawlable H1 — the WebGL journey renders these words inside
