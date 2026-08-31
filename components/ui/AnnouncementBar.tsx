@@ -138,6 +138,7 @@ export default function AnnouncementBar() {
           height: 31px !important;
           max-width: 145px !important;
           object-fit: contain;
+          filter: brightness(0) invert(1);
         }
         .has-announce .nav {
           top: 54px;
