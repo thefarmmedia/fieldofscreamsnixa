@@ -49,7 +49,7 @@ export default function SponsorsPage() {
           </div>
         </div>
 
-        <SponsorsSection />
+        <SponsorsSection showHeading={false} />
 
         <div className="section sponsors-ticket-cta">
           <div className="section-inner">
