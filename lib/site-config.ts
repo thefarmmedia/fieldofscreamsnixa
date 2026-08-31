@@ -93,21 +93,20 @@ export const siteConfig = {
   },
 
   // ─── Sponsors ─────────────────────────────────────────────────────────
-  // 2026 sponsor lineup. No sponsor URLs were supplied, so the logos are
-  // intentionally not linked out.
+  // 2026 sponsor lineup and verified outbound destinations.
   sponsors: [
-    { name: 'Hippos', logo: '/images/sponsors-2026/hippos.png', url: 'https://www.hipposcannabis.com/locations/springfield' },
-    { name: 'Ballparks of America', logo: '/images/sponsors-2026/ballparks-of-america.png', url: 'https://www.ballparksofamerica.com/' },
-    { name: 'Bit-O-Joy Graphics', logo: '/images/sponsors-2026/bit-o-joy-graphics.png', url: 'https://bit-o-joy.com/' },
-    { name: "White's Welding", logo: '/images/sponsors-2026/whites-welding.png', url: 'https://www.whiteswelding3-genmobile.com/' },
-    { name: 'Summers at the River Sports Complex', logo: '/images/sponsors-2026/summers-at-the-river.png', url: 'https://www.facebook.com/summersatthe.river/' },
-    { name: 'The Farm Media', logo: '/images/sponsors-2026/the-farm-media.png', url: 'https://marketwiththefarm.com/' },
-    { name: 'Color Works Studio & Spa', logo: '/images/sponsors-2026/color-works-studio-spa.png', url: 'https://colorworks.glossgenius.com/' },
-    { name: 'Nuthera', logo: '/images/sponsors-2026/nuthera.png', url: 'https://nuthera.com/' },
-    { name: 'Halloween Monster Ball', logo: '/images/sponsors-2026/halloween-monster-ball.png', url: 'https://monsterball417.com/' },
-    { name: 'The Treehouse Lounge', logo: '/images/sponsors-2026/treehouse-lounge.png', url: 'https://treehousemo.com/' },
-    { name: 'Ozarks Concrete Coatings', logo: '/images/sponsors-2026/ozarks-concrete-coatings.png', url: 'https://ozarksconcretecoatings.com/' },
-    { name: 'Alamo Drafthouse Cinema', logo: '/images/sponsors-2026/alamo-drafthouse-cinema.png', url: 'https://drafthouse.com/springfield' },
+    { name: 'Hippos Dispensary of Springfield', logo: '/images/sponsors-2026/hippos-corrected.png', url: 'https://www.hipposcannabis.com/locations/springfield' },
+    { name: 'Ballparks of America', logo: '/images/sponsors-2026/ballparks-of-america-corrected.png', url: 'https://www.ballparksofamerica.com/' },
+    { name: 'Bit O Joy', logo: '/images/sponsors-2026/bit-o-joy-graphics-corrected.png', url: 'https://bit-o-joy.com/' },
+    { name: 'Whites Welding', logo: '/images/sponsors-2026/whites-welding-corrected.png', url: 'https://www.whiteswelding3-genmobile.com/' },
+    { name: 'Summers At the River', logo: '/images/sponsors-2026/summers-at-the-river-corrected.png', url: 'https://www.facebook.com/summersatthe.river/' },
+    { name: 'The Farm Media', logo: '/images/sponsors-2026/the-farm-media-corrected.png', url: 'https://marketwiththefarm.com/' },
+    { name: 'Color Works Studio', logo: '/images/sponsors-2026/color-works-studio-spa-corrected.png', url: 'https://colorworks.glossgenius.com/' },
+    { name: 'Nuthera', logo: '/images/sponsors-2026/nuthera-corrected.png', url: 'https://nuthera.com/' },
+    { name: 'Halloween Monster Ball', logo: '/images/sponsors-2026/halloween-monster-ball-corrected.png', url: 'https://monsterball417.com/' },
+    { name: 'The Treehouse Lounge', logo: '/images/sponsors-2026/treehouse-lounge-corrected.png', url: 'https://treehousemo.com/' },
+    { name: 'Ozarks Concrete Coatings', logo: '/images/sponsors-2026/ozarks-concrete-coatings-corrected.png', url: 'https://ozarksconcretecoatings.com/' },
+    { name: 'Alamo Drafthouse of Springfield', logo: '/images/sponsors-2026/alamo-drafthouse-cinema-corrected.png', url: 'https://drafthouse.com/springfield' },
   ],
 
   // ─── SEO ──────────────────────────────────────────────────────────────
