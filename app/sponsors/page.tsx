@@ -6,10 +6,11 @@ import Navigation from '@/components/ui/Navigation'
 import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import Footer from '@/components/ui/Footer'
+import SponsorsSection from '@/components/sections/SponsorsSection'
 
 export const metadata: Metadata = {
-  title: `Sponsors | ${siteConfig.name}`,
-  description: `The local Nixa and Springfield-area businesses supporting ${siteConfig.name} this season.`,
+  title: `2026 Sponsors | ${siteConfig.name}`,
+  description: `Meet the local Nixa and Springfield-area businesses supporting ${siteConfig.name} in 2026.`,
   alternates: {
     canonical: `https://${siteConfig.domain}/sponsors`,
   },
@@ -43,25 +44,15 @@ export default function SponsorsPage() {
               letterSpacing: '0.05em',
               lineHeight: 1,
             }}>
-              Sponsors
+              2026 Sponsors
             </h1>
           </div>
         </div>
 
-        <div className="section">
-          <div className="section-inner">
-            {/* Sponsor lineup pulled for now -- siteConfig.sponsors is left
-                intact in lib/site-config.ts so the grid below can come back
-                by restoring the .map() once sponsors are ready to announce. */}
-            <div className="sponsors-coming-soon">
-              <p className="section-label">Announcing Soon</p>
-              <p className="sponsors-coming-soon-title">Sponsors Coming Soon</p>
-              <p className="sponsors-coming-soon-body">
-                We&apos;re finalizing this season&apos;s lineup of local Nixa and Springfield-area
-                businesses backing {siteConfig.name}. Check back soon.
-              </p>
-            </div>
+        <SponsorsSection />
 
+        <div className="section sponsors-ticket-cta">
+          <div className="section-inner">
             <div style={{ textAlign: 'center', marginTop: '3rem' }}>
               <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket">
                 Get Tickets

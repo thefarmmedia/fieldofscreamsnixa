@@ -93,21 +93,21 @@ export const siteConfig = {
   },
 
   // ─── Sponsors ─────────────────────────────────────────────────────────
-  // From the sponsor sheet provided directly — no URLs were included, so
-  // none are linked out. Add a `url` field per sponsor if/when confirmed.
+  // 2026 sponsor lineup. No sponsor URLs were supplied, so the logos are
+  // intentionally not linked out.
   sponsors: [
-    { name: 'Ozarks Concrete Coatings', logo: '/images/sponsors/ozarks-concrete-coatings.png' },
-    { name: 'The Farm — Where Businesses Grow', logo: '/images/sponsors/the-farm.png' },
-    { name: 'Timeless', logo: '/images/sponsors/timeless.png' },
-    { name: "Plato's Closet", logo: '/images/sponsors/platos-closet.png' },
-    { name: 'Alamo Drafthouse Cinema', logo: '/images/sponsors/alamo-drafthouse-cinema.png' },
-    { name: 'Misfiotic Prints', logo: '/images/sponsors/misfiotic-prints.png' },
-    { name: 'Color Works Salon & Spa', logo: '/images/sponsors/color-works-salon-spa.png' },
-    { name: 'Garage Beer', logo: '/images/sponsors/garage-beer.png' },
-    { name: 'Bit-O-Joy Graphics', logo: '/images/sponsors/bit-o-joy-graphics.png' },
-    { name: 'Club K Dental', logo: '/images/sponsors/club-k-dental.png' },
-    { name: 'Next Generation Tattoo & Body Piercing', logo: '/images/sponsors/next-generation-tattoo.png' },
-    { name: 'Stairway', logo: '/images/sponsors/stairway.png' },
+    { name: 'Hippos', logo: '/images/sponsors-2026/hippos.png' },
+    { name: 'Ballparks of America', logo: '/images/sponsors-2026/ballparks-of-america.png' },
+    { name: 'Bit-O-Joy Graphics', logo: '/images/sponsors-2026/bit-o-joy-graphics.png' },
+    { name: "White's Welding", logo: '/images/sponsors-2026/whites-welding.png' },
+    { name: 'Summers at the River Sports Complex', logo: '/images/sponsors-2026/summers-at-the-river.png' },
+    { name: 'The Farm Media', logo: '/images/sponsors-2026/the-farm-media.png' },
+    { name: 'Color Works Studio & Spa', logo: '/images/sponsors-2026/color-works-studio-spa.png' },
+    { name: 'Nuthera', logo: '/images/sponsors-2026/nuthera.png' },
+    { name: 'Halloween Monster Ball', logo: '/images/sponsors-2026/halloween-monster-ball.png' },
+    { name: 'The Treehouse Lounge', logo: '/images/sponsors-2026/treehouse-lounge.png' },
+    { name: 'Ozarks Concrete Coatings', logo: '/images/sponsors-2026/ozarks-concrete-coatings.png' },
+    { name: 'Alamo Drafthouse Cinema', logo: '/images/sponsors-2026/alamo-drafthouse-cinema.png' },
   ],
 
   // ─── SEO ──────────────────────────────────────────────────────────────

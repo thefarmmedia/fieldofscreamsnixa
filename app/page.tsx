@@ -13,6 +13,7 @@ import GallerySection from '@/components/sections/GallerySection'
 import FAQSection from '@/components/sections/FAQSection'
 import LocationSection from '@/components/sections/LocationSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
+import SponsorsSection from '@/components/sections/SponsorsSection'
 import Footer from '@/components/ui/Footer'
 
 export const metadata: Metadata = {
@@ -51,6 +52,8 @@ export default function HomePage() {
         <FAQSection limit={6} />
 
         <LocationSection />
+
+        <SponsorsSection compact />
 
         {/* Final CTA — full-bleed, real photo, no more chances to look away */}
         <section className="final-cta" aria-labelledby="final-cta-heading">
