@@ -24,7 +24,10 @@ export default function ScrollScare({
   const [reducedMotion, setReducedMotion] = useState(true)
 
   useEffect(() => {
-    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotion = () => setReducedMotion(motion.matches)
+    updateMotion()
+    motion.addEventListener('change', updateMotion)
 
     let raf = 0
     const read = () => {
@@ -39,6 +42,7 @@ export default function ScrollScare({
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll, { passive: true })
     return () => {
+      motion.removeEventListener('change', updateMotion)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
       if (raf) cancelAnimationFrame(raf)
