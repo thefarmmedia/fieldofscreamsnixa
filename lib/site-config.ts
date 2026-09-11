@@ -109,6 +109,7 @@ export const siteConfig = {
     { name: 'Alamo Drafthouse of Springfield', logo: '/images/sponsors-2026/alamo-drafthouse-cinema-corrected.png', url: 'https://drafthouse.com/springfield' },
     { name: "Plato's Closet Springfield", logo: '/images/sponsors-2026/platos-closet-red-v2.png', url: 'https://platoscloset.com/locations/springfield-mo/' },
     { name: 'Next Generation Tattoo & Body Piercing', logo: '/images/sponsors-2026/next-generation-tattoo-red-v2.png', url: 'https://www.nextgentattoo.com/' },
+    { name: 'Robust', logo: '/images/sponsors-2026/robust-corrected.png', url: 'https://www.robustmo.com/' },
   ],
 
   // ─── SEO ──────────────────────────────────────────────────────────────
