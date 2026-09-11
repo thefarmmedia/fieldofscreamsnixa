@@ -1166,11 +1166,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── Sponsors ───────────────────────────────────────────────────────── */
+/* Flexbox rather than CSS grid so a final row shorter than the column
+   count (e.g. 15 sponsors over 4 columns leaves 3) centers itself
+   instead of hanging left under the empty slot. */
 .sponsor-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem 1.5rem;
-  align-items: center;
 }
 .sponsors-section {
   position: relative;
@@ -1200,12 +1203,6 @@ h1, h2, h3, h4, h5, h6 {
   color: rgba(232, 228, 220, 0.62);
   line-height: 1.7;
 }
-@media (min-width: 640px) {
-  .sponsor-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 1024px) {
-  .sponsor-grid { grid-template-columns: repeat(4, 1fr); }
-}
 .sponsor-tile {
   display: flex;
   align-items: center;
@@ -1217,6 +1214,15 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   cursor: pointer;
   transition: border-color 0.3s ease, background 0.3s ease;
+  /* 2 columns by default; matches the old grid's column count/gap at
+     each breakpoint below. */
+  flex: 0 0 calc(50% - 0.75rem);
+}
+@media (min-width: 640px) {
+  .sponsor-tile { flex-basis: calc(33.333% - 1rem); }
+}
+@media (min-width: 1024px) {
+  .sponsor-tile { flex-basis: calc(25% - 1.125rem); }
 }
 .sponsor-tile img {
   max-width: 100%;
