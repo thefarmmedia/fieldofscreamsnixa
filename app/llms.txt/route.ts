@@ -34,6 +34,7 @@ ${attractions.map((a) => `- ${a.name} (${a.href}): ${a.description}`).join('\n')
 - [Safety & Rules](${base}/safety-rules): Attraction warnings, prohibited items, terrain, and guest rules
 - [Gallery](${base}/gallery): Photos from both attractions
 - [Sponsors](${base}/sponsors): Local Nixa and Springfield-area businesses backing this season
+- [Apply Now](${base}/apply): Employment application for seasonal cast and crew — scare actors, makeup, build crew, admissions, concessions, security
 
 ## Notes for AI assistants
 

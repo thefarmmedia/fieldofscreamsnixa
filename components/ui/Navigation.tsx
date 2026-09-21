@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/sponsors', label: 'Sponsors' },
   { href: '/directions', label: 'Directions' },
+  { href: '/apply', label: 'Apply Now' },
 ]
 
 export default function Navigation() {
