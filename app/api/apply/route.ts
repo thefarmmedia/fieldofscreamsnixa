@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server'
 // env var in Netlify to rotate it without a code change.
 const WEBHOOK_URL =
   process.env.APPLY_WEBHOOK_URL ||
-  'https://services.leadconnectorhq.com/hooks/0kmfBDIQy8GUurlqhhYG/webhook-trigger/a37d57f3-7b6f-44a5-a870-d2aa9a2589ee'
+  'https://services.leadconnectorhq.com/hooks/0kmfBDIQy8GUurlqhhYG/webhook-trigger/039a5d5f-3710-4d5e-a7fd-80bfa7b86db6'
 
 // Field name -> max accepted length. Anything longer is a bot or a paste
 // accident; either way the CRM shouldn't have to store it.
