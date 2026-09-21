@@ -48,7 +48,7 @@ export default function ApplicationForm() {
       priorExperience: data.get('priorExperience'),
       workedHereBefore: data.get('workedHereBefore'),
       aboutYou: data.get('aboutYou'),
-      website: data.get('website'),
+      _hp: data.get('_hp'),
     }
 
     try {
@@ -232,10 +232,13 @@ export default function ApplicationForm() {
         <textarea id="aboutYou" name="aboutYou" rows={6} required maxLength={4000} />
       </div>
 
-      {/* Honeypot — hidden from people, catches bots that fill everything. */}
+      {/* Honeypot — hidden from people, catches bots that fill everything.
+          Deliberately NOT named something like "website" or "url": browser
+          autofill and password managers target those names, and a filled
+          honeypot silently discards a real application. */}
       <div className="apply-honeypot" aria-hidden="true">
-        <label htmlFor="website">Website</label>
-        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor="fos-hp">Leave this field empty</label>
+        <input id="fos-hp" name="_hp" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {status === 'error' && (

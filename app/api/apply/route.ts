@@ -58,7 +58,8 @@ export async function POST(request: Request) {
   }
 
   // Honeypot — a real person never sees or fills this field.
-  if (asString(body.website)) {
+  if (asString(body._hp)) {
+    console.warn('Apply submission discarded: honeypot filled')
     return NextResponse.json({ ok: true })
   }
 
@@ -115,15 +116,23 @@ export async function POST(request: Request) {
       body: JSON.stringify(payload),
     })
 
+    // Log the outcome, never the applicant's details -- this is what shows
+    // up in the Netlify function log when a submission goes missing.
+    const responseText = await response.text().catch(() => '')
     if (!response.ok) {
-      // Status only — never log applicant details.
-      console.error(`Apply webhook rejected submission: ${response.status}`)
+      console.error(
+        `Apply webhook rejected submission: HTTP ${response.status} ${responseText.slice(0, 300)}`
+      )
       return NextResponse.json(
         { error: 'We could not submit your application. Please try again in a moment.' },
         { status: 502 }
       )
     }
-  } catch {
+    console.log(
+      `Apply webhook accepted submission: HTTP ${response.status} ${responseText.slice(0, 300)}`
+    )
+  } catch (cause) {
+    console.error(`Apply webhook unreachable: ${cause instanceof Error ? cause.message : 'unknown'}`)
     return NextResponse.json(
       { error: 'We could not reach our application system. Please try again in a moment.' },
       { status: 502 }
