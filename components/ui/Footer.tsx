@@ -29,6 +29,7 @@ export default function Footer() {
               { href: '/sponsors', label: 'Sponsors' },
               { href: '/directions', label: 'Directions' },
               { href: '/safety-rules', label: 'Safety & Rules' },
+              { href: '/apply', label: 'Apply Now' },
               { href: siteConfig.tickets.url, label: 'Tickets', external: true },
             ].map((link) =>
               link.external ? (

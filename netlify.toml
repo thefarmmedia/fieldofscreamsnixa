@@ -36,12 +36,12 @@
 
 [[redirects]]
   from = "/jobs"
-  to = "/"
+  to = "/apply"
   status = 301
 
 [[redirects]]
   from = "/applynow"
-  to = "/"
+  to = "/apply"
   status = 301
 
 [[headers]]
