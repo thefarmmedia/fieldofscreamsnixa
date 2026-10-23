@@ -60,6 +60,15 @@ export const siteConfig = {
     generalLabel: 'General Admission',
     vipLabel: 'VIP Fast Pass',
     urgentMessage: 'URGENT! EXPECTING SELLOUT CROWDS 10/23/26-10/25/26 — GET YOUR TICKETS NOW ONLINE!',
+    weekendNotice: {
+      id: 'sellout-weekend-2026-10-23',
+      dates: '10/23/26 – 10/25/26',
+      // Midnight after Sunday in Nixa (Central Daylight Time).
+      expiresAt: '2026-10-26T00:00:00-05:00',
+      title: 'Expecting Sellout Crowds',
+      message: 'We strongly encourage everyone to purchase tickets online before arriving to secure your spot at this weekend’s performances.',
+      buttonLabel: 'GET TICKETS NOW',
+    },
   },
 
   // ─── Attractions ──────────────────────────────────────────────────────
@@ -187,3 +196,4 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig
 export type Attraction = (typeof siteConfig.attractions)[number]
+
