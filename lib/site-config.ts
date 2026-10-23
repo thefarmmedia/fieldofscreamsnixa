@@ -59,6 +59,7 @@ export const siteConfig = {
     url: 'https://app.hauntpay.com/events/field-of-scream-2026',
     generalLabel: 'General Admission',
     vipLabel: 'VIP Fast Pass',
+    urgentMessage: 'URGENT! EXPECTING SELLOUT CROWDS 10/23/26-10/25/26 — GET YOUR TICKETS NOW ONLINE!',
   },
 
   // ─── Attractions ──────────────────────────────────────────────────────

@@ -16,6 +16,16 @@ export default function AnnouncementBar() {
         href={siteConfig.tickets.url}
         target="_blank"
         rel="noopener noreferrer"
+        className="sponsor-ticker-message sponsor-ticker-urgent"
+      >
+        {siteConfig.tickets.urgentMessage}
+      </a>
+      <span className="sponsor-ticker-divider" aria-hidden="true" />
+
+      <a
+        href={siteConfig.tickets.url}
+        target="_blank"
+        rel="noopener noreferrer"
         className="sponsor-ticker-message"
       >
         Buy Coulrophobia + Haunted Forest together for the best value.
@@ -106,6 +116,10 @@ export default function AnnouncementBar() {
           font-weight: 700;
           letter-spacing: 0.08em;
           text-transform: uppercase;
+        }
+        .sponsor-ticker-message.sponsor-ticker-urgent {
+          color: #ffcb5c;
+          font-weight: 900;
         }
         .sponsor-ticker-message:hover,
         .sponsor-ticker-message:focus-visible {
