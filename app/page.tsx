@@ -1,90 +1,22 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
-import { siteConfig } from '@/lib/site-config'
-import AtmosphereBackground from '@/components/environment/AtmosphereBackground'
-import AnnouncementBar from '@/components/ui/AnnouncementBar'
-import Navigation from '@/components/ui/Navigation'
-import StickyTicketCTA from '@/components/ui/StickyTicketCTA'
-import Countdown from '@/components/ui/Countdown'
-import BannerHero from '@/components/horror/BannerHero'
-import ScrollScare from '@/components/horror/ScrollScare'
-import NightmareSelector from '@/components/sections/NightmareSelector'
-import GallerySection from '@/components/sections/GallerySection'
-import FAQSection from '@/components/sections/FAQSection'
-import LocationSection from '@/components/sections/LocationSection'
-import TestimonialsSection from '@/components/sections/TestimonialsSection'
-import SponsorsSection from '@/components/sections/SponsorsSection'
-import Footer from '@/components/ui/Footer'
-
-export const metadata: Metadata = {
-  title: siteConfig.seo.defaultTitle,
-  description: siteConfig.seo.defaultDescription,
-  alternates: {
-    canonical: `https://${siteConfig.domain}`,
-  },
-}
+import styles from './coming-soon.module.css'
 
 export default function HomePage() {
   return (
-    <>
-      <AtmosphereBackground />
-      <AnnouncementBar />
-      <Navigation />
-
-      {/* Real crawlable H1 — the WebGL journey renders these words inside
-          the 3D world, but search engines and screen readers get them here. */}
-      <h1 className="sr-only">
-        Field of Screams Nixa — Haunted Forest &amp; Coulrophobia Haunted Attractions in Nixa, Missouri
-      </h1>
-
-      <div className="site-content">
-        {/* Top of the site: the banner, alive. */}
-        <BannerHero />
-
-        <NightmareSelector />
-
-        <Countdown />
-
-        <TestimonialsSection />
-
-        <GallerySection />
-
-        <FAQSection limit={6} />
-
-        <LocationSection />
-
-        <SponsorsSection compact />
-
-        {/* Final CTA — full-bleed, real photo, no more chances to look away */}
-        <section className="final-cta" aria-labelledby="final-cta-heading">
-          <div className="final-cta-bg" aria-hidden="true">
-            <Image
-              src="/images/attraction/red-wood-door.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-              style={{ objectFit: 'cover', objectPosition: '50% 50%' }}
-            />
-          </div>
-          <div className="final-cta-content">
-            <p className="final-cta-eyebrow">{siteConfig.season.year} Season</p>
-            <h2 className="final-cta-heading" id="final-cta-heading">
-              Are You Ready?
-            </h2>
-            <p className="final-cta-sub">
-              Nixa, Missouri &nbsp;•&nbsp; {siteConfig.season.displayRange}
-            </p>
-            <a href={siteConfig.tickets.url} target="_blank" rel="noopener noreferrer" className="btn-ticket final-cta-btn">
-              Secure Your Ticket
-            </a>
-          </div>
-        </section>
-
-        <Footer />
-      </div>
-
-      <StickyTicketCTA />
-      <ScrollScare />
-    </>
+    <main className={styles.page}>
+      <section className={styles.content} aria-label="Field of Screams Nixa — 2027 season coming soon">
+        <Image
+          className={styles.logo}
+          src="/images/sprites/fos-logotype.png"
+          alt="Field of Screams Nixa — Haunted Attractions"
+          width={1000}
+          height={750}
+          sizes="(max-width: 740px) 92vw, 700px"
+          priority
+        />
+        <div className={styles.season}><span>The 2027 Season</span></div>
+        <h1 className={styles.headline}>Coming Soon</h1>
+      </section>
+    </main>
   )
 }

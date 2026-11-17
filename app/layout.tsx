@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Cinzel, Inter, Special_Elite } from 'next/font/google'
 import { siteConfig } from '@/lib/site-config'
-import FlashlightCursor from '@/components/ui/FlashlightCursor'
-import WeekendTicketNotice from '@/components/ui/WeekendTicketNotice'
 import './globals.css'
 
 const cinzel = Cinzel({
@@ -25,13 +23,17 @@ const specialElite = Special_Elite({
   weight: '400',
 })
 
+const comingSoonTitle = 'Field of Screams Nixa | 2027 Season Coming Soon'
+const comingSoonDescription =
+  'Field of Screams Nixa haunted attractions return in 2027. The next season is coming soon to Nixa, Missouri. Watch for announcements.'
+
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${siteConfig.domain}`),
   title: {
-    default: siteConfig.seo.defaultTitle,
+    default: comingSoonTitle,
     template: siteConfig.seo.titleTemplate,
   },
-  description: siteConfig.seo.defaultDescription,
+  description: comingSoonDescription,
   keywords: [
     'haunted attraction',
     'haunted house',
@@ -65,8 +67,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: `https://${siteConfig.domain}`,
     siteName: siteConfig.name,
-    title: siteConfig.seo.defaultTitle,
-    description: siteConfig.seo.defaultDescription,
+    title: comingSoonTitle,
+    description: comingSoonDescription,
     images: [
       {
         url: siteConfig.seo.ogImage,
@@ -78,8 +80,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.seo.defaultTitle,
-    description: siteConfig.seo.defaultDescription,
+    title: comingSoonTitle,
+    description: comingSoonDescription,
     images: [siteConfig.seo.ogImage],
   },
   alternates: {
@@ -99,7 +101,7 @@ const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['AmusementPark', 'LocalBusiness'],
   name: siteConfig.name,
-  description: siteConfig.seo.defaultDescription,
+  description: comingSoonDescription,
   url: `https://${siteConfig.domain}`,
   image: `https://${siteConfig.domain}/images/fos-banner.jpg`,
   address: {
@@ -119,28 +121,6 @@ const localBusinessSchema = {
     latitude: 37.0434,
     longitude: -93.3312,
   },
-  // Split into two specifications because the schedule genuinely differs
-  // by month: September runs Friday/Saturday only, October adds Sundays.
-  // The one-off Thursday (Oct 29) is covered by the eventSchedule dates
-  // rather than being asserted as a weekly rule.
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Friday', 'Saturday'],
-      opens: '19:00',
-      closes: '24:00',
-      validFrom: '2026-09-18',
-      validThrough: '2026-09-26',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Friday', 'Saturday', 'Sunday'],
-      opens: '19:00',
-      closes: '24:00',
-      validFrom: '2026-10-02',
-      validThrough: '2026-11-01',
-    },
-  ],
   sameAs: [
     siteConfig.social.facebook,
     siteConfig.social.instagram,
@@ -154,47 +134,6 @@ const localBusinessSchema = {
     ratingValue: '4.7',
     reviewCount: 714,
     bestRating: '5',
-  },
-  potentialAction: {
-    '@type': 'BuyAction',
-    target: siteConfig.tickets.url,
-    name: 'Buy Field of Screams Nixa tickets',
-  },
-}
-
-const eventSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Event',
-  name: `Field of Screams Nixa ${siteConfig.season.year}`,
-  description: siteConfig.seo.defaultDescription,
-  startDate: '2026-09-18T19:00:00-05:00',
-  endDate: '2026-11-02T00:00:00-06:00',
-  eventStatus: 'https://schema.org/EventScheduled',
-  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-  image: [`https://${siteConfig.domain}/images/fos-banner.jpg`],
-  url: `https://${siteConfig.domain}/dates`,
-  location: {
-    '@type': 'Place',
-    name: siteConfig.address.venue,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.address.street,
-      addressLocality: siteConfig.address.city,
-      addressRegion: siteConfig.address.state,
-      postalCode: siteConfig.address.zip,
-      addressCountry: 'US',
-    },
-  },
-  organizer: {
-    '@type': 'Organization',
-    name: siteConfig.name,
-    url: `https://${siteConfig.domain}`,
-  },
-  offers: {
-    '@type': 'Offer',
-    url: siteConfig.tickets.url,
-    availability: 'https://schema.org/InStock',
-    validFrom: '2026-01-01',
   },
 }
 
@@ -210,12 +149,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
-        />
         {/* Preload critical hero background */}
-        <link rel="preload" as="image" href="/images/hero-poster.jpg" />
+        <link rel="preload" as="image" href="/images/wraiths/woods-plate.jpg" />
         {/* Meta Pixel — insert actual ID when known */}
         {siteConfig.analytics.metaPixelId && (
           <script
@@ -234,9 +169,7 @@ export default function RootLayout({
         )}
       </head>
       <body>
-        <FlashlightCursor />
         {children}
-        <WeekendTicketNotice />
         {/* Google Analytics */}
         {siteConfig.analytics.gaId && (
           <>

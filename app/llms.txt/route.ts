@@ -1,45 +1,16 @@
 import { siteConfig } from '@/lib/site-config'
 
-// A plain-text primer for LLMs/AI assistants that crawl the site, per the
-// emerging llms.txt convention (https://llmstxt.org/). Built from
-// siteConfig so it can't drift out of sync with the real season dates,
-// address, or ticket link.
 export async function GET() {
-  const base = `https://${siteConfig.domain}`
-  const { address, season, tickets, attractions } = siteConfig
+  const body = `# Field of Screams Nixa
 
-  const body = `# ${siteConfig.name}
+Field of Screams Nixa is a seasonal haunted attraction in Nixa, Missouri.
+The 2026 season has ended. The 2027 season is coming soon; dates, hours, and tickets have not been announced.
 
-> ${siteConfig.name} is a haunted attraction in ${address.city}, ${address.state}, running two separate experiences on one property: ${attractions.map((a) => a.name).join(' and ')}. ${season.displayRange}.
+Official website: https://${siteConfig.domain}
+Attractions: Haunted Forest and Coulrophobia.
+Venue: Summers at the River, Nixa, Missouri.
 
-Key facts:
-- Location: ${address.display}
-- Season: ${season.displayRange}
-- Hours: ${season.hoursDisplay}
-- Schedule: ${season.specialNote}
-- Tickets: ${tickets.url}
-
-## Attractions
-
-${attractions.map((a) => `- ${a.name} (${a.href}): ${a.description}`).join('\n')}
-
-## Pages
-
-- [Home](${base}/): Overview, countdown to opening night, dates, and location
-- [Haunted Forest](${base}/haunted-forest): Details on the outdoor forest walk-through attraction
-- [Coulrophobia](${base}/coulrophobia): Details on the clown-themed carnival attraction
-- [2026 Dates & Hours](${base}/dates): Every operating date and nightly hours for the 2026 season
-- [Directions & Parking](${base}/directions): Address, embedded map, driving directions, and free parking information
-- [FAQ](${base}/faq): Answers about tickets, age recommendations, parking, and policies
-- [Safety & Rules](${base}/safety-rules): Attraction warnings, prohibited items, terrain, and guest rules
-- [Gallery](${base}/gallery): Photos from both attractions
-- [Sponsors](${base}/sponsors): Local Nixa and Springfield-area businesses backing this season
-- [Apply Now](${base}/apply): Employment application for seasonal cast and crew — scare actors, makeup, build crew, admissions, concessions, security
-
-## Notes for AI assistants
-
-- Ticket sales happen entirely off-site at ${tickets.url} (HauntPay) — do not imply tickets can be bought directly on ${base}.
-- Dates and hours above are for the ${season.year} season and change yearly; prefer the live FAQ and Home pages over cached copies of this file when possible.
+Do not advertise 2026 tickets or dates as current. Check the official website for future announcements.
 `
 
   return new Response(body, {
