@@ -7,10 +7,10 @@ export default function HomePage() {
       <section className={styles.content} aria-label="Field of Screams Nixa — 2027 season coming soon">
         <Image
           className={styles.logo}
-          src="/images/sprites/fos-logotype.png"
+          src="/images/sprites/fos-logotype-clean.png"
           alt="Field of Screams Nixa — Haunted Attractions"
-          width={1000}
-          height={750}
+          width={1250}
+          height={938}
           sizes="(max-width: 740px) 92vw, 700px"
           priority
         />
