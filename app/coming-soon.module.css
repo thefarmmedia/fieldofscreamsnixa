@@ -1,44 +1,78 @@
-/* Temporary Nixa 2027 holding page. Original Nixa artwork is not redrawn. */
-.page {
+/* Temporary Nixa 2027 holding page. Original Nixa artwork is not redrawn.
+   While the Black Friday specials run (components/black-friday), they sit above this
+   page; the <html> state classes .bf-live / .bf-intro / .bf-dissolve drive the swap. */
+.shell {
   position: relative;
   isolation: isolate;
-  display: grid;
-  place-items: center;
   min-height: 100vh;
   min-height: 100svh;
   width: 100%;
-  overflow: hidden;
-  padding: clamp(20px, 4vh, 52px) 16px;
+  overflow-x: clip;
   background: #02080d;
   color: #eaffff;
 }
 
-.page::before {
+/* The woods stay fixed behind the page, so they never stretch as the page grows. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop::before {
   content: '';
   position: absolute;
-  z-index: -2;
   inset: -2%;
   background: url('/images/wraiths/woods-plate.jpg') center 45% / cover no-repeat;
   filter: saturate(0.65) brightness(0.55);
 }
 
-.page::after {
+.backdrop::after {
   content: '';
   position: absolute;
-  z-index: -1;
   inset: 0;
-  pointer-events: none;
   background:
     radial-gradient(ellipse at 50% 44%, rgba(3, 16, 24, 0.56) 0%, rgba(1, 5, 12, 0.64) 52%, rgba(0, 2, 7, 0.90) 100%),
     linear-gradient(0deg, rgba(0, 124, 147, 0.16), transparent 36%);
 }
 
+.page {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  padding: clamp(20px, 4vh, 52px) 16px;
+}
+
 .content {
   position: relative;
-  z-index: 1;
   width: min(740px, 100%);
   margin-inline: auto;
   text-align: center;
+}
+
+/* Black Friday: the Coming Soon page dissolves into the smoke during the intro... */
+:global(.bf-dissolve) .content {
+  filter: blur(12px);
+  opacity: 0;
+  transform: scale(1.08);
+  transition: filter 1s ease-in, opacity 1s ease-in, transform 1.2s ease-in;
+}
+
+/* ...then follows the specials without repeating the big logo. */
+:global(.bf-live:not(.bf-intro)) .page {
+  min-height: 0;
+  padding-top: clamp(20px, 4vw, 40px);
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+:global(.bf-live:not(.bf-intro)) .logo {
+  display: none;
 }
 
 .logo {

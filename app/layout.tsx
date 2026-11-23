@@ -143,7 +143,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${inter.variable} ${specialElite.variable}`}>
+    // suppressHydrationWarning: the Black Friday pre-paint script adds state classes to <html>.
+    <html lang="en" className={`${cinzel.variable} ${inter.variable} ${specialElite.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
