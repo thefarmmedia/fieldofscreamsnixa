@@ -37,7 +37,19 @@ precision mediump float;
 #endif
 uniform vec2 uRes;
 uniform float uTime, uRise, uClear, uAmb, uFlash, uHeat, uEmb;
-float h(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+// Integer-exact lattice hash: cell coordinates wrap to 0..288 and go through the
+// permutation polynomial (34x^2 + x) mod 289, so every intermediate value is an exact
+// integer below 2^24. Phone GPUs that fuse or reorder float math still get the same value
+// on both sides of a cell edge. (A fract()-based hash flips on a 1-ulp rounding difference,
+// which showed up on phones as hard, blocky seams in the smoke.)
+float m289(float x){ return x - floor(x * (1. / 289.)) * 289.; }
+float h(vec2 i){
+  i = vec2(m289(i.x), m289(i.y));
+  float a = m289((i.x * 34. + 1.) * i.x);
+  a = m289(((a + i.y) * 34. + 1.) * (a + i.y));
+  a -= step(288.5, a) * 289.;
+  return a * (1. / 289.);
+}
 float n(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3. - 2. * f);
   return mix(mix(h(i), h(i + vec2(1., 0.)), u.x), mix(h(i + vec2(0., 1.)), h(i + vec2(1., 1.)), u.x), u.y); }
 float fbm(vec2 p){ float v = 0., a = .5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
@@ -54,8 +66,8 @@ float embers(vec2 p, float t){
     g.x += sin(g.y * .35 + fi * 2.1 + t * .4) * .55;
     vec2 id = floor(g);
     vec2 f = fract(g) - .5;
-    float r = h(id + fi * 31.7);
-    vec2 o = vec2(h(id + 4.1), h(id + 9.3)) - .5;
+    float r = h(id + vec2(fi * 31., fi * 17.));
+    vec2 o = vec2(h(id + vec2(4., 7.)), h(id + vec2(9., 3.))) - .5;
     float d = length(f - o * .6);
     float tw = .55 + .45 * sin(t * (2. + r * 5.) + r * 50.);
     e += step(.93 + fi * .02, r) * tw * (smoothstep(.13, 0., d) * .35 + smoothstep(.05, 0., d));
@@ -131,6 +143,9 @@ export function startTakeover({ canvas, fallback, flash, eyes, section }: Takeov
     }
     const gl = (canvas.getContext('webgl', opts) || canvas.getContext('experimental-webgl', opts)) as WebGLRenderingContext | null
     if (!gl) return false
+    // Without 32-bit floats in fragment shaders the noise cannot hold together: use the CSS smoke.
+    const highp = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT)
+    if (!highp || highp.precision < 23) return false
     const compile = (type: number, src: string) => {
       const sh = gl.createShader(type)
       if (!sh) return null
@@ -159,7 +174,9 @@ export function startTakeover({ canvas, fallback, flash, eyes, section }: Takeov
     }
 
     const size = () => {
-      const s = window.innerWidth < 760 ? 0.42 : 0.5 // smoke is soft, so half resolution is plenty
+      // Smoke is soft, so a reduced resolution is plenty. Phones get a little more,
+      // since their small CSS viewport is stretched over many device pixels.
+      const s = window.innerWidth < 760 ? 0.6 : 0.5
       canvas.width = Math.max(1, Math.round(window.innerWidth * s))
       canvas.height = Math.max(1, Math.round(window.innerHeight * s))
     }
