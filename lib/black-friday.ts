@@ -15,7 +15,10 @@ export const blackFriday = {
   endsLabel: 'Friday, Nov 27',
 
   // Nixa tickets are sold through HauntPay (an external site, so links open in a new tab).
-  ticketsUrl: 'https://app.hauntpay.com/events/FOSNixa2027-season-pass/event_times/1876415',
+  tickets: {
+    generalAdmission: 'https://app.hauntpay.com/events/field-of-screams-2027',
+    seasonPass: 'https://app.hauntpay.com/events/FOSNixa2027-season-pass/event_times/1876415',
+  },
 
   title: 'Black Friday Specials | Field of Screams Nixa',
   description:

@@ -164,7 +164,7 @@ export default function BlackFridaySpecials() {
               <p className="bf-tag">Nixa</p>
               <h3 className="bf-deal-title"><span className="price">$20</span> General Admission</h3>
               <p className="bf-deal-copy">Good for either attraction at Field of Screams Nixa.</p>
-              <a className="bf-btn" href={blackFriday.ticketsUrl} target="_blank" rel="noopener noreferrer">
+              <a className="bf-btn" href={blackFriday.tickets.generalAdmission} target="_blank" rel="noopener noreferrer">
                 <TicketIcon />
                 Get $20 Tickets
               </a>
@@ -196,7 +196,7 @@ export default function BlackFridaySpecials() {
               <p className="bf-tag">Nixa + Branson</p>
               <h3 className="bf-deal-title"><span className="price">$99</span> 2027 Season Pass</h3>
               <p className="bf-deal-copy">Unlimited uses at both attractions in Nixa and both in Branson. Fast Pass included.</p>
-              <a className="bf-btn" href={blackFriday.ticketsUrl} target="_blank" rel="noopener noreferrer">
+              <a className="bf-btn" href={blackFriday.tickets.seasonPass} target="_blank" rel="noopener noreferrer">
                 <TicketIcon />
                 Get Season Pass
               </a>
